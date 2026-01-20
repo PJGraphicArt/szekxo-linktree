@@ -1,0 +1,892 @@
+/* ============================================
+   SZEKXO - Linktree Style Casino & Crypto
+   ============================================ */
+
+/* ==================== VARIABLES CSS ==================== */
+:root {
+    /* Couleurs de fond */
+    --bg-primary: #060606;
+    --bg-secondary: #1a1a1a;
+    --bg-card: #0a0a0a;
+    --bg-card-hover: #1f1f1f;
+
+    /* Couleurs de texte */
+    --text-primary: #ffffff;
+    --text-secondary: #a0a0a0;
+    --text-muted: #666666;
+
+    /* Gradients principaux */
+    --gradient-primary: linear-gradient(135deg, #ff1493, #ff6b35, #ffa500);
+    --gradient-secondary: linear-gradient(135deg, #8b5cf6, #a855f7, #c084fc);
+    --gradient-gold: linear-gradient(135deg, #ffd700, #ffb347, #ff8c00);
+
+    /* Couleurs d'accent */
+    --accent-purple: #8b5cf6;
+    --accent-pink: #ff1493;
+    --accent-orange: #ff6b35;
+
+    /* Couleurs réseaux sociaux */
+    --discord: #5865F2;
+    --youtube: #FF0000;
+    --instagram: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+
+    /* Ombres */
+    --shadow-glow: 0 0 30px rgba(255, 20, 147, 0.3);
+    --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.5);
+
+    /* Transitions */
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.3s ease;
+    --transition-slow: 0.5s ease;
+
+    /* Espacements */
+    --spacing-xs: 8px;
+    --spacing-sm: 12px;
+    --spacing-md: 16px;
+    --spacing-lg: 24px;
+    --spacing-xl: 32px;
+
+    /* Border radius */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 24px;
+    --radius-full: 50%;
+}
+
+/* ==================== RESET & BASE ==================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    min-height: 100vh;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+}
+
+/* ==================== FOND PARTICULES ==================== */
+#particles-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+/* ==================== CONTAINER ==================== */
+.container {
+    max-width: 480px;
+    margin: 0 auto;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: var(--spacing-lg);
+    padding-bottom: var(--spacing-lg);
+    position: relative;
+    z-index: 1;
+}
+
+/* ==================== HEADER ==================== */
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: var(--spacing-lg) 0;
+    margin-bottom: var(--spacing-lg);
+}
+
+/* Avatar */
+.avatar {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    margin-bottom: var(--spacing-md);
+}
+
+.avatar-ring {
+    position: absolute;
+    inset: -4px;
+    border-radius: var(--radius-full);
+    background: var(--gradient-primary);
+    animation: rotate 3s linear infinite;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.avatar-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: var(--radius-full);
+    background: var(--bg-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    border: 4px solid var(--bg-primary);
+}
+
+/* Nom et badge vérifié */
+.profile-name {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    margin-bottom: var(--spacing-xs);
+}
+
+.profile-name h1 {
+    font-size: 1.75rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.verified-badge {
+    display: flex;
+    align-items: center;
+}
+
+.verified-icon {
+    width: 24px;
+    height: 24px;
+    color: #1d9bf0;
+    fill: #1d9bf0;
+}
+
+/* Tagline */
+.tagline {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: var(--spacing-sm);
+}
+
+/* Bouton Suivre Instagram */
+.instagram-follow-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    padding: 10px 20px;
+    background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+    border-radius: 50px;
+    color: white;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: var(--spacing-md);
+    transition: all var(--transition-normal);
+    box-shadow: 0 4px 15px rgba(225, 48, 108, 0.3);
+}
+
+.instagram-follow-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(225, 48, 108, 0.5);
+}
+
+.instagram-follow-btn .instagram-icon {
+    width: 18px;
+    height: 18px;
+}
+
+/* Badge statistiques */
+.stats-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    background: var(--bg-secondary);
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(139, 92, 246, 0.3);
+}
+
+.stats-badge .stats-icon {
+    width: 20px;
+    height: 20px;
+    color: #ffd700;
+    margin-bottom: 4px;
+}
+
+.stats-badge span {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.stats-badge strong {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 700;
+}
+
+.stats-since {
+    font-size: 0.75rem !important;
+    color: var(--text-muted) !important;
+    letter-spacing: 1px;
+}
+
+/* ==================== CONTENU PRINCIPAL ==================== */
+.main-content {
+    flex: 1;
+    position: relative;
+}
+
+.tab-content {
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.cards-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+/* ==================== CARTES RÉSEAUX SOCIAUX ==================== */
+.social-card {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    padding: var(--spacing-md);
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all var(--transition-normal);
+    position: relative;
+    overflow: hidden;
+}
+
+.social-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity var(--transition-normal);
+}
+
+.social-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.social-card:hover::before {
+    opacity: 0.1;
+}
+
+/* Discord */
+.social-card.discord::before {
+    background: var(--discord);
+}
+.social-card.discord:hover {
+    box-shadow: 0 0 30px rgb(88 101 242 / 10%);
+}
+.social-card.discord .social-icon svg {
+    color: var(--discord);
+}
+
+/* YouTube */
+.social-card.youtube::before {
+    background: var(--youtube);
+}
+.social-card.youtube:hover {
+    box-shadow: 0 0 30px rgba(255, 0, 0, 0.1);
+}
+.social-card.youtube .social-icon svg {
+    color: var(--youtube);
+}
+
+/* Instagram */
+.social-card.instagram::before {
+    background: var(--instagram);
+}
+.social-card.instagram:hover {
+    box-shadow: 0 0 30px rgba(225, 48, 108, 0.1);
+}
+.social-card.instagram .social-icon svg {
+    color: #E1306C;
+}
+
+/* Dlive */
+.social-card.dlive::before {
+    background: #FFD300;
+}
+.social-card.dlive:hover {
+    box-shadow: 0 0 30px rgba(255, 211, 0, 0.1);
+}
+.social-card.dlive .social-icon svg {
+    color: #FFD300;
+}
+
+.social-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background: transparent;
+}
+
+.social-icon svg {
+    width: 32px;
+    height: 32px;
+}
+
+.social-content {
+    flex: 1;
+}
+
+.social-content h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.social-content p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+}
+
+.arrow-icon {
+    width: 20px;
+    height: 20px;
+    color: var(--text-muted);
+    transition: transform var(--transition-normal);
+}
+
+.social-card:hover .arrow-icon {
+    transform: translateX(4px);
+    color: var(--text-secondary);
+}
+
+/* ==================== CARTES CASINO (PREMIUM) ==================== */
+.casino-card {
+    position: relative;
+    display: block;
+    padding: 8px;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    background: var(--bg-card);
+    transition: all var(--transition-normal);
+}
+
+/* Effet glow */
+.casino-glow {
+    position: absolute;
+    inset: -2px;
+    background: var(--gradient-primary);
+    border-radius: var(--radius-xl);
+    opacity: 0;
+    transition: opacity var(--transition-normal);
+    z-index: 0;
+}
+
+.casino-card:hover .casino-glow {
+    opacity: 1;
+}
+
+/* Bordure animée */
+.casino-border {
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-xl);
+    border: 2px solid transparent;
+    background: linear-gradient(var(--bg-card), var(--bg-card)) padding-box,
+                var(--gradient-primary) border-box;
+    z-index: 1;
+}
+
+.casino-content {
+    position: relative;
+    z-index: 2;
+    background: var(--bg-card);
+    border-radius: calc(var(--radius-xl) - 2px);
+    padding: 10px;
+}
+
+/* Effet shine au hover */
+.casino-shine {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.1),
+        transparent
+    );
+    z-index: 3;
+    transition: left 0.5s ease;
+}
+
+.casino-card:hover .casino-shine {
+    left: 100%;
+}
+
+.casino-card:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: var(--shadow-glow);
+}
+
+/* Header casino */
+.casino-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--spacing-md);
+}
+
+.casino-logo {
+    width: 50px;
+    height: 50px;
+    border-radius: var(--radius-md);
+    background: var(--gradient-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.casino-logo i {
+    width: 28px;
+    height: 28px;
+    color: white;
+}
+
+.casino-badge {
+    padding: 6px 12px;
+    background: var(--gradient-primary);
+    border-radius: var(--radius-sm);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    animation: pulse 2s infinite;
+}
+
+.casino-badge-gold {
+    background: var(--gradient-gold);
+    color: #000;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+/* Nom casino */
+.casino-name {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: var(--spacing-sm);
+    letter-spacing: 1px;
+}
+
+/* Bonus */
+.casino-bonus {
+    display: flex;
+    align-items: baseline;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-sm);
+    flex-wrap: wrap;
+}
+
+.bonus-percent,
+.bonus-amount {
+    font-size: 2.5rem;
+    font-weight: 900;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+}
+
+.bonus-text {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+/* Description */
+.casino-desc {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: var(--spacing-lg);
+}
+
+/* CTA Casino */
+.casino-cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md) var(--spacing-lg);
+    background: var(--gradient-primary);
+    border-radius: var(--radius-md);
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+    transition: all var(--transition-normal);
+}
+
+.casino-cta i {
+    width: 18px;
+    height: 18px;
+    transition: transform var(--transition-normal);
+}
+
+.casino-card:hover .casino-cta i {
+    transform: translateX(4px);
+}
+
+/* Variante Casino 2 */
+.casino-card-alt .casino-logo {
+    background: var(--gradient-gold);
+}
+
+.casino-card-alt .casino-border {
+    background: linear-gradient(var(--bg-card), var(--bg-card)) padding-box,
+                var(--gradient-gold) border-box;
+}
+
+.casino-card-alt .casino-glow {
+    background: var(--gradient-gold);
+}
+
+.casino-card-alt .bonus-percent,
+.casino-card-alt .bonus-amount {
+    background: var(--gradient-gold);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.casino-card-alt .casino-cta {
+    background: var(--gradient-gold);
+    color: #000;
+}
+
+.casino-card-alt:hover {
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+}
+
+/* ==================== CARTES VPN ==================== */
+.vpn-card {
+    display: flex;
+    flex-direction: column;
+    padding: var(--spacing-lg);
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all var(--transition-normal);
+    position: relative;
+    overflow: hidden;
+}
+
+.vpn-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* VPN Gratuit */
+.vpn-free:hover {
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.2);
+}
+
+.vpn-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: var(--radius-md);
+    background: var(--bg-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: var(--spacing-md);
+}
+
+.vpn-icon i {
+    width: 28px;
+    height: 28px;
+    color: var(--accent-purple);
+}
+
+.vpn-content h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: var(--spacing-xs);
+}
+
+.vpn-content p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: var(--spacing-md);
+}
+
+.vpn-features {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+    margin-bottom: var(--spacing-lg);
+}
+
+.vpn-features span {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.vpn-features i {
+    width: 16px;
+    height: 16px;
+    color: #22c55e;
+}
+
+.vpn-cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md);
+    background: var(--bg-secondary);
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    transition: all var(--transition-normal);
+}
+
+.vpn-cta i {
+    width: 18px;
+    height: 18px;
+}
+
+.vpn-card:hover .vpn-cta {
+    background: var(--accent-purple);
+}
+
+/* VPN Premium */
+.vpn-premium {
+    border: 2px solid var(--accent-purple);
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), transparent);
+}
+
+.vpn-premium-badge {
+    position: absolute;
+    top: var(--spacing-md);
+    right: var(--spacing-md);
+    padding: 6px 12px;
+    background: var(--gradient-secondary);
+    border-radius: var(--radius-sm);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.vpn-glow {
+    position: absolute;
+    top: 0%;
+    right: 0%;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.3), transparent);
+    opacity: 0;
+    transition: opacity var(--transition-normal);
+}
+
+.vpn-premium:hover .vpn-glow {
+    opacity: 1;
+}
+
+.vpn-premium .vpn-icon {
+    background: var(--gradient-secondary);
+}
+
+.vpn-premium .vpn-icon i {
+    color: white;
+}
+
+.vpn-cta-premium {
+    background: var(--gradient-secondary) !important;
+}
+
+.vpn-premium:hover {
+    box-shadow: 0 0 30px rgba(139, 92, 246, 0.4);
+    transform: translateY(-4px);
+}
+
+/* ==================== NAVIGATION ONGLETS ==================== */
+.tab-navigation {
+    position: sticky;
+    top: 0;
+    display: flex;
+    justify-content: stretch;
+    gap: 6px;
+    padding: 5px;
+    margin-top: var(--spacing-lg);
+    margin-left: calc(-1 * var(--spacing-lg));
+    margin-right: calc(-1 * var(--spacing-lg));
+    padding-left: var(--spacing-sm);
+    padding-right: var(--spacing-sm);
+    background: var(--bg-secondary);
+    z-index: 100;
+    width: calc(100% + 2 * var(--spacing-lg));
+    border-radius: 50px;
+}
+
+.tab-btn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-xs);
+    flex: 1;
+    padding: var(--spacing-sm) var(--spacing-sm);
+    border-radius: 50px;
+    color: var(--text-muted);
+    transition: all var(--transition-normal);
+    background: var(--bg-secondary);
+}
+
+.tab-btn i {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}
+
+.tab-btn span {
+    font-size: 0.8rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.tab-btn:hover {
+    color: var(--text-primary);
+    background: #2b2b2b;
+}
+
+.tab-btn.active {
+    background: linear-gradient(90deg,rgba(10, 148, 247, 1) 0%, rgba(0, 217, 255, 1) 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(20, 188, 255, 0.4);
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 480px) {
+    .container {
+        padding: var(--spacing-md);
+        padding-bottom: var(--spacing-md);
+    }
+
+    .profile-name h1 {
+        font-size: 1.5rem;
+    }
+
+    .casino-bonus {
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .bonus-percent,
+    .bonus-amount {
+        font-size: 2rem;
+    }
+
+    .tab-navigation {
+        margin-left: calc(-1 * var(--spacing-md));
+        margin-right: calc(-1 * var(--spacing-md));
+        width: calc(100% + 2 * var(--spacing-md));
+        padding-left: var(--spacing-xs);
+        padding-right: var(--spacing-xs);
+        gap: 4px;
+        max-width: 350px;
+    }
+
+    .tab-btn {
+        padding: var(--spacing-xs) var(--spacing-xs);
+    }
+
+    .tab-btn i {
+        width: 16px;
+        height: 16px;
+    }
+
+    .tab-btn span {
+        font-size: 0.75rem;
+    }
+}
+
+/* ==================== ANIMATIONS SUPPLÉMENTAIRES ==================== */
+@keyframes shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+.casino-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.05),
+        transparent
+    );
+    background-size: 200% 100%;
+    animation: shimmer 3s infinite;
+    z-index: 1;
+    pointer-events: none;
+}
