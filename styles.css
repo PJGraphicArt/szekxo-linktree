@@ -106,6 +106,27 @@ body {
     object-fit: cover;
 }
 
+/* Masquer tous les contrôles vidéo */
+.video-background video::-webkit-media-controls {
+    display: none !important;
+}
+
+.video-background video::-webkit-media-controls-enclosure {
+    display: none !important;
+}
+
+.video-background video::-webkit-media-controls-panel {
+    display: none !important;
+}
+
+.video-background video::-webkit-media-controls-play-button {
+    display: none !important;
+}
+
+.video-background video::-webkit-media-controls-start-playback-button {
+    display: none !important;
+}
+
 a {
     text-decoration: none;
     color: inherit;
