@@ -2,19 +2,384 @@
    SZEKXO - JavaScript Navigation
    ============================================ */
 
+/* ============================================
+   CONFIGURATION - Modifier les valeurs ici
+   ============================================ */
+
+const CONFIG = {
+    // ========== Paramètres du Carousel (en haut pour accès rapide) ==========
+    carousel: {
+        autoplayDelay: 3,                     // Délai entre slides en secondes
+        swipeThreshold: 50                      // Distance min pour swipe en px
+    },
+
+    // ========== Slide 1 : Wager Race ==========
+    wagerRace: {
+        heroTitle: "WAGER RACE",                  // Titre affiché sur le hero banner
+        backgroundImage: "images/WAGER_RACE_FOND_V2.webp", // Image de fond du hero
+        totalPrizePool: 1000,                   // Cagnotte totale en €
+
+
+        // Deadline de la course (jour et mois)
+        endDay: 28,                             // Jour de fin
+        endMonth: 2,                            // Mois de fin (1 = janvier)
+
+        // Classement TOP 3
+        players: {
+            first: "Alex***",                   // Pseudo 1ère place
+            second: "Max***",                   // Pseudo 2ème place
+            third: "Tom***"                     // Pseudo 3ème place
+        },
+        prizes: {
+            first: 2500,                        // Gain 1ère place en €
+            second: 1500,                       // Gain 2ème place en €
+            third: 1000                         // Gain 3ème place en €
+        },
+        wagers: {
+            first: 15420,                       // Montant misé 1ère place en €
+            second: 12890,                      // Montant misé 2ème place en €
+            third: 9650                         // Montant misé 3ème place en €
+        },
+        link: "https://www.crazybet.com/fr?r=szekxo"                               // Lien vers la page de participation
+    },
+
+    // ========== Slide 2 : Tirage Hebdomadaire ==========
+    weeklyDraw: {
+        heroTitle: "GIVEAWAYS",         // Titre affiché sur le hero banner
+        backgroundImage: "images/GIVEAWAY_FOND.webp", // Image de fond du hero (placeholder gradient si absent)
+        prize: 200,                             // Gain à remporter en €
+        drawDay: 5,                             // Jour du tirage (5 = vendredi)
+        drawHour: 20,                            // Heure du tirage (20h00)
+
+        // Derniers gagnants
+        winnersToShow: 3,                       // Nombre de gagnants à afficher
+        recentWinners: [
+            { pseudo: 'JohnDoe', amount: 50, concept: '1V1 Viewers' },
+            { pseudo: 'Player123', amount: 30, concept: 'Duel Szekxo' },
+            { pseudo: 'LuckyGirl', amount: 20, concept: 'Stream' },
+            { pseudo: 'GamerPro', amount: 20, concept: '1V1 Viewers' },
+            { pseudo: 'CryptoKing', amount: 10, concept: 'Stream' }
+        ]
+    },
+
+    // ========== Slide 3 : Offre Free Spins ==========
+    freeSpins: {
+        heroTitle: "FREESPINS",                 // Titre affiché sur le hero banner
+        backgroundImage: "images/FREESPINS_FOND.webp", // Image de fond du hero
+
+        // Infos de l'offre
+        gameTitle: "DORK UNIT",                 // Nom du jeu/slot
+        offerTitle: "Crazy Thursday",           // Titre de l'offre
+        casino: "CrazyBet",                     // Nom du casino
+        link: "https://www.crazybet.com/fr?r=szekxo",                              // Lien vers l'offre
+
+        // Paliers de bonus (dépôt => freespins)
+        tiers: [
+            { deposit: 50, spins: 40, value: 0.20 },
+            { deposit: 200, spins: 250, value: 0.20 },
+            { deposit: 350, spins: 350, value: 0.20 },
+            { deposit: 500, spins: 500, value: 0.20 }
+        ],
+
+        // Limites et validité
+        maxSpins: 500,                          // Maximum de freespins
+        validityStart: "22-01 00h00",           // Début de validité
+        validityEnd: "23h59 UTC",               // Fin de validité
+        limitText: "1 fois/compte - 1 dépôt max" // Texte de limite
+    },
+
+    // ========== Section Compétitions ==========
+    competitions: {
+        oneVsOne: {
+            title: '1V1 Viewers',
+            titleSvg: 'images/1V1_VIEWERS_TITLE.svg',
+            winners: [
+                { name: 'GamerPro123', prize: '50€', rank: '1er' },
+                { name: 'Player456', prize: '200 FS', rank: '2ème' }
+            ],
+            videoThumbnail: 'images/1v1_thumbnail.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=7w_TKFjtMB8',
+            participateUrl: 'https://discord.gg/ZbuXYqB2eM'
+        },
+        duelSzekxo: {
+            title: 'Duel Szekxo',
+            titleSvg: 'images/DUEL_SZEKXO_TITLE.svg',
+            winners: [
+                { name: 'LuckyPlayer99', prize: '50€', rank: '1er' }
+            ],
+            videoThumbnail: 'images/duel_thumbnail.jpg',
+            videoUrl: 'https://youtube.com/watch?v=yyyyy',
+            participateUrl: 'https://discord.gg/ZbuXYqB2eM'
+        }
+    }
+};
+
+/* ============================================
+   INITIALISATION
+   ============================================ */
+
 /**
  * Initialise les icônes Lucide et configure la navigation
  */
 document.addEventListener('DOMContentLoaded', () => {
+    // Injecter les données du carousel depuis CONFIG
+    injectCarouselData();
+
     // Initialiser les icônes Lucide
     lucide.createIcons();
 
     // Initialiser la navigation par onglets
     initTabNavigation();
 
-    // Initialiser le fond animé avec particules
-    initParticles();
+    // Initialiser le carousel
+    initCarousel();
+
+    // Mettre à jour l'année du footer
+    const yearElement = document.getElementById('current-year');
+    if (yearElement) {
+        yearElement.textContent = new Date().getFullYear();
+    }
 });
+
+/* ============================================
+   INJECTION DES DONNÉES - Carousel
+   ============================================ */
+
+/**
+ * Formate un nombre avec des espaces comme séparateurs de milliers
+ * @param {number} num - Le nombre à formater
+ * @returns {string} Le nombre formaté
+ */
+function formatNumber(num) {
+    return num.toLocaleString('fr-FR');
+}
+
+/**
+ * Injecte les données de CONFIG dans les éléments du carousel
+ */
+function injectCarouselData() {
+    // ========== Slide 1 : Wager Race ==========
+    const wager = CONFIG.wagerRace;
+
+    // Hero Banner - Image de fond et titre
+    const wagerHero = document.getElementById('wager-hero');
+    if (wagerHero) {
+        wagerHero.style.backgroundImage = `url('${wager.backgroundImage}')`;
+        wagerHero.style.backgroundSize = 'cover';
+        wagerHero.style.backgroundPosition = 'center center';
+        wagerHero.style.backgroundRepeat = 'no-repeat';
+    }
+    const wagerHeroTitle = document.getElementById('wager-hero-title');
+    if (wagerHeroTitle) wagerHeroTitle.textContent = wager.heroTitle;
+
+    // Cagnotte sous le titre (h3)
+    const wagerPrize = document.getElementById('wager-prize');
+    if (wagerPrize) {
+        wagerPrize.innerHTML = `<span class="prize-amount">${formatNumber(wager.totalPrizePool)}€</span> à gagner`;
+    }
+
+    // Deadline au-dessus du classement
+    const wagerDeadline = document.getElementById('wager-deadline');
+    if (wagerDeadline) {
+        const monthNames = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin',
+                           'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
+        const monthName = monthNames[wager.endMonth - 1];
+        wagerDeadline.textContent = `Jusqu'au ${wager.endDay} ${monthName}`;
+    }
+
+    // Leaderboard TOP 3
+    const leaderboard = document.getElementById('wager-leaderboard');
+    if (leaderboard) {
+        leaderboard.innerHTML = `
+            <div class="leaderboard-item gold">
+                <span class="rank">1</span>
+                <span class="player">${wager.players.first}</span>
+                <span class="wager-amount">${formatNumber(wager.wagers.first)}€</span>
+                <span class="amount">${formatNumber(wager.prizes.first)}€</span>
+            </div>
+            <div class="leaderboard-item silver">
+                <span class="rank">2</span>
+                <span class="player">${wager.players.second}</span>
+                <span class="wager-amount">${formatNumber(wager.wagers.second)}€</span>
+                <span class="amount">${formatNumber(wager.prizes.second)}€</span>
+            </div>
+            <div class="leaderboard-item bronze">
+                <span class="rank">3</span>
+                <span class="player">${wager.players.third}</span>
+                <span class="wager-amount">${formatNumber(wager.wagers.third)}€</span>
+                <span class="amount">${formatNumber(wager.prizes.third)}€</span>
+            </div>
+        `;
+    }
+
+    // Bouton Participer
+    const wagerCta = document.getElementById('wager-cta');
+    if (wagerCta && wager.link) {
+        wagerCta.href = wager.link;
+    }
+
+    // ========== Slide 2 : Tirage Hebdomadaire ==========
+    const draw = CONFIG.weeklyDraw;
+
+    // Hero Banner - Image de fond et titre
+    const drawHero = document.getElementById('draw-hero');
+    if (drawHero && draw.backgroundImage) {
+        drawHero.style.backgroundImage = `url('${draw.backgroundImage}')`;
+        drawHero.style.backgroundSize = 'cover';
+        drawHero.style.backgroundPosition = 'center center';
+        drawHero.style.backgroundRepeat = 'no-repeat';
+    }
+    const drawHeroTitle = document.getElementById('draw-hero-title');
+    if (drawHeroTitle) drawHeroTitle.textContent = draw.heroTitle;
+
+    // Montant total à gagner (mis en avant)
+    const giveawayAmount = document.getElementById('giveaway-amount-value');
+    if (giveawayAmount) {
+        giveawayAmount.textContent = `${formatNumber(draw.prize)}€`;
+    }
+
+    // Description des giveaways
+    const giveawayDescription = document.getElementById('giveaway-description');
+    if (giveawayDescription) {
+        giveawayDescription.innerHTML = `Répartis dans plusieurs concepts vidéos et pendant les streams !`;
+    }
+
+    // Derniers gagnants
+    const winnersContainer = document.getElementById('recent-winners-list');
+    if (winnersContainer && draw.recentWinners) {
+        const winnersToDisplay = draw.recentWinners.slice(0, draw.winnersToShow || 3);
+        winnersContainer.innerHTML = winnersToDisplay.map(winner => `
+            <div class="winner-item">
+                <span class="winner-pseudo">${winner.pseudo}</span>
+                <span class="winner-amount">${winner.amount}€</span>
+                <span class="winner-concept">${winner.concept}</span>
+            </div>
+        `).join('');
+    }
+
+    // ========== Slide 3 : Offre Free Spins ==========
+    const spins = CONFIG.freeSpins;
+
+    // Hero Banner - Image de fond et titre
+    const spinsHero = document.getElementById('spins-hero');
+    if (spinsHero && spins.backgroundImage) {
+        spinsHero.style.backgroundImage = `url('${spins.backgroundImage}')`;
+        spinsHero.style.backgroundSize = 'cover';
+        spinsHero.style.backgroundPosition = 'center center';
+        spinsHero.style.backgroundRepeat = 'no-repeat';
+    }
+    const spinsHeroTitle = document.getElementById('spins-hero-title');
+    if (spinsHeroTitle) spinsHeroTitle.textContent = spins.heroTitle;
+
+    // Titre du jeu
+    const offerGameTitle = document.getElementById('offer-game-title');
+    if (offerGameTitle) offerGameTitle.textContent = spins.gameTitle;
+
+    // Badge de l'offre
+    const offerBadge = document.getElementById('offer-badge');
+    if (offerBadge) offerBadge.textContent = spins.offerTitle;
+
+    // Paliers de bonus
+    const offerTiers = document.getElementById('offer-tiers');
+    if (offerTiers && spins.tiers) {
+        offerTiers.innerHTML = spins.tiers.map(tier => `
+            <div class="tier-row">
+                <span class="tier-deposit">Dépôt <strong>${tier.deposit}€</strong></span>
+                <span class="tier-reward">
+                    <span class="tier-spins">${tier.spins} FS</span>
+                    <span class="tier-value">${tier.value.toFixed(2)}€</span>
+                </span>
+            </div>
+        `).join('');
+    }
+
+    // Limite
+    const offerLimit = document.getElementById('offer-limit');
+    if (offerLimit) {
+        offerLimit.innerHTML = `
+            <span>Max ${spins.maxSpins} freespins</span>
+            <span class="offer-validity">${spins.limitText}</span>
+        `;
+    }
+
+    // CTA
+    const offerCta = document.getElementById('offer-cta');
+    if (offerCta && spins.link) {
+        offerCta.href = spins.link;
+    }
+
+    // ========== Section Compétitions ==========
+    const competitions = CONFIG.competitions;
+    let activeComp = 'oneVsOne'; // Par défaut
+
+    // Fonction pour afficher une compétition
+    function showCompetition(compType) {
+        const comp = competitions[compType];
+
+        // Titre SVG
+        const titleSvg = document.getElementById('comp-title-svg');
+        if (titleSvg) {
+            titleSvg.src = comp.titleSvg;
+            titleSvg.alt = comp.title;
+        }
+
+        // Liste des gagnants
+        const winnersList = document.getElementById('comp-winners-list');
+        if (winnersList && comp.winners) {
+            winnersList.innerHTML = comp.winners.map(winner => {
+                const prizeClass = winner.prize.includes('€') ? 'winner-prize-euro' : 'winner-prize-fs';
+                const trophy = winner.rank === '1er' ? '🏆 ' : '';
+                return `
+                    <div class="winner-item">
+                        <div class="winner-info">
+                            <span class="winner-rank">${trophy}${winner.rank}</span>
+                            <span class="winner-name">${winner.name}</span>
+                        </div>
+                        <span class="winner-prize ${prizeClass}">${winner.prize}</span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Miniature vidéo
+        const videoThumb = document.getElementById('comp-video-thumb');
+        if (videoThumb) {
+            videoThumb.src = comp.videoThumbnail;
+            videoThumb.alt = `Vidéo ${comp.title}`;
+        }
+
+        // Lien vidéo
+        const videoLink = document.getElementById('comp-video-link');
+        if (videoLink) videoLink.href = comp.videoUrl;
+
+        // Bouton participer
+        const participateBtn = document.getElementById('comp-participate');
+        if (participateBtn) participateBtn.href = comp.participateUrl;
+
+        activeComp = compType;
+    }
+
+    // Initialiser avec 1V1
+    showCompetition('oneVsOne');
+
+    // Gestion des onglets
+    const compTabs = document.querySelectorAll('.comp-tab');
+    compTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const compType = tab.getAttribute('data-comp');
+
+            // Changer onglet actif
+            compTabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+
+            // Afficher contenu
+            showCompetition(compType);
+
+            // Réinitialiser icônes
+            lucide.createIcons();
+        });
+    });
+}
 
 /**
  * Gestion de la navigation par onglets
@@ -94,137 +459,209 @@ function goToTab(tabName) {
 window.goToTab = goToTab;
 
 /* ============================================
-   ANIMATION PARTICULES - Fond animé discret
+   CAROUSEL - Promotions automatique
    ============================================ */
 
 /**
- * Initialise l'animation des particules sur le canvas
+ * Initialise le carousel avec autoplay et swipe
  */
-function initParticles() {
-    const canvas = document.getElementById('particles-canvas');
-    if (!canvas) return;
+function initCarousel() {
+    const carousel = document.querySelector('.promo-carousel');
+    if (!carousel) return;
 
-    const ctx = canvas.getContext('2d');
-    let particles = [];
-    let animationId;
+    const slidesContainer = carousel.querySelector('.carousel-slides');
+    const slides = carousel.querySelectorAll('.carousel-slide');
+    const indicators = carousel.querySelectorAll('.indicator');
 
-    // Configuration des particules
-    const config = {
-        particleCount: 35,          // Nombre de particules (léger)
-        minSize: 1,                 // Taille minimum
-        maxSize: 3,                 // Taille maximum
-        minSpeed: 0.2,              // Vitesse minimum
-        maxSpeed: 0.6,              // Vitesse maximum
-        color: 'rgba(139, 92, 246', // Couleur violette (accent)
-        minOpacity: 0.1,            // Opacité minimum
-        maxOpacity: 0.4,            // Opacité maximum
-        linkDistance: 120,          // Distance pour les lignes de connexion
-        linkOpacity: 0.08           // Opacité des lignes
-    };
+    // Cloner le premier slide et l'ajouter à la fin pour l'effet infini
+    const firstSlideClone = slides[0].cloneNode(true);
+    slidesContainer.appendChild(firstSlideClone);
 
-    // Redimensionner le canvas
-    function resizeCanvas() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    }
+    let currentSlide = 0;
+    let autoplayInterval;
+    let touchStartX = 0;
+    let touchEndX = 0;
+    const totalRealSlides = slides.length;
 
-    // Créer une particule
-    function createParticle() {
-        return {
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height,
-            size: Math.random() * (config.maxSize - config.minSize) + config.minSize,
-            speedX: (Math.random() - 0.5) * config.maxSpeed,
-            speedY: (Math.random() - 0.5) * config.maxSpeed,
-            opacity: Math.random() * (config.maxOpacity - config.minOpacity) + config.minOpacity
-        };
-    }
+    // Utiliser les paramètres de CONFIG
+    const carouselConfig = CONFIG.carousel;
 
-    // Initialiser les particules
-    function initParticlesArray() {
-        particles = [];
-        for (let i = 0; i < config.particleCount; i++) {
-            particles.push(createParticle());
+    // Fonction pour changer de slide
+    function goToSlide(index, instant = false) {
+        currentSlide = index;
+
+        // Appliquer ou retirer la transition
+        if (instant) {
+            slidesContainer.style.transition = 'none';
+        } else {
+            slidesContainer.style.transition = 'transform 0.5s ease-in-out';
         }
-    }
 
-    // Dessiner une particule
-    function drawParticle(particle) {
-        ctx.beginPath();
-        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-        ctx.fillStyle = `${config.color}, ${particle.opacity})`;
-        ctx.fill();
-    }
+        // Déplacer le container des slides
+        slidesContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
 
-    // Dessiner les connexions entre particules proches
-    function drawConnections() {
-        for (let i = 0; i < particles.length; i++) {
-            for (let j = i + 1; j < particles.length; j++) {
-                const dx = particles[i].x - particles[j].x;
-                const dy = particles[i].y - particles[j].y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-
-                if (distance < config.linkDistance) {
-                    const opacity = (1 - distance / config.linkDistance) * config.linkOpacity;
-                    ctx.beginPath();
-                    ctx.moveTo(particles[i].x, particles[i].y);
-                    ctx.lineTo(particles[j].x, particles[j].y);
-                    ctx.strokeStyle = `${config.color}, ${opacity})`;
-                    ctx.lineWidth = 0.5;
-                    ctx.stroke();
-                }
-            }
-        }
-    }
-
-    // Mettre à jour la position des particules
-    function updateParticles() {
-        particles.forEach(particle => {
-            particle.x += particle.speedX;
-            particle.y += particle.speedY;
-
-            // Rebondir sur les bords
-            if (particle.x < 0 || particle.x > canvas.width) {
-                particle.speedX *= -1;
-            }
-            if (particle.y < 0 || particle.y > canvas.height) {
-                particle.speedY *= -1;
-            }
-
-            // S'assurer que la particule reste dans les limites
-            particle.x = Math.max(0, Math.min(canvas.width, particle.x));
-            particle.y = Math.max(0, Math.min(canvas.height, particle.y));
+        // Mettre à jour les classes active (seulement pour les vraies slides)
+        const realIndex = currentSlide % totalRealSlides;
+        slides.forEach((slide, i) => {
+            slide.classList.toggle('active', i === realIndex);
         });
+
+        // Mettre à jour les indicateurs
+        indicators.forEach((indicator, i) => {
+            indicator.classList.toggle('active', i === realIndex);
+        });
+
+        // Si on est sur le clone, revenir au vrai premier slide instantanément
+        if (currentSlide === totalRealSlides) {
+            setTimeout(() => {
+                goToSlide(0, true);
+            }, 500); // Attendre la fin de la transition
+        }
     }
 
-    // Boucle d'animation
-    function animate() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        drawConnections();
-        particles.forEach(drawParticle);
-        updateParticles();
-
-        animationId = requestAnimationFrame(animate);
+    // Slide suivant
+    function nextSlide() {
+        goToSlide(currentSlide + 1);
     }
 
-    // Initialisation
-    resizeCanvas();
-    initParticlesArray();
-    animate();
+    // Slide précédent
+    function prevSlide() {
+        if (currentSlide <= 0) {
+            goToSlide(totalRealSlides - 1);
+        } else {
+            goToSlide(currentSlide - 1);
+        }
+    }
 
-    // Redimensionner le canvas quand la fenêtre change de taille
-    window.addEventListener('resize', () => {
-        resizeCanvas();
-        initParticlesArray();
+    // Démarrer l'autoplay
+    function startAutoplay() {
+        stopAutoplay();
+        autoplayInterval = setInterval(nextSlide, carouselConfig.autoplayDelay * 1000);
+    }
+
+    // Arrêter l'autoplay
+    function stopAutoplay() {
+        if (autoplayInterval) {
+            clearInterval(autoplayInterval);
+        }
+    }
+
+    // Événements pour les indicateurs
+    indicators.forEach((indicator, index) => {
+        indicator.addEventListener('click', () => {
+            goToSlide(index);
+            startAutoplay(); // Redémarrer l'autoplay après clic
+        });
     });
 
-    // Réduire les animations quand la page n'est pas visible (économie de ressources)
+    // Événements touch pour swipe
+    carousel.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+        stopAutoplay();
+    }, { passive: true });
+
+    carousel.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+        startAutoplay();
+    }, { passive: true });
+
+    // Gérer le swipe
+    function handleSwipe() {
+        const diff = touchStartX - touchEndX;
+
+        if (Math.abs(diff) > carouselConfig.swipeThreshold) {
+            if (diff > 0) {
+                nextSlide(); // Swipe vers la gauche -> slide suivant
+            } else {
+                prevSlide(); // Swipe vers la droite -> slide précédent
+            }
+        }
+    }
+
+    // Pause autoplay au survol (desktop)
+    carousel.addEventListener('mouseenter', stopAutoplay);
+    carousel.addEventListener('mouseleave', startAutoplay);
+
+    // Pause autoplay quand la page n'est pas visible
     document.addEventListener('visibilitychange', () => {
         if (document.hidden) {
-            cancelAnimationFrame(animationId);
+            stopAutoplay();
         } else {
-            animate();
+            startAutoplay();
         }
     });
+
+    // Démarrer l'autoplay
+    startAutoplay();
+}
+
+/* ============================================
+   COUNTDOWN - Tirage hebdomadaire
+   ============================================ */
+
+/**
+ * Initialise le countdown vers le prochain tirage
+ * Utilise CONFIG.weeklyDraw pour le jour et l'heure
+ */
+function initCountdown() {
+    const countdownElement = document.getElementById('countdown');
+    if (!countdownElement) return;
+
+    const daysEl = document.getElementById('countdown-days');
+    const hoursEl = document.getElementById('countdown-hours');
+    const minutesEl = document.getElementById('countdown-minutes');
+    const secondsEl = document.getElementById('countdown-seconds');
+
+    // Récupérer la config du tirage
+    const drawConfig = CONFIG.weeklyDraw;
+
+    // Calculer le prochain jour de tirage
+    function getNextDrawDate() {
+        const now = new Date();
+        const target = new Date();
+
+        // Définir le jour cible depuis CONFIG
+        const currentDay = now.getDay();
+        let daysUntilDraw = (drawConfig.drawDay - currentDay + 7) % 7;
+
+        // Si on est le jour du tirage et que l'heure est passée, aller à la semaine suivante
+        if (daysUntilDraw === 0 && now.getHours() >= drawConfig.drawHour) {
+            daysUntilDraw = 7;
+        }
+
+        target.setDate(now.getDate() + daysUntilDraw);
+        target.setHours(drawConfig.drawHour, 0, 0, 0);
+
+        return target;
+    }
+
+    let targetDate = getNextDrawDate();
+
+    // Mettre à jour le countdown
+    function updateCountdown() {
+        const now = new Date();
+        const diff = targetDate - now;
+
+        // Si le countdown est terminé, calculer le prochain tirage
+        if (diff <= 0) {
+            targetDate = getNextDrawDate();
+            return;
+        }
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+        // Mettre à jour l'affichage
+        daysEl.textContent = days;
+        hoursEl.textContent = hours.toString().padStart(2, '0');
+        minutesEl.textContent = minutes.toString().padStart(2, '0');
+        secondsEl.textContent = seconds.toString().padStart(2, '0');
+    }
+
+    // Mettre à jour immédiatement puis toutes les secondes
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
 }

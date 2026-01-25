@@ -8,7 +8,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Lexend:wght@100..900&family=Special+Gothic+Expanded+One&display=swap" rel="stylesheet">
 
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -17,8 +17,12 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Fond animé avec particules -->
-    <canvas id="particles-canvas"></canvas>
+    <!-- Fond vidéo -->
+    <div class="video-background">
+        <video autoplay muted loop playsinline>
+            <source src="images/fond_site_szekxo_casino_v2.mp4" type="video/mp4">
+        </video>
+    </div>
 
     <div class="container">
         <!-- ==================== HEADER ==================== -->
@@ -27,7 +31,7 @@
             <div class="avatar">
                 <div class="avatar-ring"></div>
                 <div class="avatar-inner">
-                    <span>SZ</span>
+                    <img src="images/LOGO_SZEKXO.svg" alt="SZEKXO Logo" class="avatar-logo">
                 </div>
             </div>
 
@@ -44,19 +48,112 @@
             <!-- Tagline -->
             <p class="tagline">Streamer Casino</p>
 
-            <!-- Bouton Instagram -->
+            <!-- Bouton Instagram 
             <a href="#" class="instagram-follow-btn">
                 <svg viewBox="0 0 24 24" fill="currentColor" class="instagram-icon">
                     <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/>
                 </svg>
                 <span>Suivre sur Instagram</span>
-            </a>
+            </a>-->
 
-            <!-- Statistique -->
-            <div class="stats-badge">
-                <i data-lucide="trophy" class="stats-icon"></i>
-                <span><strong>50 000€</strong> DE GIVEAWAYS</span>
-                <span class="stats-since">DEPUIS 2023</span>
+            <!-- Carousel Promotions -->
+            <div class="promo-carousel">
+                <div class="carousel-wrapper">
+                    <div class="carousel-slides">
+                        <!-- Slide 1: Wager Race -->
+                        <div class="carousel-slide active" id="slide-wager">
+                            <!-- Hero Banner -->
+                            <div class="slide-hero slide-hero-wager" id="wager-hero">
+                                <h2 class="hero-title" id="wager-hero-title">WAGER RACE</h2>
+                                <h3 class="h3-wager" id="wager-prize">Chargement...</h3>
+                            </div>
+                            <!-- Contenu -->
+                            <div class="slide-content wager-race">
+                                <img src="images/LOGOS_CASINO/cb-logo.png" alt="CrazyBet" class="wager-logo">
+                                <p class="slide-subtitle" id="wager-deadline">Chargement...</p>
+                                <div class="leaderboard" id="wager-leaderboard">
+                                    <!-- Injecté dynamiquement -->
+                                </div>
+                                <a href="https://www.crazybet.com/fr?r=szekxo" class="wager-cta" id="wager-cta">
+                                    <span>PARTICIPER</span>
+                                    <i data-lucide="arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Slide 2: Weekly Draw -->
+                        <div class="carousel-slide" id="slide-draw">
+                            <!-- Hero Banner -->
+                            <div class="slide-hero slide-hero-draw" id="draw-hero">
+                                <h2 class="hero-title" id="draw-hero-title">GIVEAWAYS</h2>
+                                <h3 class="h3-giveaway">tout au long de la semaine !</h3>
+                            </div>
+                            <!-- Contenu -->
+                            <div class="slide-content weekly-draw">
+                                <div class="giveaway-amount" id="giveaway-amount">
+                                    <span class="amount-value" id="giveaway-amount-value">200€</span>
+                                    <span class="amount-label">à gagner</span>
+                                </div>
+                                <p class="giveaway-description" id="giveaway-description">Chargement...</p>
+
+                                <!-- Derniers gagnants -->
+                                <div class="recent-winners">
+                                    <h3 class="winners-title">Derniers gagnants</h3>
+                                    <div class="winners-list" id="recent-winners-list">
+                                        <!-- Injecté dynamiquement par JavaScript -->
+                                    </div>
+                                </div>
+
+                                <a href="https://discord.gg/ZbuXYqB2eM" target="_blank" rel="noopener noreferrer" class="giveaway-cta">
+                                    <span>PARTICIPER</span>
+                                    <i data-lucide="arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Slide 3: Free Spins -->
+                        <div class="carousel-slide" id="slide-freespins">
+                            <!-- Hero Banner -->
+                            <div class="slide-hero slide-hero-spins" id="spins-hero">
+                                <h2 class="hero-title" id="spins-hero-title">FREESPINS</h2>
+                            </div>
+                            <!-- Contenu -->
+                            <div class="slide-content free-spins">
+                                <div class="offer-card">
+                                    <!-- Header avec titre du jeu et badge -->
+                                    <div class="offer-header">
+                                        <span class="offer-game-title" id="offer-game-title">DORK UNIT</span>
+                                        <span class="offer-badge" id="offer-badge">Crazy Thursday</span>
+                                    </div>
+
+                                    <!-- Paliers de bonus -->
+                                    <div class="offer-tiers" id="offer-tiers">
+                                        <!-- Injecté par JS -->
+                                    </div>
+
+                                    <!-- Limite et validité -->
+                                    <div class="offer-limit" id="offer-limit">
+                                        <span>Max 500 freespins</span>
+                                        <span class="offer-validity" id="offer-validity">1 fois/compte</span>
+                                    </div>
+
+                                    <!-- CTA -->
+                                    <a href="https://www.crazybet.com/fr?r=szekxo" class="offer-cta" id="offer-cta">
+                                        <span>Découvrir l'offre</span>
+                                        <i data-lucide="arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Indicateurs -->
+                <div class="carousel-indicators">
+                    <button class="indicator active" data-slide="0"></button>
+                    <button class="indicator" data-slide="1"></button>
+                    <button class="indicator" data-slide="2"></button>
+                </div>
             </div>
 
             <!-- ==================== NAVIGATION ONGLETS ==================== -->
@@ -156,21 +253,31 @@
             <section id="tab-casino" class="tab-content active">
                 <div class="cards-container">
 
-                    <!-- Casino 1 -->
-                    <a href="#" class="casino-card">
+                    <!-- Casino 1 - CrazyBet -->
+                    <a href="https://www.crazybet.com/fr?r=szekxo" target="_blank" rel="noopener noreferrer" class="casino-card casino-card-crazybet">
                         <div class="casino-glow"></div>
                         <div class="casino-border"></div>
                         <div class="casino-content">
                             <div class="casino-header">
-                                <div class="casino-logo">
-                                    <i data-lucide="gem"></i>
+                                <div class="casino-logo casino-logo-img">
+                                    <img src="images/LOGOS_CASINO/ICON_LOGO_CRAZYBET.png" alt="CrazyBet">
                                 </div>
                                 <div class="casino-badge">EXCLUSIF</div>
                             </div>
-                            <h3 class="casino-name">CASINO 1</h3>
-                            <div class="casino-bonus">
+                            <h3 class="casino-name">CRAZYBET</h3>
+                            <div class="casino-bonuses">
+                            <div class="casino-bonus-1">
                                 <span class="bonus-percent">200%</span>
-                                <span class="bonus-text">+ 100 FREE SPINS</span>
+                                <span class="bonus-text">WAGER x40</span>
+                            </div>
+                            <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin: 0px 20px;min-width: 20px;">
+                                <path d="M5 12H19" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M12 5L12 19" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <div class="casino-bonus-1">
+                                <span class="bonus-percent">100%</span>
+                                <span class="bonus-text">WAGER x35</span>
+                            </div>
                             </div>
                             <p class="casino-desc">Bonus de bienvenue exclusif avec le code SZEKXO</p>
                             <div class="casino-cta">
@@ -190,10 +297,10 @@
                                 <div class="casino-logo">
                                     <i data-lucide="crown"></i>
                                 </div>
-                                <div class="casino-badge casino-badge-gold">VIP</div>
+                                <div class="casino-badge casino-badge-betify">VIP</div>
                             </div>
                             <h3 class="casino-name">CASINO 2</h3>
-                            <div class="casino-bonus">
+                            <div class="casino-bonus-1">
                                 <span class="bonus-amount">500€</span>
                                 <span class="bonus-text">BONUS DE BIENVENUE</span>
                             </div>
@@ -259,7 +366,51 @@
             </section>
 
         </main>
+
+        <!-- ==================== SECTION COMPÉTITIONS ==================== -->
+        <section class="competitions-section">
+            <div class="competitions-wrapper">
+                <!-- Menu 2 onglets -->
+                <nav class="competitions-menu">
+                    <button class="comp-tab active" data-comp="oneVsOne">
+                        <i data-lucide="swords"></i>
+                        <span>1V1 Viewers</span>
+                    </button>
+                    <button class="comp-tab" data-comp="duelSzekxo">
+                        <i data-lucide="target"></i>
+                        <span>Duel Szekxo</span>
+                    </button>
+                </nav>
+
+                <!-- Contenu de l'onglet actif -->
+                <div class="competition-content">
+                    <!-- Titre SVG -->
+                    <img id="comp-title-svg" src="" alt="" class="comp-title-svg">
+
+                    <!-- Liste des gagnants (dynamique) -->
+                    <div id="comp-winners-list" class="winners-list">
+                        <!-- Injecté par JavaScript -->
+                    </div>
+
+                    <!-- Miniature vidéo cliquable -->
+                    <a id="comp-video-link" href="#" target="_blank" class="video-thumbnail">
+                        <img id="comp-video-thumb" src="" alt="Vidéo">
+                    </a>
+
+                    <!-- Bouton participer -->
+                    <a id="comp-participate" href="#" class="btn-participate">
+                        <span>PARTICIPER</span>
+                        <i data-lucide="arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
     </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <p>&copy; <span id="current-year">2024</span> SZEKXO — Tous droits réservés</p>
+    </footer>
 
     <!-- Scripts -->
     <script src="script.js"></script>
