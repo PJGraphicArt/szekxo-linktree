@@ -104,27 +104,47 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    pointer-events: none;
 }
 
-/* Masquer tous les contrôles vidéo */
+/* Masquer tous les contrôles vidéo - WebKit (Safari/iOS) */
 .video-background video::-webkit-media-controls {
     display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
 }
 
 .video-background video::-webkit-media-controls-enclosure {
     display: none !important;
+    opacity: 0 !important;
 }
 
 .video-background video::-webkit-media-controls-panel {
     display: none !important;
+    opacity: 0 !important;
 }
 
 .video-background video::-webkit-media-controls-play-button {
     display: none !important;
+    opacity: 0 !important;
 }
 
 .video-background video::-webkit-media-controls-start-playback-button {
     display: none !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+.video-background video::-webkit-media-controls-overlay-play-button {
+    display: none !important;
+    opacity: 0 !important;
+}
+
+/* Masquer le bouton play central sur iOS */
+.video-background video::--webkit-media-controls-play-button,
+.video-background video::--webkit-media-controls-start-playback-button {
+    opacity: 0 !important;
+    pointer-events: none !important;
 }
 
 a {

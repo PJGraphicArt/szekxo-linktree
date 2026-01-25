@@ -122,6 +122,17 @@ const CONFIG = {
  * Initialise les icônes Lucide et configure la navigation
  */
 document.addEventListener('DOMContentLoaded', () => {
+    // Forcer la lecture de la vidéo de fond (iOS/Safari fix)
+    const bgVideo = document.querySelector('.video-background video');
+    if (bgVideo) {
+        bgVideo.play().catch(() => {
+            // En cas d'échec, réessayer au premier geste de l'utilisateur
+            document.addEventListener('touchstart', () => {
+                bgVideo.play().catch(() => {});
+            }, { once: true });
+        });
+    }
+
     // Injecter les données du carousel depuis CONFIG
     injectCarouselData();
 
