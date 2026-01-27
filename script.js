@@ -9,7 +9,7 @@
 const CONFIG = {
     // ========== Paramètres du Carousel (en haut pour accès rapide) ==========
     carousel: {
-        autoplayDelay: 3,                     // Délai entre slides en secondes
+        autoplayDelay: 200,                     // Délai entre slides en secondes
         swipeThreshold: 50                      // Distance min pour swipe en px
     },
 
@@ -111,6 +111,62 @@ const CONFIG = {
             videoUrl: 'https://youtube.com/watch?v=yyyyy',
             participateUrl: 'https://discord.gg/ZbuXYqB2eM'
         }
+    },
+
+    // ========== Section VPN ==========
+    vpn: {
+        // VPN Gratuit Mobile
+        freeMobile: {
+            badge: 'GRATUIT',
+            badgeColor: '#00ff88',
+            title: 'VPN Mobile Gratuit',
+            service: 'VPN Super',
+            logo: 'images/vpn super-logo.png',
+            description: 'Données illimitées • Sécurisé',
+            platforms: 'iOS & Android',
+            features: [],
+            links: {
+                ios: 'https://apps.apple.com/fr/app/vpn-super-unlimited-proxy/id1370293473',
+                android: 'https://play.google.com/store/apps/details?id=com.free.vpn.super.hotspot.open&pcampaignid=web_share'
+            }
+        },
+
+        // VPN Gratuit Desktop
+        freeDesktop: {
+            badge: 'GRATUIT',
+            badgeColor: '#00ff88',
+            title: 'VPN Gratuit PC',
+            service: 'Urban VPN',
+            logo: 'images/urban-vpn-logo.png',
+            description: 'Extension Chrome • Activation en 1 clic • Illimité',
+            platforms: 'Chrome / Edge / Brave',
+            features: [
+                'Installation en 1 clic',
+                'Activation instantanée',
+                'Utilisation illimitée'
+            ],
+            link: 'https://chromewebstore.google.com/detail/urban-vpn-proxy/eppiocemhmnlbhjplcgkofciiegomcon'
+        },
+
+        // VPN Premium
+        premium: {
+            badge: 'RECOMMANDÉ',
+            badgeColor: '#ffa500',
+            title: 'VPN Premium',
+            service: 'NordVPN',
+            logo: 'images/nordvpn.jpg',
+            description: 'Plan Basique • Le meilleur VPN • Ultra rapide',
+            platforms: 'Tous appareils',
+            features: [
+                'VPN sécurisé et ultra rapide',
+                'Protection Anti-menaces',
+                '10 appareils protégés simultanément',
+                'Surveillance Dark Web™ : surveillez jusqu\'à 5 e-mails pour détecter d\'éventuelles fuites de données'
+            ],
+            price: '3,39€/mois',
+            discount: '-70%',
+            link: 'https://refer-nordvpn.com/tauDbDWDXTT'
+        }
     }
 };
 
@@ -135,6 +191,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Injecter les données du carousel depuis CONFIG
     injectCarouselData();
+
+    // Injecter les données VPN
+    injectVPNData();
 
     // Initialiser les icônes Lucide
     lucide.createIcons();
@@ -390,6 +449,116 @@ function injectCarouselData() {
             lucide.createIcons();
         });
     });
+}
+
+/**
+ * Injecte les données VPN depuis CONFIG
+ */
+function injectVPNData() {
+    const vpnSection = CONFIG.vpn;
+    const container = document.querySelector('#tab-vpn .cards-container');
+
+    if (!container) return;
+
+    // Générer les 3 cartes
+    const cards = [
+        generateVPNCard(vpnSection.freeMobile, 'mobile'),
+        generateVPNCard(vpnSection.freeDesktop, 'desktop'),
+        generateVPNCard(vpnSection.premium, 'premium')
+    ];
+
+    container.innerHTML = cards.join('');
+
+    // Réinitialiser les icônes Lucide
+    lucide.createIcons();
+}
+
+/**
+ * Génère le HTML d'une carte VPN
+ */
+function generateVPNCard(vpn, type) {
+    const isFree = type === 'mobile' || type === 'desktop';
+    const isMobile = type === 'mobile';
+    const isPremium = type === 'premium';
+
+    // Badge HTML
+    const badgeHTML = `<div class="vpn-badge ${isFree ? 'free' : 'premium'}" style="background: ${vpn.badgeColor}">${vpn.badge}</div>`;
+
+    // Features list (générer seulement si features non vides)
+    const featuresHTML = vpn.features && vpn.features.length > 0 ? `
+        <div class="vpn-features">
+            ${vpn.features.map(f => `<span><i data-lucide="check" class="vpn-feature-icon"></i> ${f}</span>`).join('')}
+        </div>
+    ` : '';
+
+    // CTA Buttons
+    let ctaHTML = '';
+    if (isMobile) {
+        // Double boutons pour iOS et Android
+        ctaHTML = `
+            <div class="vpn-cta-dual">
+                <a href="${vpn.links.ios}" class="vpn-btn" target="_blank" rel="noopener noreferrer">
+                    <i data-lucide="smartphone"></i>
+                    <span>iOS</span>
+                </a>
+                <a href="${vpn.links.android}" class="vpn-btn" target="_blank" rel="noopener noreferrer">
+                    <i data-lucide="smartphone"></i>
+                    <span>Android</span>
+                </a>
+            </div>
+        `;
+    } else {
+        // Bouton simple
+        const btnText = type === 'desktop' ? 'AJOUTER À CHROME' : 'PROFITER DE L\'OFFRE';
+        ctaHTML = `
+            <div class="vpn-cta ${isPremium ? 'vpn-cta-premium' : ''}">
+                <span>${btnText}</span>
+                <i data-lucide="${isPremium ? 'external-link' : 'download'}"></i>
+            </div>
+        `;
+    }
+
+    // Price/Discount pour premium
+    const priceHTML = isPremium ? `
+        <div class="vpn-price-container">
+            <span class="vpn-discount">Économisez ${vpn.discount}</span>
+            <span class="vpn-price">${vpn.price}</span>
+        </div>
+        ${vpn.priceDetails ? `<p class="vpn-price-details">${vpn.priceDetails}</p>` : ''}
+        ${vpn.taxNote ? `<p class="vpn-tax-note">${vpn.taxNote}</p>` : ''}
+    ` : '';
+
+    // Classes de visibilité responsive
+    let visibilityClass = '';
+    if (type === 'mobile') {
+        visibilityClass = 'vpn-mobile-only'; // Visible seulement sur mobile
+    } else if (type === 'desktop') {
+        visibilityClass = 'vpn-desktop-only'; // Visible seulement sur desktop
+    }
+    // Premium est toujours visible (pas de classe)
+
+    // Pour mobile : utiliser div car contient déjà 2 liens (iOS/Android)
+    // Pour desktop et premium : utiliser a car toute la carte est cliquable
+    const cardTag = isMobile ? 'div' : 'a';
+    const cardAttrs = isMobile ? '' : `href="${vpn.link}" target="_blank" rel="noopener noreferrer"`;
+
+    return `
+        <${cardTag} ${cardAttrs} class="vpn-card ${isFree ? 'vpn-free' : 'vpn-premium'} ${visibilityClass}">
+            ${badgeHTML}
+            ${isPremium ? '<div class="vpn-glow"></div>' : ''}
+            <div class="vpn-logo">
+                <img src="${vpn.logo}" alt="${vpn.service}">
+            </div>
+            <div class="vpn-content">
+                <h3>${vpn.title}</h3>
+                <p class="vpn-service">${vpn.service}</p>
+                <p class="vpn-description">${vpn.description}</p>
+                ${featuresHTML}
+                ${priceHTML}
+            </div>
+            ${ctaHTML}
+        </${cardTag}>
+    `;
 }
 
 /**

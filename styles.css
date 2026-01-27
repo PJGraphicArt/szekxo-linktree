@@ -412,12 +412,16 @@ button {
     text-align: center;
 }
 
+/* Padding supplémentaire pour Wager Race */
+.wager-race {
+    padding-top: 45px;
+}
+
 /* Logo casino dans Wager Race */
 .wager-logo {
     max-width: 172px;
     height: auto;
     margin-bottom: var(--spacing-xs);
-    margin-top: 16px;
 }
 
 .slide-subtitle {
@@ -524,7 +528,7 @@ button {
     font-size: 0.8rem;
     letter-spacing: 0.5px;
     transition: all var(--transition-normal);
-    color: #000;
+    color: #ffffff;
     text-decoration: none;
     margin-top: 35px;
     width: 100%;
@@ -799,7 +803,6 @@ button {
 /* ==================== CARTE OFFRE CASINO ==================== */
 .free-spins {
     padding: var(--spacing-sm);
-    margin-top: 20px;
 }
 
 .offer-card {
@@ -1454,7 +1457,7 @@ button {
     display: flex;
     flex-direction: column;
     padding: var(--spacing-lg);
-    background: var(--bg-card);
+    background: #252525;
     border-radius: var(--radius-lg);
     border: 1px solid rgba(255, 255, 255, 0.05);
     transition: all var(--transition-normal);
@@ -1467,26 +1470,52 @@ button {
     border-color: rgba(255, 255, 255, 0.1);
 }
 
+/* Badge VPN */
+.vpn-badge {
+    position: absolute;
+    top: 20px;
+    right: 12px;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    z-index: 2;
+}
+
+.vpn-badge.free {
+    background: #00ff88;
+    color: #000;
+}
+
+.vpn-badge.premium {
+    background: linear-gradient(135deg, #3084fe, #1a5fd9) !important;
+}
+
 /* VPN Gratuit */
 .vpn-free:hover {
     box-shadow: 0 0 20px rgba(139, 92, 246, 0.2);
 }
 
-.vpn-icon {
-    width: 56px;
-    height: 56px;
+.vpn-logo {
+    width: 80px;
+    height: 80px;
     border-radius: var(--radius-md);
-    background: var(--bg-secondary);
+    overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-bottom: var(--spacing-md);
+    background: var(--bg-secondary);
 }
 
-.vpn-icon i {
-    width: 28px;
-    height: 28px;
-    color: var(--accent-purple);
+.vpn-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: var(--radius-md);
 }
 
 .vpn-content h3 {
@@ -1495,10 +1524,17 @@ button {
     margin-bottom: var(--spacing-xs);
 }
 
-.vpn-content p {
+.vpn-service {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+}
+
+.vpn-description {
+    font-size: 0.85rem;
     color: var(--text-secondary);
-    font-size: 0.9rem;
-    margin-bottom: var(--spacing-md);
+    margin-bottom: 12px;
 }
 
 .vpn-features {
@@ -1522,6 +1558,14 @@ button {
     color: #22c55e;
 }
 
+.vpn-feature-icon {
+    min-width: 16px !important;
+    min-height: 16px !important;
+    max-width: 16px !important;
+    max-height: 16px !important;
+    flex-shrink: 0;
+}
+
 .vpn-cta {
     display: flex;
     align-items: center;
@@ -1541,14 +1585,117 @@ button {
     height: 18px;
 }
 
-.vpn-card:hover .vpn-cta {
+.vpn-free:hover .vpn-cta {
     background: var(--accent-purple);
 }
 
-/* VPN Premium */
+.vpn-premium:hover .vpn-cta {
+    background: linear-gradient(135deg, #1a5fd9, #0f4ab8) !important;
+}
+
+/* Boutons doubles pour mobile */
+.vpn-cta-dual {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+.vpn-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: white;
+    transition: all 0.3s;
+}
+
+.vpn-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+.vpn-btn i {
+    width: 16px;
+    height: 16px;
+}
+
+/* Prix et discount premium */
+.vpn-price-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 12px;
+    margin-bottom: 8px;
+}
+
+.vpn-discount {
+    padding: 4px 10px;
+    background: linear-gradient(135deg, #ff6b35, #ff8c00);
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: white;
+}
+
+.vpn-price {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.vpn-price-details {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-top: 6px;
+    margin-bottom: 4px;
+}
+
+.vpn-tax-note {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    opacity: 0.8;
+    margin-top: 4px;
+    font-style: italic;
+}
+
+/* Visibilité responsive VPN */
+/* Par défaut (mobile) : masquer VPN Desktop, afficher VPN Mobile + Premium */
+.vpn-desktop-only {
+    display: none;
+}
+
+.vpn-mobile-only {
+    display: flex;
+}
+
+/* Desktop (768px+) : masquer VPN Mobile, afficher VPN Desktop + Premium */
+@media (min-width: 768px) {
+    .vpn-mobile-only {
+        display: none;
+    }
+
+    .vpn-cta-dual {
+        display: none;
+    }
+
+    .vpn-desktop-only {
+        display: flex;
+    }
+}
+
+/* VPN Premium - NordVPN */
 .vpn-premium {
-    border: 2px solid var(--accent-purple);
-    background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), transparent);
+    border: 2px solid #3084fe;
+    background: linear-gradient(135deg, rgba(48, 132, 254, 0.1), transparent);
     backdrop-filter: blur(8px);
 }
 
@@ -1557,7 +1704,7 @@ button {
     top: var(--spacing-md);
     right: var(--spacing-md);
     padding: 6px 12px;
-    background: var(--gradient-secondary);
+    background: linear-gradient(135deg, #3084fe, #1a5fd9);
     border-radius: var(--radius-sm);
     font-size: 0.7rem;
     font-weight: 700;
@@ -1570,7 +1717,7 @@ button {
     right: 0%;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle, rgba(139, 92, 246, 0.3), transparent);
+    background: radial-gradient(circle, rgba(48, 132, 254, 0.3), transparent);
     opacity: 0;
     transition: opacity var(--transition-normal);
 }
@@ -1579,20 +1726,17 @@ button {
     opacity: 1;
 }
 
-.vpn-premium .vpn-icon {
-    background: var(--gradient-secondary);
-}
-
-.vpn-premium .vpn-icon i {
-    color: white;
+.vpn-premium .vpn-logo {
+    background: linear-gradient(135deg, #3084fe, #1a5fd9);
+    border: 2px solid rgba(48, 132, 254, 0.3);
 }
 
 .vpn-cta-premium {
-    background: var(--gradient-secondary) !important;
+    background: linear-gradient(135deg, #3084fe, #1a5fd9) !important;
 }
 
 .vpn-premium:hover {
-    box-shadow: 0 0 30px rgba(139, 92, 246, 0.4);
+    box-shadow: 0 0 30px rgba(48, 132, 254, 0.5);
     transform: translateY(-4px);
 }
 
