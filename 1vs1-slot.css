@@ -1,0 +1,1062 @@
+/* ============================================
+   1VS1 SLOT - Styles épurés et responsive
+   ============================================ */
+
+/* ==================== VARIABLES ==================== */
+:root {
+    --gradient-battle: linear-gradient(135deg, #c0c0c0, #d4d4d4);
+    --silver: #c0c0c0;
+    --gold: #ffd700;
+}
+
+/* ==================== UTILITAIRES ==================== */
+.hidden {
+    display: none !important;
+}
+
+/* ==================== HEADER ==================== */
+.battle-logo {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.battle-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 900;
+    background: var(--gradient-battle);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+}
+
+.battle-subtitle {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* ==================== PHASE CONTAINERS ==================== */
+.phase-container {
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ==================== SETUP CARD ==================== */
+.setup-card {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: clamp(24px, 5vw, 40px);
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+}
+
+.setup-title {
+    font-size: clamp(1.2rem, 3vw, 1.5rem);
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 24px;
+    color: var(--text-primary);
+}
+
+.setup-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.form-label i {
+    width: 16px;
+    height: 16px;
+    color: var(--silver);
+}
+
+.form-input {
+    padding: 14px 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    color: var(--text-primary);
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
+    text-transform: uppercase;
+    transition: all 0.2s ease;
+}
+
+.form-input:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--silver);
+}
+
+.form-input::placeholder {
+    color: var(--text-muted);
+}
+
+.separator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 8px 0;
+}
+
+.separator-icon {
+    width: 28px;
+    height: 28px;
+    color: var(--silver);
+}
+
+/* ==================== BUTTONS ==================== */
+.btn-primary,
+.btn-secondary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 24px;
+    border: none;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    width: 100%;
+}
+
+.btn-primary {
+    background: var(--gradient-battle);
+    color: #ffffff;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(192, 192, 192, 0.4);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+.btn-primary i,
+.btn-secondary i {
+    width: 18px;
+    height: 18px;
+}
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    margin: 32px auto 0;
+    max-width: 300px;
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+/* ==================== BATTLE CARDS ==================== */
+.battle-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-bottom: 100px;
+    padding: 0 16px;
+}
+
+.battle-card {
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.battle-card.active {
+    border-color: var(--silver);
+    box-shadow: 0 4px 20px rgba(192, 192, 192, 0.3);
+}
+
+.battle-card.completed {
+    border-color: rgba(192, 192, 192, 0.3);
+}
+
+.battle-card.waiting {
+    opacity: 0.5;
+}
+
+/* Card Header */
+.card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    background: rgba(192, 192, 192, 0.08);
+    border-bottom: 1px solid rgba(192, 192, 192, 0.15);
+    gap: 12px;
+}
+
+.card-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(1.1rem, 3vw, 1.3rem);
+    font-weight: 800;
+    background: var(--gradient-battle);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.card-status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 16px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+}
+
+.card-status.active {
+    background: rgba(192, 192, 192, 0.2);
+    color: var(--silver);
+}
+
+.card-status.completed {
+    background: rgba(16, 185, 129, 0.2);
+    color: #10b981;
+}
+
+.card-status.waiting {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-muted);
+}
+
+.card-status i {
+    width: 14px;
+    height: 14px;
+}
+
+/* ==================== SLOT MACHINES NAMES (Two machines) ==================== */
+.slot-machines-names {
+    padding: 16px 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    background: rgba(192, 192, 192, 0.05);
+    border-bottom: 1px solid rgba(192, 192, 192, 0.1);
+}
+
+.slot-machine-item {
+    text-align: center;
+}
+
+.machine-player-label {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 6px;
+    letter-spacing: 0.5px;
+}
+
+.machine-name {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(0.8rem, 2vw, 0.9rem);
+    font-weight: 600;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.machine-name i {
+    width: 16px;
+    height: 16px;
+    color: var(--silver);
+    flex-shrink: 0;
+}
+
+/* ==================== BET DISPLAY ==================== */
+.bet-display {
+    padding: 12px 20px;
+    text-align: center;
+    background: rgba(192, 192, 192, 0.03);
+    border-bottom: 1px solid rgba(192, 192, 192, 0.1);
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-weight: 600;
+}
+
+.bet-display i {
+    width: 18px;
+    height: 18px;
+    color: var(--silver);
+}
+
+/* ==================== LEGACY SLOT MACHINE NAME (kept for compatibility) ==================== */
+.slot-machine-name {
+    padding: 16px 20px;
+    text-align: center;
+    background: rgba(192, 192, 192, 0.05);
+    border-bottom: 1px solid rgba(192, 192, 192, 0.1);
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+    font-weight: 600;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.slot-machine-name i {
+    width: 20px;
+    height: 20px;
+    color: var(--silver);
+}
+
+/* ==================== PLAYER RESULTS ==================== */
+.player-results {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.player-result {
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+/* WINNER - Simple mais visible */
+.player-result.winner {
+    border-color: var(--gold);
+    background: rgba(255, 215, 0, 0.08);
+}
+
+.player-name {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+}
+
+.player-result.winner .player-name {
+    color: var(--gold);
+}
+
+.player-amount {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(1.5rem, 5vw, 2rem);
+    font-weight: 900;
+    color: var(--silver);
+}
+
+.player-result.winner .player-amount {
+    color: var(--gold);
+}
+
+.vs-separator {
+    text-align: center;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 900;
+    color: rgba(255, 255, 255, 0.2);
+    padding: 8px 0;
+}
+
+/* ==================== WAITING MESSAGE ==================== */
+.waiting-message {
+    padding: 40px 20px;
+    text-align: center;
+    color: var(--text-muted);
+}
+
+.waiting-message i {
+    width: 40px;
+    height: 40px;
+    margin: 0 auto 12px;
+    opacity: 0.5;
+}
+
+.waiting-message p {
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+/* ==================== SLOT FORM ==================== */
+.slot-form {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Autocomplete */
+.autocomplete-wrapper {
+    position: relative;
+}
+
+.autocomplete-dropdown {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(192, 192, 192, 0.3);
+    border-radius: 12px;
+    max-height: 280px;
+    overflow-y: auto;
+    z-index: 100;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+}
+
+.autocomplete-item {
+    padding: 12px 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.autocomplete-item:last-child {
+    border-bottom: none;
+}
+
+.autocomplete-item:hover,
+.autocomplete-item.selected {
+    background: rgba(192, 192, 192, 0.15);
+}
+
+.autocomplete-item.no-results {
+    text-align: center;
+    color: var(--text-muted);
+    cursor: default;
+}
+
+.autocomplete-item.no-results:hover {
+    background: transparent;
+}
+
+.machine-name {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+}
+
+.machine-name strong {
+    color: var(--silver);
+}
+
+.machine-provider {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+/* Machines inputs - deux colonnes */
+.machines-inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+/* Players inputs */
+.players-inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+/* ==================== WINNER DIALOG ==================== */
+.dialog-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1001;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(20px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    animation: fadeIn 0.3s ease;
+}
+
+.dialog-content {
+    max-width: 600px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: clamp(24px, 5vw, 40px);
+    background: rgba(0, 0, 0, 0.9);
+    border: 2px solid rgba(192, 192, 192, 0.4);
+    border-radius: 20px;
+    box-shadow: 0 0 40px rgba(192, 192, 192, 0.4);
+}
+
+.winner-animation {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.winner-icon {
+    width: clamp(60px, 15vw, 80px);
+    height: clamp(60px, 15vw, 80px);
+    color: var(--gold);
+    filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.6));
+}
+
+.winner-icon.equal {
+    color: var(--silver);
+    filter: drop-shadow(0 0 20px rgba(192, 192, 192, 0.6));
+}
+
+.winner-name {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
+    font-weight: 900;
+    text-align: center;
+    color: var(--gold);
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+}
+
+.winner-subtitle {
+    text-align: center;
+    font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+    color: var(--text-secondary);
+    font-weight: 600;
+    margin-bottom: 32px;
+}
+
+.final-scores {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 32px;
+}
+
+.final-score {
+    padding: 24px 16px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    text-align: center;
+}
+
+.final-score.winner {
+    border-color: var(--gold);
+    background: rgba(255, 215, 0, 0.08);
+}
+
+.final-score-name {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}
+
+.final-score.winner .final-score-name {
+    color: var(--gold);
+}
+
+.final-score-value {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    font-weight: 900;
+    color: var(--silver);
+}
+
+.final-score.winner .final-score-value {
+    color: var(--gold);
+}
+
+/* Battle Recap */
+.battle-recap {
+    margin-top: 32px;
+    padding-top: 32px;
+    border-top: 1px solid rgba(192, 192, 192, 0.2);
+}
+
+.recap-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(1rem, 3vw, 1.2rem);
+    font-weight: 700;
+    color: var(--text-primary);
+    text-align: center;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.recap-slots {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.recap-slot {
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+}
+
+.recap-slot-header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.recap-slot-number {
+    font-weight: 700;
+    color: var(--silver);
+    text-transform: uppercase;
+    font-size: 0.85rem;
+}
+
+.recap-slot-machine {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.recap-slot-bet {
+    font-size: 0.85rem;
+    color: var(--silver);
+    font-weight: 600;
+}
+
+.recap-machines {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 12px;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 8px;
+}
+
+.recap-machine {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+}
+
+.recap-slot-scores {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 12px;
+}
+
+.recap-slot-score {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    padding: 6px 12px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.recap-slot-score.winner {
+    color: var(--gold);
+    background: rgba(255, 215, 0, 0.1);
+    font-weight: 700;
+}
+
+/* ==================== STICKY LEADER BAR ==================== */
+.sticky-leader {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(192, 192, 192, 0.3);
+    padding: 16px;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.sticky-leader-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.leader-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.leader-info i {
+    width: 24px;
+    height: 24px;
+    color: var(--gold);
+}
+
+.leader-text {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+    font-weight: 800;
+    color: var(--gold);
+}
+
+.scores-comparison {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.score-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.score-name {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+}
+
+.score-value {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    font-weight: 800;
+    color: var(--silver);
+}
+
+.score-separator {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 900;
+    color: rgba(255, 255, 255, 0.3);
+}
+
+/* ==================== PLAYER SECTIONS (Form) ==================== */
+.player-section {
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.player-section-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    font-weight: 800;
+    color: var(--text-primary);
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}
+
+.vs-divider {
+    text-align: center;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: var(--silver);
+    padding: 16px 0;
+    text-shadow: 0 0 10px rgba(192, 192, 192, 0.5);
+}
+
+/* ==================== PLAYER RESULTS DETAILED (Completed Rounds) ==================== */
+.players-results-detailed {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.player-result-detailed {
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.player-result-detailed.winner {
+    border-color: var(--gold);
+    background: rgba(255, 215, 0, 0.08);
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+}
+
+.player-result-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.player-result-detailed .player-name {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(1rem, 2.5vw, 1.1rem);
+    font-weight: 700;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.player-result-detailed.winner .player-name {
+    color: var(--gold);
+}
+
+.player-multiplier {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(1.3rem, 4vw, 1.8rem);
+    font-weight: 900;
+    color: var(--silver);
+}
+
+.player-result-detailed.winner .player-multiplier {
+    color: var(--gold);
+}
+
+.player-machine {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px;
+    background: rgba(192, 192, 192, 0.05);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+}
+
+.player-machine i {
+    width: 16px;
+    height: 16px;
+    color: var(--silver);
+}
+
+.player-stats {
+    display: flex;
+    justify-content: space-around;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.stat-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.stat-value {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+/* ==================== RECAP PLAYERS (Winner Dialog) ==================== */
+.recap-players {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 12px;
+}
+
+.recap-player {
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+}
+
+.recap-player.winner {
+    border-color: var(--gold);
+    background: rgba(255, 215, 0, 0.08);
+}
+
+.recap-player-name {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.recap-player.winner .recap-player-name {
+    color: var(--gold);
+}
+
+.recap-player-machine {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+    font-style: italic;
+}
+
+.recap-player-details {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.recap-multiplier {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 800;
+    color: var(--silver);
+    font-size: 1rem;
+    margin-top: 4px;
+}
+
+.recap-player.winner .recap-multiplier {
+    color: var(--gold);
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 768px) {
+    .battle-cards {
+        padding: 0 12px;
+        margin-bottom: 90px;
+    }
+
+    .machines-inputs {
+        grid-template-columns: 1fr;
+    }
+
+    .players-inputs {
+        grid-template-columns: 1fr;
+    }
+
+    .slot-machines-names {
+        grid-template-columns: 1fr;
+    }
+
+    .final-scores {
+        grid-template-columns: 1fr;
+    }
+
+    .vs-separator {
+        display: none;
+    }
+
+    .sticky-leader-content {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .scores-comparison {
+        width: 100%;
+        justify-content: space-around;
+    }
+}
+
+@media (max-width: 480px) {
+    .card-header {
+        padding: 12px 16px;
+    }
+
+    .card-status span {
+        display: none;
+    }
+
+    .slot-form,
+    .player-results {
+        padding: 16px;
+    }
+
+    .dialog-content {
+        padding: 24px 16px;
+    }
+
+    .recap-slot-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .recap-players {
+        grid-template-columns: 1fr;
+    }
+}

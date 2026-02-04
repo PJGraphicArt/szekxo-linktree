@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1VS1 SLOT - SZEKXO</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Lexend:wght@100..900&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="1vs1-slot.css">
+</head>
+<body>
+    <!-- Fond vidéo -->
+    <div class="video-background">
+        <video autoplay muted loop playsinline webkit-playsinline disablepictureinpicture disableremoteplayback preload="auto" x-webkit-airplay="deny">
+            <source src="images/fond_site_szekxo_casino_v2.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <!-- ==================== MENU HAMBURGER ==================== -->
+    <button class="hamburger-menu" id="hamburger-menu" aria-label="Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <!-- ==================== MENU NAVIGATION ==================== -->
+    <nav class="nav-menu" id="nav-menu">
+        <div class="nav-menu-content">
+            <button class="nav-close" id="nav-close" aria-label="Fermer">
+                <i data-lucide="x"></i>
+            </button>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">
+                    <i data-lucide="home"></i>
+                    <span>Accueil</span>
+                </a></li>
+                <li><a href="1vs1-slot.html" class="nav-link active">
+                    <i data-lucide="swords"></i>
+                    <span>1VS1 Slot</span>
+                </a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- ==================== HEADER ==================== -->
+        <header class="header">
+            <div class="battle-logo">
+                <h1 class="battle-title">1VS1 SLOT</h1>
+                <p class="battle-subtitle">Affrontez-vous sur les slots !</p>
+            </div>
+        </header>
+
+        <!-- ==================== CONTENU PRINCIPAL ==================== -->
+        <main class="main-content">
+            <!-- Setup Phase -->
+            <div id="setup-phase" class="phase-container">
+                <div class="setup-card">
+                    <h2 class="setup-title">Configuration des joueurs</h2>
+                    <form id="setup-form" class="setup-form">
+                        <div class="form-group">
+                            <label for="player1" class="form-label">Joueur 1</label>
+                            <input
+                                type="text"
+                                id="player1"
+                                class="form-input"
+                                placeholder="PSEUDO 1"
+                                required
+                            />
+                        </div>
+
+                        <div class="separator">
+                            <i data-lucide="swords" class="separator-icon"></i>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="player2" class="form-label">Joueur 2</label>
+                            <input
+                                type="text"
+                                id="player2"
+                                class="form-input"
+                                placeholder="PSEUDO 2"
+                                required
+                            />
+                        </div>
+
+                        <button type="submit" class="btn-primary">
+                            <i data-lucide="play"></i>
+                            <span>Démarrer le Battle</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Battle Phase -->
+            <div id="battle-phase" class="phase-container hidden">
+                <div id="battle-cards" class="battle-cards">
+                    <!-- Les cartes de manches seront injectées dynamiquement -->
+                </div>
+
+                <button id="new-battle-btn" class="btn-secondary hidden">
+                    <i data-lucide="refresh-cw"></i>
+                    <span>Nouveau Battle</span>
+                </button>
+            </div>
+        </main>
+
+        <!-- Winner Dialog -->
+        <div id="winner-dialog" class="dialog-overlay hidden">
+            <div class="dialog-content">
+                <div id="winner-content">
+                    <!-- Contenu injecté dynamiquement -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Sticky Leader Bar -->
+        <div id="sticky-leader" class="sticky-leader hidden">
+            <div class="sticky-leader-content">
+                <div class="leader-info" id="leader-info">
+                    <!-- Info du leader injectée dynamiquement -->
+                </div>
+                <div class="scores-comparison" id="scores-comparison">
+                    <!-- Comparaison des scores injectée dynamiquement -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+    <script src="1vs1-slot.js"></script>
+</body>
+</html>
