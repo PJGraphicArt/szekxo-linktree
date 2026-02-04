@@ -2254,6 +2254,12 @@ button {
     transform: translateY(-8px) rotate(-45deg);
 }
 
+/* Masquer le hamburger quand le menu est ouvert */
+.hamburger-menu.active {
+    opacity: 0;
+    pointer-events: none;
+}
+
 /* ==================== MENU NAVIGATION ==================== */
 .nav-menu {
     position: fixed;
@@ -2287,7 +2293,7 @@ button {
     position: absolute;
     top: 24px;
     right: 24px;
-    z-index: 10;
+    z-index: 1001;
     width: 48px;
     height: 48px;
     background: rgba(255, 255, 255, 0.1);
