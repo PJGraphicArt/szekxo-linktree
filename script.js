@@ -9,7 +9,7 @@
 const CONFIG = {
     // ========== Paramètres du Carousel (en haut pour accès rapide) ==========
     carousel: {
-        autoplayDelay: 200,                     // Délai entre slides en secondes
+        autoplayDelay: 3,                     // Délai entre slides en secondes
         swipeThreshold: 50                      // Distance min pour swipe en px
     },
 
@@ -92,7 +92,7 @@ const CONFIG = {
     competitions: {
         oneVsOne: {
             title: '1V1 Viewers',
-            titleSvg: 'images/1V1_VIEWERS_TITLE.svg',
+            titleSvg: 'images/LOGO_BATTLE_1VS1.png',
             winners: [
                 { name: 'GamerPro123', prize: '50€', rank: '1er' },
                 { name: 'Player456', prize: '200 FS', rank: '2ème' }
@@ -103,7 +103,7 @@ const CONFIG = {
         },
         duelSzekxo: {
             title: 'Duel Szekxo',
-            titleSvg: 'images/DUEL_SZEKXO_TITLE.svg',
+            titleSvg: 'images/LOGO_BATTLE_DUEL.png',
             winners: [
                 { name: 'LuckyPlayer99', prize: '50€', rank: '1er' }
             ],
@@ -234,10 +234,7 @@ function injectCarouselData() {
     // Hero Banner - Image de fond et titre
     const wagerHero = document.getElementById('wager-hero');
     if (wagerHero) {
-        wagerHero.style.backgroundImage = `url('${wager.backgroundImage}')`;
-        wagerHero.style.backgroundSize = 'cover';
-        wagerHero.style.backgroundPosition = 'center center';
-        wagerHero.style.backgroundRepeat = 'no-repeat';
+        wagerHero.style.setProperty('--wager-bg-image', `url('${wager.backgroundImage}')`);
     }
     const wagerHeroTitle = document.getElementById('wager-hero-title');
     if (wagerHeroTitle) wagerHeroTitle.textContent = wager.heroTitle;
@@ -391,6 +388,12 @@ function injectCarouselData() {
         if (titleSvg) {
             titleSvg.src = comp.titleSvg;
             titleSvg.alt = comp.title;
+            // Ajouter classe spécifique pour Duel Szekxo
+            if (compType === 'duelSzekxo') {
+                titleSvg.classList.add('comp-title-duel');
+            } else {
+                titleSvg.classList.remove('comp-title-duel');
+            }
         }
 
         // Liste des gagnants
@@ -845,3 +848,62 @@ function initCountdown() {
     updateCountdown();
     setInterval(updateCountdown, 1000);
 }
+
+/* ============================================
+   MENU HAMBURGER
+   ============================================ */
+
+/**
+ * Initialise le menu hamburger avec ouverture/fermeture
+ */
+document.addEventListener('DOMContentLoaded', () => {
+    const hamburger = document.getElementById('hamburger-menu');
+    const navMenu = document.getElementById('nav-menu');
+    const navClose = document.getElementById('nav-close');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    // Ouvrir le menu
+    if (hamburger) {
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.add('active');
+            hamburger.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Empêcher le scroll
+        });
+    }
+
+    // Fermer le menu avec le bouton close
+    if (navClose) {
+        navClose.addEventListener('click', () => {
+            navMenu.classList.remove('active');
+            hamburger.classList.remove('active');
+            document.body.style.overflow = ''; // Réactiver le scroll
+        });
+    }
+
+    // Fermer le menu au clic sur un lien
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            navMenu.classList.remove('active');
+            hamburger.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+    });
+
+    // Fermer le menu en cliquant en dehors du contenu
+    navMenu.addEventListener('click', (e) => {
+        if (e.target === navMenu) {
+            navMenu.classList.remove('active');
+            hamburger.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    });
+
+    // Fermer le menu avec la touche Escape
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+            navMenu.classList.remove('active');
+            hamburger.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    });
+});
