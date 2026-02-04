@@ -54,11 +54,11 @@ const CONFIG = {
         // Derniers gagnants
         winnersToShow: 3,                       // Nombre de gagnants à afficher
         recentWinners: [
-            { pseudo: 'JohnDoe', amount: 50, concept: '1V1 Viewers' },
-            { pseudo: 'Player123', amount: 30, concept: 'Duel Szekxo' },
-            { pseudo: 'LuckyGirl', amount: 20, concept: 'Stream' },
-            { pseudo: 'GamerPro', amount: 20, concept: '1V1 Viewers' },
-            { pseudo: 'CryptoKing', amount: 10, concept: 'Stream' }
+            { pseudo: 'JohnDoe', prize: 50, concept: '1V1 Viewers' },        // Montant en €
+            { pseudo: 'Player123', prize: '200 FS', concept: 'Duel Szekxo' }, // Freespins
+            { pseudo: 'LuckyGirl', prize: 20, concept: 'Stream' },
+            { pseudo: 'GamerPro', prize: '100 FS', concept: '1V1 Viewers' },
+            { pseudo: 'CryptoKing', prize: 10, concept: 'Stream' }
         ]
     },
 
@@ -315,13 +315,17 @@ function injectCarouselData() {
     const winnersContainer = document.getElementById('recent-winners-list');
     if (winnersContainer && draw.recentWinners) {
         const winnersToDisplay = draw.recentWinners.slice(0, draw.winnersToShow || 3);
-        winnersContainer.innerHTML = winnersToDisplay.map(winner => `
-            <div class="winner-item">
-                <span class="winner-pseudo">${winner.pseudo}</span>
-                <span class="winner-amount">${winner.amount}€</span>
-                <span class="winner-concept">${winner.concept}</span>
-            </div>
-        `).join('');
+        winnersContainer.innerHTML = winnersToDisplay.map(winner => {
+            // Formater le prix : si c'est un nombre, ajouter €, sinon afficher tel quel (ex: "200 FS")
+            const prizeDisplay = typeof winner.prize === 'number' ? `${winner.prize}€` : winner.prize;
+            return `
+                <div class="winner-item">
+                    <span class="winner-pseudo">${winner.pseudo}</span>
+                    <span class="winner-amount">${prizeDisplay}</span>
+                    <span class="winner-concept">${winner.concept}</span>
+                </div>
+            `;
+        }).join('');
     }
 
     // ========== Slide 3 : Offre Free Spins ==========
