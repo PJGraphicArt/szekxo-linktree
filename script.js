@@ -741,6 +741,24 @@ function initCarousel() {
         });
     });
 
+    // Boutons de navigation (flèches)
+    const prevButton = document.getElementById('carousel-prev');
+    const nextButton = document.getElementById('carousel-next');
+
+    if (prevButton) {
+        prevButton.addEventListener('click', () => {
+            prevSlide();
+            startAutoplay(); // Redémarrer l'autoplay après clic
+        });
+    }
+
+    if (nextButton) {
+        nextButton.addEventListener('click', () => {
+            nextSlide();
+            startAutoplay(); // Redémarrer l'autoplay après clic
+        });
+    }
+
     // Événements touch pour swipe
     carousel.addEventListener('touchstart', (e) => {
         touchStartX = e.changedTouches[0].screenX;

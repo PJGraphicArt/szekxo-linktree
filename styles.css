@@ -1027,6 +1027,45 @@ button {
     transform: translateX(4px);
 }
 
+/* Flèches de navigation du carousel */
+.carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 48px;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    z-index: 10;
+    color: #ffffff;
+}
+
+.carousel-arrow:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-arrow-left {
+    left: -70px;
+}
+
+.carousel-arrow-right {
+    right: -70px;
+}
+
+.carousel-arrow i {
+    width: 24px;
+    height: 24px;
+}
+
 /* Indicateurs */
 .carousel-indicators {
     display: flex;
@@ -1849,6 +1888,14 @@ button {
 }
 
 /* ==================== RESPONSIVE ==================== */
+
+/* Masquer les flèches du carousel sur mobile/tablette */
+@media (max-width: 1024px) {
+    .carousel-arrow {
+        display: none;
+    }
+}
+
 @media (max-width: 480px) {
     .container {
         padding: var(--spacing-md);
