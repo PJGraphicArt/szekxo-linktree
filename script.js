@@ -399,6 +399,36 @@ function injectCarouselData() {
         }
 
         const comp = competitions[compType];
+        const contentDiv = document.querySelector('.competition-content');
+
+        // Restaurer la structure HTML si elle a été remplacée (retour depuis YouTube)
+        if (!document.getElementById('comp-title-svg')) {
+            contentDiv.innerHTML = `
+                <!-- Titre SVG -->
+                <img id="comp-title-svg" src="" alt="" class="comp-title-svg">
+
+                <!-- Liste des gagnants (dynamique) -->
+                <div id="comp-winners-list" class="winners-list">
+                    <!-- Injecté par JavaScript -->
+                </div>
+
+                <!-- Miniature vidéo cliquable -->
+                <a id="comp-video-link" href="#" target="_blank" class="video-thumbnail">
+                    <img id="comp-video-thumb" src="" alt="Vidéo">
+                </a>
+
+                <!-- Bouton participer -->
+                <a id="comp-participate" href="#" class="btn-participate">
+                    <span>PARTICIPER</span>
+                    <i data-lucide="arrow-right"></i>
+                </a>
+            `;
+
+            // Réinitialiser les icônes Lucide
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        }
 
         // Titre SVG
         const titleSvg = document.getElementById('comp-title-svg');
