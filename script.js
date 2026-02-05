@@ -506,9 +506,9 @@ function injectCarouselData() {
                 contentDiv.innerHTML = `
                     <div class="youtube-videos-grid">
                         ${videos.map(video => {
-                            // Extraire l'ID de la vidéo depuis le lien
-                            const videoId = video.link.split('v=')[1];
-                            const thumbnail = `https://i.ytimg.com/vi/${videoId}/mqdefault.jpg`;
+                            // Extraire l'ID de la vidéo depuis le lien (nettoyer les paramètres)
+                            const videoId = video.link.split('v=')[1]?.split('&')[0];
+                            const thumbnail = `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
 
                             // Formater la date
                             const publishDate = new Date(video.pubDate);
