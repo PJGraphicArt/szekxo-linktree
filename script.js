@@ -167,6 +167,13 @@ const CONFIG = {
             discount: '-70%',
             link: 'https://refer-nordvpn.com/tauDbDWDXTT'
         }
+    },
+
+    // ========== YouTube ==========
+    youtube: {
+        channelHandle: '@szekxo_v2',               // Handle de la chaîne
+        channelId: 'UCfN9Dy5gWOb8pD_z4VxEIpw',     // ID de la chaîne (nécessaire pour RSS)
+        videosToShow: 6                             // Nombre de vidéos à afficher
     }
 };
 
@@ -385,6 +392,12 @@ function injectCarouselData() {
 
     // Fonction pour afficher une compétition
     function showCompetition(compType) {
+        // Cas spécial pour "Autres" (vidéos YouTube)
+        if (compType === 'autres') {
+            showYouTubeVideos();
+            return;
+        }
+
         const comp = competitions[compType];
 
         // Titre SVG
@@ -434,6 +447,85 @@ function injectCarouselData() {
         if (participateBtn) participateBtn.href = comp.participateUrl;
 
         activeComp = compType;
+    }
+
+    // Fonction pour afficher les vidéos YouTube
+    async function showYouTubeVideos() {
+        const contentDiv = document.querySelector('.competition-content');
+        if (!contentDiv) return;
+
+        // Afficher un loader pendant le chargement
+        contentDiv.innerHTML = `
+            <div style="text-align: center; padding: 40px;">
+                <p style="color: var(--text-secondary);">Chargement des vidéos...</p>
+            </div>
+        `;
+
+        try {
+            // Récupérer les vidéos via RSS2JSON
+            const rssUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${CONFIG.youtube.channelId}`;
+            const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
+
+            const response = await fetch(apiUrl);
+            const data = await response.json();
+
+            if (data.status === 'ok' && data.items) {
+                const videos = data.items.slice(0, CONFIG.youtube.videosToShow);
+
+                // Créer le HTML pour les vidéos
+                contentDiv.innerHTML = `
+                    <div class="youtube-videos-grid">
+                        ${videos.map(video => {
+                            // Extraire l'ID de la vidéo depuis le lien
+                            const videoId = video.link.split('v=')[1];
+                            const thumbnail = `https://i.ytimg.com/vi/${videoId}/mqdefault.jpg`;
+
+                            // Formater la date
+                            const publishDate = new Date(video.pubDate);
+                            const formattedDate = publishDate.toLocaleDateString('fr-FR', {
+                                day: 'numeric',
+                                month: 'long',
+                                year: 'numeric'
+                            });
+
+                            return `
+                                <a href="${video.link}" target="_blank" rel="noopener noreferrer" class="youtube-video-card">
+                                    <div class="youtube-thumbnail">
+                                        <img src="${thumbnail}" alt="${video.title}">
+                                        <div class="youtube-play-overlay">
+                                            <i data-lucide="play-circle"></i>
+                                        </div>
+                                    </div>
+                                    <div class="youtube-video-info">
+                                        <h3 class="youtube-video-title">${video.title}</h3>
+                                        <p class="youtube-video-date">${formattedDate}</p>
+                                    </div>
+                                </a>
+                            `;
+                        }).join('')}
+                    </div>
+                `;
+
+                // Réinitialiser les icônes Lucide
+                if (typeof lucide !== 'undefined') {
+                    lucide.createIcons();
+                }
+            } else {
+                throw new Error('Erreur lors de la récupération des vidéos');
+            }
+        } catch (error) {
+            console.error('Erreur YouTube:', error);
+            contentDiv.innerHTML = `
+                <div style="text-align: center; padding: 40px;">
+                    <p style="color: var(--text-secondary);">Impossible de charger les vidéos pour le moment.</p>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 8px;">
+                        <a href="https://www.youtube.com/${CONFIG.youtube.channelHandle}" target="_blank" rel="noopener noreferrer" style="color: var(--accent-purple);">
+                            Visitez la chaîne YouTube
+                        </a>
+                    </p>
+                </div>
+            `;
+        }
     }
 
     // Initialiser avec 1V1
