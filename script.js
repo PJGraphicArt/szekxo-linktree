@@ -500,7 +500,9 @@ function injectCarouselData() {
             const data = await response.json();
 
             if (data.status === 'ok' && data.items) {
-                const videos = data.items.slice(0, CONFIG.youtube.videosToShow);
+                // Filtrer les Shorts (ne garder que les vidéos normales)
+                const normalVideos = data.items.filter(item => !item.link.includes('/shorts/'));
+                const videos = normalVideos.slice(0, CONFIG.youtube.videosToShow);
 
                 // Créer le HTML pour les vidéos
                 contentDiv.innerHTML = `
