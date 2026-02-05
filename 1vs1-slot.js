@@ -137,6 +137,25 @@ function renderBattleCards() {
     }
 }
 
+// Fonction pour sélectionner une machine aléatoire
+function selectRandomMachine(playerNumber, form) {
+    if (slotMachines.length === 0) return;
+
+    const randomIndex = Math.floor(Math.random() * slotMachines.length);
+    const randomMachine = slotMachines[randomIndex];
+
+    // Remplir l'input correspondant
+    const input = form.querySelector(`[data-autocomplete-input][data-player="${playerNumber}"]`);
+    if (input) {
+        input.value = randomMachine.name;
+        // Fermer le dropdown si ouvert
+        const dropdown = form.querySelector(`[data-autocomplete-dropdown][data-player="${playerNumber}"]`);
+        if (dropdown) {
+            dropdown.classList.add('hidden');
+        }
+    }
+}
+
 function createBattleCard(slotIndex) {
     const slotData = state.battleData.slots[slotIndex];
     const isActive = slotIndex === state.currentSlot && !slotData;
@@ -223,15 +242,20 @@ function createBattleCard(slotIndex) {
                             Slot Machine
                         </label>
                         <div class="autocomplete-wrapper">
-                            <input
-                                type="text"
-                                class="form-input"
-                                placeholder="Rechercher une machine..."
-                                autocomplete="off"
-                                data-autocomplete-input
-                                data-player="1"
-                                required
-                            />
+                            <div class="slot-input-group">
+                                <input
+                                    type="text"
+                                    class="form-input"
+                                    placeholder="Rechercher une machine..."
+                                    autocomplete="off"
+                                    data-autocomplete-input
+                                    data-player="1"
+                                    required
+                                />
+                                <button type="button" class="btn-random-slot" data-player="1" aria-label="Machine aléatoire">
+                                    <i data-lucide="shuffle"></i>
+                                </button>
+                            </div>
                             <div class="autocomplete-dropdown hidden" data-autocomplete-dropdown data-player="1"></div>
                         </div>
                     </div>
@@ -282,15 +306,20 @@ function createBattleCard(slotIndex) {
                             Slot Machine
                         </label>
                         <div class="autocomplete-wrapper">
-                            <input
-                                type="text"
-                                class="form-input"
-                                placeholder="Rechercher une machine..."
-                                autocomplete="off"
-                                data-autocomplete-input
-                                data-player="2"
-                                required
-                            />
+                            <div class="slot-input-group">
+                                <input
+                                    type="text"
+                                    class="form-input"
+                                    placeholder="Rechercher une machine..."
+                                    autocomplete="off"
+                                    data-autocomplete-input
+                                    data-player="2"
+                                    required
+                                />
+                                <button type="button" class="btn-random-slot" data-player="2" aria-label="Machine aléatoire">
+                                    <i data-lucide="shuffle"></i>
+                                </button>
+                            </div>
                             <div class="autocomplete-dropdown hidden" data-autocomplete-dropdown data-player="2"></div>
                         </div>
                     </div>
@@ -343,6 +372,16 @@ function createBattleCard(slotIndex) {
 
         // Add form submit handler
         form.addEventListener('submit', handleSlotSubmit);
+
+        // Add random slot button event listeners
+        const randomButtons = form.querySelectorAll('.btn-random-slot');
+        randomButtons.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const playerNumber = btn.dataset.player;
+                selectRandomMachine(playerNumber, form);
+            });
+        });
     } else {
         // Show waiting slot
         card.innerHTML = `
@@ -394,16 +433,7 @@ function handleSlotSubmit(e) {
     const player2Bet = parseFloat(bet2Input.value);
     const player2Gain = parseFloat(gain2Input.value);
 
-    // Validate machine 1 exists
-    const machine1Exists = slotMachines.some(m =>
-        m.name.toLowerCase() === player1Machine.toLowerCase()
-    );
-
-    if (!machine1Exists) {
-        alert('Veuillez sélectionner une machine valide pour ' + state.battleData.player1);
-        machine1Input.focus();
-        return;
-    }
+    // Allow free text input for slot machines - no strict validation required
 
     // Validate player 1 bet
     if (isNaN(player1Bet) || player1Bet <= 0) {
@@ -419,16 +449,7 @@ function handleSlotSubmit(e) {
         return;
     }
 
-    // Validate machine 2 exists
-    const machine2Exists = slotMachines.some(m =>
-        m.name.toLowerCase() === player2Machine.toLowerCase()
-    );
-
-    if (!machine2Exists) {
-        alert('Veuillez sélectionner une machine valide pour ' + state.battleData.player2);
-        machine2Input.focus();
-        return;
-    }
+    // Allow free text input for slot machines - no strict validation required
 
     // Validate player 2 bet
     if (isNaN(player2Bet) || player2Bet <= 0) {
