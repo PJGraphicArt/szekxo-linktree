@@ -171,8 +171,8 @@ const CONFIG = {
 
     // ========== YouTube ==========
     youtube: {
-        channelHandle: '@szekxo_v2',               // Handle de la chaîne
-        channelId: 'UCfN9Dy5gWOb8pD_z4VxEIpw',     // ID de la chaîne (nécessaire pour RSS)
+        channelHandle: '@Szekxo',                   // Handle de la chaîne
+        channelId: 'UC2btHvQw7Y5VidMlM3v45fQ',     // ID de la chaîne (nécessaire pour RSS)
         videosToShow: 6                             // Nombre de vidéos à afficher
     }
 };
