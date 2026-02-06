@@ -287,7 +287,10 @@ function createBattleCard(slotIndex) {
 
                     <div class="form-group">
                         <label class="form-label">
-                            <i data-lucide="trending-up"></i>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 64 64" fill="currentColor">
+                                <path d="M34,30H31a2,2,0,0,1,0-4h6a2,2,0,0,0,0-4H34V20a2,2,0,0,0-4,0v2.09A6,6,0,0,0,31,34h3a2,2,0,0,1,0,4H28a2,2,0,0,0,0,4h2v2a2,2,0,0,0,4,0V42a6,6,0,0,0,0-12Z"/>
+                                <path d="M54.9,9H9.1A6.11,6.11,0,0,0,3,15.1V48.9A6.11,6.11,0,0,0,9.1,55H54.9A6.11,6.11,0,0,0,61,48.9V15.1A6.11,6.11,0,0,0,54.9,9ZM57,48.9A2.1,2.1,0,0,1,54.9,51H9.1A2.1,2.1,0,0,1,7,48.9V15.1A2.1,2.1,0,0,1,9.1,13H54.9A2.1,2.1,0,0,1,57,15.1Z"/>
+                            </svg>
                             Gain
                         </label>
                         <input
@@ -355,7 +358,10 @@ function createBattleCard(slotIndex) {
 
                     <div class="form-group">
                         <label class="form-label">
-                            <i data-lucide="trending-up"></i>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 64 64" fill="currentColor">
+                                <path d="M34,30H31a2,2,0,0,1,0-4h6a2,2,0,0,0,0-4H34V20a2,2,0,0,0-4,0v2.09A6,6,0,0,0,31,34h3a2,2,0,0,1,0,4H28a2,2,0,0,0,0,4h2v2a2,2,0,0,0,4,0V42a6,6,0,0,0,0-12Z"/>
+                                <path d="M54.9,9H9.1A6.11,6.11,0,0,0,3,15.1V48.9A6.11,6.11,0,0,0,9.1,55H54.9A6.11,6.11,0,0,0,61,48.9V15.1A6.11,6.11,0,0,0,54.9,9ZM57,48.9A2.1,2.1,0,0,1,54.9,51H9.1A2.1,2.1,0,0,1,7,48.9V15.1A2.1,2.1,0,0,1,9.1,13H54.9A2.1,2.1,0,0,1,57,15.1Z"/>
+                            </svg>
                             Gain
                         </label>
                         <input
