@@ -158,30 +158,26 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="machine-name" class="form-label">
-                            <i data-lucide="gamepad-2"></i>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M5,4v11.6h4v0c0-2.1,1.8-3.9,4-3.9h5l-2.8,3.4C11.8,19.2,9.3,23.9,8,29l0,0h13v0c0-5.7,1.5-11.3,4.5-16.2l3.5-6L26,3l-1.2,0.6c-3.1,1.5-6.6,1.8-9.9,0.9l0,0C13.6,4.1,12.4,4,11.1,4H5"/>
+                            </svg>
                             Machine à sous
                         </label>
-                        <input type="text" id="machine-name" class="form-input" required placeholder="ex: Dog House">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="bet-amount" class="form-label">
-                            <i data-lucide="coins"></i>
-                            Mise (Bet)
-                        </label>
-                        <div class="currency-input-wrapper">
-                            <input type="number" id="bet-amount" class="form-input" step="0.01" min="0.01" required placeholder="1.00">
-                            <span class="currency-symbol">€</span>
+                        <div class="autocomplete-wrapper">
+                            <input type="text" id="machine-name" class="form-input" required placeholder="Rechercher une machine..." autocomplete="off" data-autocomplete-input>
+                            <div class="autocomplete-dropdown hidden" data-autocomplete-dropdown></div>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="gain-amount" class="form-label">
-                            <i data-lucide="trophy"></i>
-                            Gain (optionnel)
+                        <label for="bet-amount" class="form-label">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 9.5C21 11.9853 16.9706 14 12 14M21 9.5C21 7.01472 16.9706 5 12 5C7.02944 5 3 7.01472 3 9.5M21 9.5V15C21 17.2091 16.9706 19 12 19M12 14C7.02944 14 3 11.9853 3 9.5M12 14V19M3 9.5V15C3 17.2091 7.02944 19 12 19M7 18.3264V13.2422M17 18.3264V13.2422"/>
+                            </svg>
+                            Mise (Bet)
                         </label>
                         <div class="currency-input-wrapper">
-                            <input type="number" id="gain-amount" class="form-input" step="0.01" min="0" placeholder="256.00">
+                            <input type="number" id="bet-amount" class="form-input" step="0.01" min="0.01" required placeholder="1.00">
                             <span class="currency-symbol">€</span>
                         </div>
                     </div>

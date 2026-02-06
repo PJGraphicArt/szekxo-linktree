@@ -18,6 +18,9 @@ let state = {
   bonuses: []
 };
 
+// Slot machines data
+let slotMachines = [];
+
 // Utilitaires
 const utils = {
   /**
@@ -226,7 +229,6 @@ const validation = {
     const errors = [];
     const machine = document.getElementById('machine-name').value.trim();
     const bet = utils.parseNumber(document.getElementById('bet-amount').value);
-    const gain = utils.parseNumber(document.getElementById('gain-amount').value);
 
     if (!machine) {
       errors.push('Le nom de la machine est requis');
@@ -236,14 +238,10 @@ const validation = {
       errors.push('La mise doit être supérieure à 0');
     }
 
-    if (gain < 0) {
-      errors.push('Le gain ne peut pas être négatif');
-    }
-
     return {
       isValid: errors.length === 0,
       errors,
-      data: { machine, bet, gain: gain || 0 }
+      data: { machine, bet, gain: 0 }
     };
   },
 
@@ -256,6 +254,139 @@ const validation = {
     return !isNaN(value) && value >= 0;
   }
 };
+
+// Autocomplete
+const autocomplete = {
+  /**
+   * Initialise l'autocomplete pour le champ machine
+   */
+  init() {
+    const input = document.querySelector('[data-autocomplete-input]');
+    const dropdown = document.querySelector('[data-autocomplete-dropdown]');
+
+    if (!input || !dropdown) return;
+
+    let selectedIndex = -1;
+
+    input.addEventListener('input', (e) => {
+      const query = e.target.value.toLowerCase().trim();
+
+      if (query.length < 2) {
+        dropdown.classList.add('hidden');
+        dropdown.innerHTML = '';
+        selectedIndex = -1;
+        return;
+      }
+
+      // Filter machines
+      const matches = slotMachines.filter(machine =>
+        machine.name.toLowerCase().includes(query) ||
+        machine.provider.toLowerCase().includes(query)
+      ).slice(0, 8);
+
+      if (matches.length === 0) {
+        dropdown.innerHTML = '<div class="autocomplete-item no-results">Aucune machine trouvée</div>';
+        dropdown.classList.remove('hidden');
+        return;
+      }
+
+      // Render dropdown
+      dropdown.innerHTML = matches.map((machine, index) => `
+        <div class="autocomplete-item" data-index="${index}" data-machine-name="${machine.name}">
+          <div class="machine-name">${this.highlightMatch(machine.name, query)}</div>
+          <div class="machine-provider">${machine.provider}</div>
+        </div>
+      `).join('');
+
+      dropdown.classList.remove('hidden');
+      selectedIndex = -1;
+
+      // Add click handlers
+      dropdown.querySelectorAll('.autocomplete-item').forEach(item => {
+        item.addEventListener('click', () => {
+          const machineName = item.dataset.machineName;
+          if (machineName) {
+            input.value = machineName;
+            dropdown.classList.add('hidden');
+            dropdown.innerHTML = '';
+          }
+        });
+      });
+    });
+
+    // Keyboard navigation
+    input.addEventListener('keydown', (e) => {
+      const items = dropdown.querySelectorAll('.autocomplete-item:not(.no-results)');
+
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        selectedIndex = Math.min(selectedIndex + 1, items.length - 1);
+        this.updateSelection(items, selectedIndex);
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        selectedIndex = Math.max(selectedIndex - 1, 0);
+        this.updateSelection(items, selectedIndex);
+      } else if (e.key === 'Enter' && selectedIndex >= 0) {
+        e.preventDefault();
+        const selected = items[selectedIndex];
+        if (selected) {
+          input.value = selected.dataset.machineName;
+          dropdown.classList.add('hidden');
+          dropdown.innerHTML = '';
+        }
+      } else if (e.key === 'Escape') {
+        dropdown.classList.add('hidden');
+        dropdown.innerHTML = '';
+      }
+    });
+
+    // Close on click outside
+    document.addEventListener('click', (e) => {
+      if (!input.contains(e.target) && !dropdown.contains(e.target)) {
+        dropdown.classList.add('hidden');
+        dropdown.innerHTML = '';
+      }
+    });
+  },
+
+  /**
+   * Highlight matching text
+   */
+  highlightMatch(text, query) {
+    if (!query.trim()) return text;
+    const normalizedQuery = query.trim().replace(/\s+/g, ' ');
+    const escapedQuery = normalizedQuery.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const regex = new RegExp(`(${escapedQuery})`, 'gi');
+    return text.replace(regex, '<strong>$1</strong>');
+  },
+
+  /**
+   * Update selection highlight
+   */
+  updateSelection(items, selectedIndex) {
+    items.forEach((item, index) => {
+      if (index === selectedIndex) {
+        item.classList.add('selected');
+        item.scrollIntoView({ block: 'nearest' });
+      } else {
+        item.classList.remove('selected');
+      }
+    });
+  }
+};
+
+// Chargement des machines à sous
+async function loadSlotMachines() {
+  try {
+    const response = await fetch('data/slot-machines.json');
+    const data = await response.json();
+    slotMachines = data.slotMachines || [];
+    console.log(`${slotMachines.length} machines à sous chargées`);
+  } catch (error) {
+    console.error('Erreur lors du chargement des machines:', error);
+    slotMachines = [];
+  }
+}
 
 // Gestion des bonus
 const bonusManager = {
@@ -680,7 +811,13 @@ const ui = {
 };
 
 // Initialisation de l'application
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+  // Charger les machines à sous
+  await loadSlotMachines();
+
+  // Initialiser l'autocomplete
+  autocomplete.init();
+
   // Charger les données sauvegardées
   storage.load();
 
