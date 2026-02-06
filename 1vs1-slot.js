@@ -712,6 +712,10 @@ function showWinnerDialog() {
                     <div class="final-score-value">${formatNumber(scores.player2)}</div>
                 </div>
             </div>
+            <button id="restart-battle-btn" class="restart-battle-btn">
+                <i data-lucide="refresh-cw"></i>
+                Nouveau Battle
+            </button>
         `;
     } else {
         const winner = leader.name === state.battleData.player1 ? state.battleData.player1 : state.battleData.player2;
@@ -767,6 +771,10 @@ function showWinnerDialog() {
                     `).join('')}
                 </div>
             </div>
+            <button id="restart-battle-btn" class="restart-battle-btn">
+                <i data-lucide="refresh-cw"></i>
+                Nouveau Battle
+            </button>
         `;
     }
 
@@ -785,6 +793,15 @@ function showWinnerDialog() {
     const closeBtn = document.getElementById('dialog-close-btn');
     if (closeBtn) {
         closeBtn.addEventListener('click', () => {
+            dialog.classList.add('hidden');
+            handleNewBattle();
+        });
+    }
+
+    // Restart battle button handler
+    const restartBtn = document.getElementById('restart-battle-btn');
+    if (restartBtn) {
+        restartBtn.addEventListener('click', () => {
             dialog.classList.add('hidden');
             handleNewBattle();
         });
