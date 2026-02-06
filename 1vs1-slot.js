@@ -811,6 +811,7 @@ function showWinnerDialog() {
     dialog.addEventListener('click', (e) => {
         if (e.target === dialog) {
             dialog.classList.add('hidden');
+            handleNewBattle();
         }
     });
 }
