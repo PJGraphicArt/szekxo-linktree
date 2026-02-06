@@ -309,6 +309,8 @@ const autocomplete = {
             input.value = machineName;
             dropdown.classList.add('hidden');
             dropdown.innerHTML = '';
+            // Trigger input event to update form validation
+            input.dispatchEvent(new Event('input', { bubbles: true }));
           }
         });
       });
@@ -333,6 +335,8 @@ const autocomplete = {
           input.value = selected.dataset.machineName;
           dropdown.classList.add('hidden');
           dropdown.innerHTML = '';
+          // Trigger input event to update form validation
+          input.dispatchEvent(new Event('input', { bubbles: true }));
         }
       } else if (e.key === 'Escape') {
         dropdown.classList.add('hidden');
