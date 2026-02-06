@@ -606,6 +606,37 @@
     border: 2px solid rgb(147 166 255 / 41%);
     border-radius: 20px;
     box-shadow: 0 0 40px rgb(113 125 207 / 40%);
+    position: relative;
+}
+
+.dialog-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 40px;
+    height: 40px;
+    background: rgba(185, 197, 227, 0.1);
+    border: 2px solid rgba(185, 197, 227, 0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10;
+    color: #b9c5e3;
+}
+
+.dialog-close:hover {
+    background: rgba(185, 197, 227, 0.2);
+    border-color: #b9c5e3;
+    transform: rotate(90deg) scale(1.1);
+    box-shadow: 0 0 15px rgba(185, 197, 227, 0.4);
+}
+
+.dialog-close i {
+    width: 24px;
+    height: 24px;
 }
 
 /* Scrollbar personnalisée pour le dialog */

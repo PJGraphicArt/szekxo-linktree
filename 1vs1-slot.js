@@ -781,6 +781,15 @@ function showWinnerDialog() {
         }
     }, 0);
 
+    // Close button handler
+    const closeBtn = document.getElementById('dialog-close-btn');
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+            dialog.classList.add('hidden');
+            handleNewBattle();
+        });
+    }
+
     // Close dialog on click outside
     dialog.addEventListener('click', (e) => {
         if (e.target === dialog) {
