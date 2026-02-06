@@ -616,8 +616,8 @@
 .winner-icon {
     width: clamp(60px, 15vw, 80px);
     height: clamp(60px, 15vw, 80px);
-    color: var(--gold);
-    filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.6));
+    color: #b9c5e3;
+    filter: drop-shadow(0 0 20px rgba(185, 197, 227, 0.6));
 }
 
 .winner-icon.equal {
@@ -630,7 +630,7 @@
     font-size: clamp(1.8rem, 5vw, 2.5rem);
     font-weight: 900;
     text-align: center;
-    color: var(--gold);
+    color: #b9c5e3;
     letter-spacing: 1px;
     margin-bottom: 12px;
 }
@@ -659,8 +659,8 @@
 }
 
 .final-score.winner {
-    border-color: var(--gold);
-    background: rgba(255, 215, 0, 0.08);
+    border-color: #b9c5e3;
+    background: rgba(185, 197, 227, 0.08);
 }
 
 .final-score-name {
@@ -674,7 +674,7 @@
 }
 
 .final-score.winner .final-score-name {
-    color: var(--gold);
+    color: #b9c5e3;
 }
 
 .final-score-value {
@@ -685,7 +685,7 @@
 }
 
 .final-score.winner .final-score-value {
-    color: var(--gold);
+    color: #b9c5e3;
 }
 
 /* Battle Recap */
@@ -781,8 +781,8 @@
 }
 
 .recap-slot-score.winner {
-    color: var(--gold);
-    background: rgba(255, 215, 0, 0.1);
+    color: #b9c5e3;
+    background: rgba(185, 197, 227, 0.1);
     font-weight: 700;
 }
 
