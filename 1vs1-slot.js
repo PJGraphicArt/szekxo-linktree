@@ -358,11 +358,14 @@ function createBattleCard(slotIndex) {
                         />
                     </div>
                 </div>
-
+                <div class="form-actions" style="display: flex;
+    flex-direction: row;
+    justify-content: center;">
                 <button type="submit" class="btn-submit">
                     <i data-lucide="check"></i>
                     <span>Valider la manche</span>
                 </button>
+                </div>
             </form>
         `;
 
@@ -599,7 +602,11 @@ function initializeAutocompleteForInput(input, dropdown) {
 }
 
 function highlightMatch(text, query) {
-    const regex = new RegExp(`(${query})`, 'gi');
+    if (!query.trim()) return text;
+    // Trim and normalize spaces, then escape special regex characters
+    const normalizedQuery = query.trim().replace(/\s+/g, ' ');
+    const escapedQuery = normalizedQuery.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const regex = new RegExp(`(${escapedQuery})`, 'gi');
     return text.replace(regex, '<strong>$1</strong>');
 }
 
