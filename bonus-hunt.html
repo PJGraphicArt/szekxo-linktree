@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bonus Hunt Tracker - SZEKXO</title>
+    <meta name="description" content="Tracker avancé pour vos sessions de Bonus Hunt - Calculez votre BEA et suivez vos multiplicateurs en temps réel">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="bonus-hunt.css">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/favicon.png">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <a href="index.html" class="logo">
+                <img src="images/LOGO_SZEKXO_SEUL_BLANC.png" alt="SZEKXO Logo">
+            </a>
+            <h1 class="page-title">Bonus Hunt Tracker</h1>
+            <a href="index.html" class="btn-back">
+                <i data-lucide="arrow-left"></i>
+                Retour
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Résumé des statistiques -->
+        <section class="stats-section">
+            <div class="stats-grid">
+                <!-- Start Amount -->
+                <div class="stat-card start-card">
+                    <label for="start-amount" class="stat-label">
+                        <i data-lucide="wallet"></i>
+                        Start (Solde de départ)
+                    </label>
+                    <div class="currency-input-wrapper">
+                        <input type="number" id="start-amount" class="currency-input" step="0.01" min="0" placeholder="1000.00">
+                        <span class="currency-symbol">€</span>
+                    </div>
+                </div>
+
+                <!-- Bonus collectés -->
+                <div class="stat-card">
+                    <div class="stat-label">
+                        <i data-lucide="package"></i>
+                        Bonus collectés
+                    </div>
+                    <div class="stat-value" id="bonus-count">0</div>
+                </div>
+
+                <!-- Total Bets -->
+                <div class="stat-card">
+                    <div class="stat-label">
+                        <i data-lucide="trending-down"></i>
+                        Total Bets
+                    </div>
+                    <div class="stat-value" id="total-bets">0.00€</div>
+                </div>
+
+                <!-- Bet moyen -->
+                <div class="stat-card">
+                    <div class="stat-label">
+                        <i data-lucide="bar-chart-2"></i>
+                        Bet moyen
+                    </div>
+                    <div class="stat-value" id="avg-bet">—</div>
+                </div>
+
+                <!-- BEA requis -->
+                <div class="stat-card bea-card">
+                    <div class="stat-label">
+                        <i data-lucide="target"></i>
+                        BEA requis
+                    </div>
+                    <div class="stat-value bea-value" id="bea-value">—</div>
+                    <small class="stat-help">Multi moyen nécessaire pour être rentable</small>
+                </div>
+
+                <!-- Total Gains -->
+                <div class="stat-card">
+                    <div class="stat-label">
+                        <i data-lucide="trending-up"></i>
+                        Total Gains
+                    </div>
+                    <div class="stat-value" id="total-wins">0.00€</div>
+                </div>
+
+                <!-- Multi moyen réalisé -->
+                <div class="stat-card">
+                    <div class="stat-label">
+                        <i data-lucide="activity"></i>
+                        Multi moyen réalisé
+                    </div>
+                    <div class="stat-value" id="avg-multi">—</div>
+                </div>
+
+                <!-- Écart vs BEA -->
+                <div class="stat-card">
+                    <div class="stat-label">
+                        <i data-lucide="git-compare"></i>
+                        Écart vs BEA
+                    </div>
+                    <div class="stat-value" id="multi-gap">—</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Formulaire d'ajout de bonus -->
+        <section class="form-section">
+            <h2 class="section-title">
+                <i data-lucide="plus-circle"></i>
+                Ajouter un bonus
+            </h2>
+            <form id="bonus-form" class="bonus-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="machine-name" class="form-label">
+                            <i data-lucide="gamepad-2"></i>
+                            Machine à sous
+                        </label>
+                        <input type="text" id="machine-name" class="form-input" required placeholder="ex: Dog House">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bet-amount" class="form-label">
+                            <i data-lucide="coins"></i>
+                            Mise (Bet)
+                        </label>
+                        <div class="currency-input-wrapper">
+                            <input type="number" id="bet-amount" class="form-input" step="0.01" min="0.01" required placeholder="1.00">
+                            <span class="currency-symbol">€</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="gain-amount" class="form-label">
+                            <i data-lucide="trophy"></i>
+                            Gain (optionnel)
+                        </label>
+                        <div class="currency-input-wrapper">
+                            <input type="number" id="gain-amount" class="form-input" step="0.01" min="0" placeholder="256.00">
+                            <span class="currency-symbol">€</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group form-submit">
+                        <button type="submit" class="btn-primary" id="add-bonus-btn" disabled>
+                            <i data-lucide="plus"></i>
+                            Ajouter
+                        </button>
+                    </div>
+                </div>
+
+                <div id="form-errors" class="form-errors" role="alert" style="display: none;"></div>
+            </form>
+        </section>
+
+        <!-- Liste des bonus -->
+        <section class="bonuses-section">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <i data-lucide="list"></i>
+                    Bonus collectés
+                </h2>
+                <div class="section-actions">
+                    <button type="button" class="btn-secondary" id="export-btn">
+                        <i data-lucide="download"></i>
+                        Exporter
+                    </button>
+                    <button type="button" class="btn-danger" id="clear-all-btn">
+                        <i data-lucide="trash-2"></i>
+                        Effacer tout
+                    </button>
+                </div>
+            </div>
+
+            <div id="empty-state" class="empty-state">
+                <i data-lucide="package-open"></i>
+                <p>Aucun bonus collecté</p>
+                <small>Ajoutez des bonus pour commencer à calculer votre BEA</small>
+            </div>
+
+            <div class="bonuses-table-wrapper">
+                <table class="bonuses-table" id="bonus-table">
+                    <thead>
+                        <tr>
+                            <th>Machine</th>
+                            <th>Bet</th>
+                            <th>Gain</th>
+                            <th>Multiplicateur</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bonus-list">
+                        <!-- Les bonus seront ajoutés ici dynamiquement -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal de confirmation -->
+    <div id="confirm-modal" class="modal hidden" role="dialog" aria-labelledby="modal-title" aria-hidden="true">
+        <div class="modal-content">
+            <h3 id="modal-title">
+                <i data-lucide="alert-circle"></i>
+                Confirmation
+            </h3>
+            <p id="modal-message"></p>
+            <div class="modal-actions">
+                <button type="button" class="btn-secondary" id="modal-cancel">Annuler</button>
+                <button type="button" class="btn-primary" id="modal-confirm">Confirmer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="bonus-hunt.js"></script>
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+    </script>
+</body>
+</html>
