@@ -183,7 +183,9 @@ function createBattleCard(slotIndex) {
                         <div class="player-multiplier">${formatNumber(slotData.player1Multiplier)}</div>
                     </div>
                     <div class="player-machine">
-                        <i data-lucide="sparkles"></i>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5,4v11.6h4v0c0-2.1,1.8-3.9,4-3.9h5l-2.8,3.4C11.8,19.2,9.3,23.9,8,29l0,0h13v0c0-5.7,1.5-11.3,4.5-16.2l3.5-6L26,3l-1.2,0.6c-3.1,1.5-6.6,1.8-9.9,0.9l0,0C13.6,4.1,12.4,4,11.1,4H5"/>
+                        </svg>
                         ${slotData.player1Machine}
                     </div>
                     <div class="player-stats">
@@ -206,7 +208,9 @@ function createBattleCard(slotIndex) {
                         <div class="player-multiplier">${formatNumber(slotData.player2Multiplier)}</div>
                     </div>
                     <div class="player-machine">
-                        <i data-lucide="sparkles"></i>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5,4v11.6h4v0c0-2.1,1.8-3.9,4-3.9h5l-2.8,3.4C11.8,19.2,9.3,23.9,8,29l0,0h13v0c0-5.7,1.5-11.3,4.5-16.2l3.5-6L26,3l-1.2,0.6c-3.1,1.5-6.6,1.8-9.9,0.9l0,0C13.6,4.1,12.4,4,11.1,4H5"/>
+                        </svg>
                         ${slotData.player2Machine}
                     </div>
                     <div class="player-stats">
@@ -238,7 +242,9 @@ function createBattleCard(slotIndex) {
 
                     <div class="form-group">
                         <label class="form-label">
-                            <i data-lucide="sparkles"></i>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M5,4v11.6h4v0c0-2.1,1.8-3.9,4-3.9h5l-2.8,3.4C11.8,19.2,9.3,23.9,8,29l0,0h13v0c0-5.7,1.5-11.3,4.5-16.2l3.5-6L26,3l-1.2,0.6c-3.1,1.5-6.6,1.8-9.9,0.9l0,0C13.6,4.1,12.4,4,11.1,4H5"/>
+                            </svg>
                             Slot Machine
                         </label>
                         <div class="autocomplete-wrapper">
@@ -302,7 +308,9 @@ function createBattleCard(slotIndex) {
 
                     <div class="form-group">
                         <label class="form-label">
-                            <i data-lucide="sparkles"></i>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M5,4v11.6h4v0c0-2.1,1.8-3.9,4-3.9h5l-2.8,3.4C11.8,19.2,9.3,23.9,8,29l0,0h13v0c0-5.7,1.5-11.3,4.5-16.2l3.5-6L26,3l-1.2,0.6c-3.1,1.5-6.6,1.8-9.9,0.9l0,0C13.6,4.1,12.4,4,11.1,4H5"/>
+                            </svg>
                             Slot Machine
                         </label>
                         <div class="autocomplete-wrapper">
@@ -639,7 +647,7 @@ function updateStickyLeader() {
     } else {
         leaderInfo.innerHTML = `
             <i data-lucide="crown"></i>
-            <span class="leader-text">${leader.name} en tête (+${formatNumber(leader.difference)})</span>
+            <span class="leader-text">${leader.name} en tête</span>
         `;
     }
 
