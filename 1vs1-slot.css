@@ -20,8 +20,14 @@
     margin-bottom: 40px;
 }
 
+.battle-logo-img {
+    max-width: clamp(200px, 50vw, 450px);
+    height: auto;
+    margin-bottom: 8px;
+}
+
 .battle-title {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-size: clamp(2rem, 5vw, 3rem);
     font-weight: 900;
     background: var(--gradient-battle);
@@ -50,6 +56,7 @@
         opacity: 0;
         transform: translateY(10px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -270,7 +277,7 @@
 }
 
 .card-title {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-size: clamp(1.1rem, 3vw, 1.3rem);
     font-weight: 800;
     background: var(--gradient-battle);
@@ -353,7 +360,7 @@
 }
 
 .machine-name {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-size: clamp(0.8rem, 2vw, 0.9rem);
     font-weight: 600;
     color: var(--text-primary);
@@ -396,7 +403,7 @@
     text-align: center;
     background: rgba(192, 192, 192, 0.05);
     border-bottom: 1px solid rgba(192, 192, 192, 0.1);
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-size: clamp(0.95rem, 2.5vw, 1.1rem);
     font-weight: 600;
     color: var(--text-primary);
@@ -436,7 +443,7 @@
 }
 
 .player-name {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-size: clamp(0.9rem, 2.5vw, 1rem);
     font-weight: 700;
     color: var(--text-secondary);
@@ -450,7 +457,7 @@
 }
 
 .player-amount {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-size: clamp(1.5rem, 5vw, 2rem);
     font-weight: 900;
     color: var(--silver);
@@ -462,7 +469,7 @@
 
 .vs-separator {
     text-align: center;
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-size: 1.2rem;
     font-weight: 900;
     color: rgba(255, 255, 255, 0.2);
@@ -550,6 +557,7 @@
 }
 
 .machine-name {
+    font-family: 'Inter', sans-serif;
     font-weight: 600;
     font-size: 0.95rem;
     color: var(--text-primary);
@@ -686,7 +694,7 @@
 }
 
 .winner-name {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-size: clamp(1.8rem, 5vw, 2.5rem);
     font-weight: 900;
     text-align: center;
@@ -724,7 +732,7 @@
 }
 
 .final-score-name {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-size: clamp(0.9rem, 2.5vw, 1rem);
     font-weight: 700;
     color: var(--text-secondary);
@@ -738,7 +746,7 @@
 }
 
 .final-score-value {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-size: clamp(1.5rem, 4vw, 2rem);
     font-weight: 900;
     color: var(--silver);
@@ -756,7 +764,7 @@
 }
 
 .recap-title {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-size: clamp(1rem, 3vw, 1.2rem);
     font-weight: 700;
     color: var(--text-primary);
@@ -798,7 +806,7 @@
 }
 
 .recap-slot-machine {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-size: 0.85rem;
     color: var(--text-secondary);
 }
@@ -854,7 +862,7 @@
     background: linear-gradient(135deg, #b9c5e3 0%, #8a9cc5 100%);
     border: 2px solid #b9c5e3;
     border-radius: 12px;
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-size: 1.1rem;
     font-weight: 700;
     color: #000;
@@ -912,7 +920,7 @@
     display: flex;
     align-items: center;
     gap: 12px;
-    color:  #b9c5e3;
+    color: #b9c5e3;
 }
 
 .leader-info i {
@@ -922,10 +930,10 @@
 }
 
 .leader-text {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-size: clamp(0.95rem, 2.5vw, 1.1rem);
     font-weight: 800;
-    color:  #b9c5e3;
+    color: #b9c5e3;
 }
 
 .scores-comparison {
@@ -949,14 +957,14 @@
 }
 
 .score-value {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-size: clamp(1rem, 2.5vw, 1.2rem);
     font-weight: 800;
     color: var(--silver);
 }
 
 .score-separator {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-size: 1.2rem;
     font-weight: 900;
     color: rgba(255, 255, 255, 0.3);
@@ -973,7 +981,7 @@
 }
 
 .player-section-title {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-size: clamp(1rem, 2.5vw, 1.2rem);
     font-weight: 800;
     color: var(--text-primary);
@@ -985,7 +993,7 @@
 
 .vs-divider {
     text-align: center;
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-size: 1.5rem;
     font-weight: 900;
     color: var(--silver);
@@ -1036,7 +1044,7 @@
 }
 
 .player-result-detailed .player-name {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-size: clamp(1rem, 2.5vw, 1.1rem);
     font-weight: 700;
     color: var(--text-primary);
@@ -1045,18 +1053,20 @@
 }
 
 .player-result-detailed.winner .player-name {
-    color: #b9c5e3;;
+    color: #b9c5e3;
+    ;
 }
 
 .player-multiplier {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-size: clamp(1.3rem, 4vw, 1.8rem);
     font-weight: 900;
     color: var(--silver);
 }
 
 .player-result-detailed.winner .player-multiplier {
-    color: #b9c5e3;;
+    color: #b9c5e3;
+    ;
 }
 
 .player-machine {
@@ -1101,7 +1111,7 @@
 }
 
 .stat-value {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-size: 0.95rem;
     font-weight: 700;
     color: var(--text-primary);
@@ -1128,7 +1138,7 @@
 }
 
 .recap-player-name {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-size: 0.9rem;
     font-weight: 700;
     color: var(--text-primary);
@@ -1156,7 +1166,7 @@
 }
 
 .recap-multiplier {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-weight: 800;
     color: var(--silver);
     font-size: 1rem;

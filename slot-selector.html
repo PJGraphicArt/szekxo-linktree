@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slot Selector - SZEKXO</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="slot-selector.css">
+</head>
+
+<body>
+    <!-- Fond video -->
+    <div class="video-background">
+        <video autoplay muted loop playsinline webkit-playsinline disablepictureinpicture disableremoteplayback
+            preload="auto" x-webkit-airplay="deny">
+            <source src="images/fond_site_szekxo_casino_v2.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <!-- Hamburger Menu -->
+    <button class="hamburger-menu" id="hamburger-menu" aria-label="Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <!-- Navigation Menu -->
+    <nav class="nav-menu" id="nav-menu">
+        <div class="nav-menu-content">
+            <button class="nav-close" id="nav-close" aria-label="Fermer">
+                <i data-lucide="x"></i>
+            </button>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">
+                        <i data-lucide="home"></i>
+                        <span>Accueil</span>
+                    </a></li>
+                <li><a href="1vs1-slot.html" class="nav-link">
+                        <i data-lucide="swords"></i>
+                        <span>1VS1 Slot</span>
+                    </a></li>
+                <!-- <li><a href="bonus-hunt.html" class="nav-link">
+                        <i data-lucide="target"></i>
+                        <span>Bonus Hunt</span>
+                    </a></li> -->
+                <li><a href="slot-selector.html" class="nav-link active">
+                        <i data-lucide="dice-5"></i>
+                        <span>Slot Selector</span>
+                    </a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="selector-container">
+        <!-- Header -->
+        <header class="selector-header">
+            <img src="images/LOGO_SLOT-SELECTOR.svg" alt="SLOT SELECTOR" class="selector-logo">
+            <p class="selector-subtitle">Choisis tes providers et lance le tirage !</p>
+        </header>
+
+        <!-- Result Section (hidden initially) -->
+        <section id="result-section" class="result-section hidden">
+            <div class="result-card">
+                <div id="spin-display" class="spin-display"></div>
+                <div class="result-name-wrapper">
+                    <div id="result-name" class="result-name"></div>
+                    <button type="button" id="btn-copy" class="btn-copy" title="Copier le nom">
+                        <i data-lucide="copy"></i>
+                    </button>
+                </div>
+                <div id="result-provider" class="result-provider"></div>
+                <a id="btn-casino" class="btn-casino" href="#" target="_blank" rel="noopener noreferrer" style="display:none;">
+                    <img src="images/CrazyBet_Icon-App.png" alt="Crazybet" class="btn-casino-icon">
+                    Jouer sur Crazybet
+                </a>
+            </div>
+            <button type="button" id="btn-reroll" class="btn-reroll">
+                <i data-lucide="refresh-cw"></i>
+                Relancer
+            </button>
+        </section>
+
+        <!-- Action Button -->
+        <section class="action-section">
+            <div class="machine-count">
+                <span id="machine-count">0</span> machines disponibles
+            </div>
+            <button type="button" id="btn-pick" class="btn-pick" disabled>
+                <i data-lucide="shuffle"></i>
+                LANCER LE TIRAGE
+            </button>
+        </section>
+
+        <!-- Provider Filter Section -->
+        <section class="providers-section">
+            <div class="providers-header">
+                <h2 class="providers-title">
+                    <i data-lucide="filter"></i>
+                    Providers
+                </h2>
+                <div class="providers-actions">
+                    <button type="button" id="btn-select-all" class="btn-filter">Tout cocher</button>
+                    <button type="button" id="btn-deselect-all" class="btn-filter">Tout decocher</button>
+                </div>
+            </div>
+            <div id="providers-grid" class="providers-grid">
+                <!-- Providers will be rendered here dynamically -->
+            </div>
+        </section>
+    </div>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+    <script src="slot-selector.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>

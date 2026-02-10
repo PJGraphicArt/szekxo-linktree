@@ -62,42 +62,16 @@ const CONFIG = {
         ]
     },
 
-    // ========== Slide 3 : Offre Free Spins ==========
-    freeSpins: {
-        heroTitle: "FREESPINS",                 // Titre affiché sur le hero banner
-        backgroundImage: "images/FREESPINS_FOND.webp", // Image de fond du hero
-
-        // Infos de l'offre
-        gameTitle: "DORK UNIT",                 // Nom du jeu/slot
-        offerTitle: "Crazy Thursday",           // Titre de l'offre
-        casino: "CrazyBet",                     // Nom du casino
-        link: "https://www.crazybet.com/fr?r=szekxo",                              // Lien vers l'offre
-
-        // Paliers de bonus (dépôt => freespins)
-        tiers: [
-            { deposit: 50, spins: 40, value: 0.20 },
-            { deposit: 200, spins: 250, value: 0.20 },
-            { deposit: 350, spins: 350, value: 0.20 },
-            { deposit: 500, spins: 500, value: 0.20 }
-        ],
-
-        // Limites et validité
-        maxSpins: 500,                          // Maximum de freespins
-        validityStart: "22-01 00h00",           // Début de validité
-        validityEnd: "23h59 UTC",               // Fin de validité
-        limitText: "1 fois/compte - 1 dépôt max" // Texte de limite
-    },
-
     // ========== Section Compétitions ==========
     competitions: {
         oneVsOne: {
             title: '1V1 Viewers',
             titleSvg: 'images/LOGO_BATTLE_1VS1.png',
             winners: [
-                { name: 'GamerPro123', prize: '50€', rank: '1er' },
-                { name: 'Player456', prize: '200 FS', rank: '2ème' }
+                { name: 'Pseudo 1', prize: '50€', rank: '1er' },
+                { name: 'Pseudo 2', prize: '200 FS', rank: '2ème' }
             ],
-            videoThumbnail: 'images/1v1_thumbnail.jpg',
+            videoThumbnail: '',
             videoUrl: 'https://www.youtube.com/watch?v=7w_TKFjtMB8',
             participateUrl: 'https://discord.gg/ZbuXYqB2eM'
         },
@@ -105,9 +79,9 @@ const CONFIG = {
             title: 'Duel Szekxo',
             titleSvg: 'images/LOGO_BATTLE_DUEL.png',
             winners: [
-                { name: 'LuckyPlayer99', prize: '50€', rank: '1er' }
+                { name: 'Pseudo', prize: '50€', rank: '1er' }
             ],
-            videoThumbnail: 'images/duel_thumbnail.jpg',
+            videoThumbnail: '',
             videoUrl: 'https://youtube.com/watch?v=yyyyy',
             participateUrl: 'https://discord.gg/ZbuXYqB2eM'
         }
@@ -333,57 +307,6 @@ function injectCarouselData() {
                 </div>
             `;
         }).join('');
-    }
-
-    // ========== Slide 3 : Offre Free Spins ==========
-    const spins = CONFIG.freeSpins;
-
-    // Hero Banner - Image de fond et titre
-    const spinsHero = document.getElementById('spins-hero');
-    if (spinsHero && spins.backgroundImage) {
-        spinsHero.style.backgroundImage = `url('${spins.backgroundImage}')`;
-        spinsHero.style.backgroundSize = 'cover';
-        spinsHero.style.backgroundPosition = 'center center';
-        spinsHero.style.backgroundRepeat = 'no-repeat';
-    }
-    const spinsHeroTitle = document.getElementById('spins-hero-title');
-    if (spinsHeroTitle) spinsHeroTitle.textContent = spins.heroTitle;
-
-    // Titre du jeu
-    const offerGameTitle = document.getElementById('offer-game-title');
-    if (offerGameTitle) offerGameTitle.textContent = spins.gameTitle;
-
-    // Badge de l'offre
-    const offerBadge = document.getElementById('offer-badge');
-    if (offerBadge) offerBadge.textContent = spins.offerTitle;
-
-    // Paliers de bonus
-    const offerTiers = document.getElementById('offer-tiers');
-    if (offerTiers && spins.tiers) {
-        offerTiers.innerHTML = spins.tiers.map(tier => `
-            <div class="tier-row">
-                <span class="tier-deposit">Dépôt <strong>${tier.deposit}€</strong></span>
-                <span class="tier-reward">
-                    <span class="tier-spins">${tier.spins} FS</span>
-                    <span class="tier-value">${tier.value.toFixed(2)}€</span>
-                </span>
-            </div>
-        `).join('');
-    }
-
-    // Limite
-    const offerLimit = document.getElementById('offer-limit');
-    if (offerLimit) {
-        offerLimit.innerHTML = `
-            <span>Max ${spins.maxSpins} freespins</span>
-            <span class="offer-validity">${spins.limitText}</span>
-        `;
-    }
-
-    // CTA
-    const offerCta = document.getElementById('offer-cta');
-    if (offerCta && spins.link) {
-        offerCta.href = spins.link;
     }
 
     // ========== Section Compétitions ==========

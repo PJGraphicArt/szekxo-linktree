@@ -29,7 +29,7 @@
 }
 
 body {
-    font-family: 'Orbitron', monospace;
+    font-family: 'Inter', sans-serif;
     background: var(--bg-dark);
     color: var(--text-primary);
     min-height: 100vh;
@@ -238,7 +238,7 @@ body {
     color: var(--text-primary);
     font-size: 1.1rem;
     font-weight: 700;
-    font-family: 'Orbitron', monospace;
+    font-family: 'Inter', sans-serif;
     transition: all 0.3s ease;
 }
 
@@ -365,7 +365,7 @@ body {
     color: var(--text-primary);
     font-size: 1rem;
     font-weight: 600;
-    font-family: 'Orbitron', monospace;
+    font-family: 'Inter', sans-serif;
     transition: all 0.3s ease;
 }
 
@@ -397,7 +397,7 @@ body {
 .btn-danger {
     padding: 14px 28px;
     border-radius: 12px;
-    font-family: 'Orbitron', monospace;
+    font-family: 'Inter', sans-serif;
     font-size: 1rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -561,7 +561,7 @@ body {
     border: 2px solid transparent;
     border-radius: 8px;
     color: var(--text-primary);
-    font-family: 'Orbitron', monospace;
+    font-family: 'Inter', sans-serif;
     font-weight: 600;
     transition: all 0.3s ease;
 }

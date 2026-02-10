@@ -851,6 +851,28 @@ button {
     font-weight: 600;
 }
 
+/* ==================== FREE SPINS BANNER ==================== */
+.freespins-banner {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.freespins-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: var(--radius-lg);
+}
+
+.freespins-desktop { display: block; }
+.freespins-mobile { display: none; }
+
+@media (max-width: 600px) {
+    .freespins-desktop { display: none; }
+    .freespins-mobile { display: block; }
+}
+
 /* ==================== CARTE OFFRE CASINO ==================== */
 .free-spins {
     padding: var(--spacing-sm);
