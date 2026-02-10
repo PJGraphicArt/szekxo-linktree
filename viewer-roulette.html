@@ -68,58 +68,62 @@
     <div class="roulette-container">
         <!-- Header -->
         <header class="roulette-header">
-            <h1 class="roulette-title">Tirage Viewers</h1>
+            <h1 class="roulette-title">Tirage au sort</h1>
             <p class="roulette-subtitle">
                 Entre les pseudos (un par ligne), puis lance la roue pour tirer un ou plusieurs gagnants.
             </p>
         </header>
 
-        <!-- Zone de saisie des participants -->
-        <section class="participants-section">
-            <label for="participants-input" class="field-label">Pseudos / textes à tirer</label>
-            <textarea
-                id="participants-input"
-                class="participants-input"
-                rows="6"
-                placeholder="Exemple :&#10;Viewer1&#10;Viewer2&#10;Viewer3"
-            ></textarea>
+        <!-- Layout desktop 2 colonnes -->
+        <div class="main-layout">
+            <!-- Zone de saisie des participants -->
+            <section class="participants-section">
+                <label for="participants-input" class="field-label">Pseudos / textes à tirer</label>
+                <textarea
+                    id="participants-input"
+                    class="participants-input"
+                    rows="6"
+                    placeholder="Exemple :&#10;Viewer1&#10;Viewer2&#10;Viewer3"
+                ></textarea>
 
-            <div class="options-row">
-                <label class="toggle-option">
-                    <input type="checkbox" id="exclude-winners-toggle" checked>
-                    <span class="toggle-indicator"></span>
-                    <span class="toggle-label">Ne plus tirer les gagnants précédents</span>
-                </label>
+                <div class="options-row">
+                    <label class="toggle-option">
+                        <input type="checkbox" id="exclude-winners-toggle" checked>
+                        <span class="toggle-indicator"></span>
+                        <span class="toggle-label">Ne plus tirer les gagnants précédents</span>
+                    </label>
 
-                <button type="button" id="reset-winners-btn" class="btn-reset" title="Réinitialiser les gagnants">
-                    <i data-lucide="trash-2"></i>
-                    <span>Réinitialiser les gagnants</span>
-                </button>
-            </div>
-        </section>
-
-        <!-- Roue / slider vertical -->
-        <section class="slider-section">
-            <div class="slider-window" id="slider-window">
-                <div class="slider-track" id="slider-track">
-                    <!-- Les pseudos défileront ici -->
+                    <button type="button" id="reset-winners-btn" class="btn-reset" title="Réinitialiser les gagnants">
+                        <i data-lucide="trash-2"></i>
+                        <span>Réinitialiser les gagnants</span>
+                    </button>
                 </div>
-                <div class="slider-highlight"></div>
-            </div>
+            </section>
 
-            <div class="current-winner">
-                <span class="current-winner-label">Dernier gagnant</span>
-                <span class="current-winner-name" id="current-winner-name">En attente de tirage...</span>
-            </div>
-        </section>
+            <!-- Roue / slider vertical + bouton -->
+            <div class="draw-column">
+                <section class="slider-section">
+                    <div class="slider-window" id="slider-window">
+                        <div class="slider-track" id="slider-track">
+                            <!-- Les pseudos défileront ici -->
+                        </div>
+                        <div class="slider-highlight"></div>
+                    </div>
 
-        <!-- Bouton d'action -->
-        <section class="action-section">
-            <button type="button" id="draw-btn" class="btn-draw">
-                <i data-lucide="shuffle"></i>
-                <span>Lancer le tirage</span>
-            </button>
-        </section>
+                    <div class="current-winner">
+                        <span class="current-winner-label">Dernier gagnant</span>
+                        <span class="current-winner-name" id="current-winner-name">En attente de tirage...</span>
+                    </div>
+                </section>
+
+                <section class="action-section">
+                    <button type="button" id="draw-btn" class="btn-draw">
+                        <i data-lucide="shuffle"></i>
+                        <span>Lancer le tirage</span>
+                    </button>
+                </section>
+            </div>
+        </div>
 
         <!-- Liste des gagnants précédents -->
         <section class="winners-section">

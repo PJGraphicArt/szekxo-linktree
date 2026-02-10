@@ -589,18 +589,38 @@ body {
 }
 
 @media (min-width: 768px) {
-    .participants-section,
-    .slider-window,
-    .btn-draw {
-        max-width: 650px;
-        margin-left: auto;
-        margin-right: auto;
+    .main-layout {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        align-items: start;
+        margin-bottom: 24px;
     }
 
-    .winners-section {
-        max-width: 650px;
-        margin-left: auto;
-        margin-right: auto;
+    .participants-section {
+        margin-bottom: 0;
+    }
+
+    .draw-column {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .slider-section {
+        margin-bottom: 0;
+    }
+
+    .slider-window {
+        max-width: 100%;
+    }
+
+    .btn-draw {
+        max-width: 100%;
+    }
+
+    .action-section {
+        margin-bottom: 0;
     }
 }
 
