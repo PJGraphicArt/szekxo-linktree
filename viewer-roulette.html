@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tirage au sort - SZEKXO</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon.png">
+    <link rel="shortcut icon" type="image/png" href="/favicon.png">
+    <link rel="apple-touch-icon" href="/favicon.png">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Lexend:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="viewer-roulette.css">
+</head>
+<body>
+    <!-- Fond vidéo -->
+    <div class="video-background">
+        <video autoplay muted loop playsinline webkit-playsinline disablepictureinpicture disableremoteplayback preload="auto" x-webkit-airplay="deny">
+            <source src="images/fond_site_szekxo_casino_v2.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <!-- ==================== MENU HAMBURGER ==================== -->
+    <button class="hamburger-menu" id="hamburger-menu" aria-label="Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <!-- ==================== MENU NAVIGATION ==================== -->
+    <nav class="nav-menu" id="nav-menu">
+        <div class="nav-menu-content">
+            <button class="nav-close" id="nav-close" aria-label="Fermer">
+                <i data-lucide="x"></i>
+            </button>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">
+                    <i data-lucide="home"></i>
+                    <span>Accueil</span>
+                </a></li>
+                <li><a href="1vs1-slot.html" class="nav-link">
+                    <i data-lucide="swords"></i>
+                    <span>1VS1 Slot</span>
+                </a></li>
+                <li><a href="slot-selector.html" class="nav-link">
+                    <i data-lucide="dice-5"></i>
+                    <span>Slot Selector</span>
+                </a></li>
+                <li><a href="viewer-roulette.html" class="nav-link active">
+                    <i data-lucide="shuffle"></i>
+                    <span>Tirage au sort</span>
+                </a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ==================== CONTENU PRINCIPAL ==================== -->
+    <div class="roulette-container">
+        <!-- Header -->
+        <header class="roulette-header">
+            <h1 class="roulette-title">Tirage Viewers</h1>
+            <p class="roulette-subtitle">
+                Entre les pseudos (un par ligne), puis lance la roue pour tirer un ou plusieurs gagnants.
+            </p>
+        </header>
+
+        <!-- Zone de saisie des participants -->
+        <section class="participants-section">
+            <label for="participants-input" class="field-label">Pseudos / textes à tirer</label>
+            <textarea
+                id="participants-input"
+                class="participants-input"
+                rows="6"
+                placeholder="Exemple :&#10;Viewer1&#10;Viewer2&#10;Viewer3"
+            ></textarea>
+
+            <div class="options-row">
+                <label class="toggle-option">
+                    <input type="checkbox" id="exclude-winners-toggle" checked>
+                    <span class="toggle-indicator"></span>
+                    <span class="toggle-label">Ne plus tirer les gagnants précédents</span>
+                </label>
+
+                <button type="button" id="reset-winners-btn" class="btn-reset" title="Réinitialiser les gagnants">
+                    <i data-lucide="trash-2"></i>
+                    <span>Réinitialiser les gagnants</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Roue / slider vertical -->
+        <section class="slider-section">
+            <div class="slider-window" id="slider-window">
+                <div class="slider-track" id="slider-track">
+                    <!-- Les pseudos défileront ici -->
+                </div>
+                <div class="slider-highlight"></div>
+            </div>
+
+            <div class="current-winner">
+                <span class="current-winner-label">Dernier gagnant</span>
+                <span class="current-winner-name" id="current-winner-name">En attente de tirage...</span>
+            </div>
+        </section>
+
+        <!-- Bouton d'action -->
+        <section class="action-section">
+            <button type="button" id="draw-btn" class="btn-draw">
+                <i data-lucide="shuffle"></i>
+                <span>Lancer le tirage</span>
+            </button>
+        </section>
+
+        <!-- Liste des gagnants précédents -->
+        <section class="winners-section">
+            <div class="winners-header">
+                <h2>Gagnants précédents</h2>
+                <span id="winners-count">0</span>
+            </div>
+            <div id="winners-list" class="winners-list">
+                <p class="winners-placeholder">Aucun gagnant pour le moment.</p>
+            </div>
+        </section>
+    </div>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+    <script src="viewer-roulette.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
+
