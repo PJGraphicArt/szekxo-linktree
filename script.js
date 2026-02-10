@@ -54,11 +54,11 @@ const CONFIG = {
         // Derniers gagnants
         winnersToShow: 3,                       // Nombre de gagnants à afficher
         recentWinners: [
-            { pseudo: 'JohnDoe', prize: 50, concept: '1V1 Viewers' },        // Montant en €
-            { pseudo: 'Player123', prize: '200 FS', concept: 'Duel Szekxo' }, // Freespins
-            { pseudo: 'LuckyGirl', prize: 20, concept: 'Stream' },
-            { pseudo: 'GamerPro', prize: '100 FS', concept: '1V1 Viewers' },
-            { pseudo: 'CryptoKing', prize: 10, concept: 'Stream' }
+            { pseudo: 'Pseudo 1', prize: 50, concept: '1V1 Viewers' },        // Montant en €
+            { pseudo: 'Pseudo 2', prize: '200 FS', concept: 'Duel Szekxo' }, // Freespins
+            { pseudo: 'Pseudo 3', prize: 20, concept: 'Stream' },
+            { pseudo: 'Pseudo 4', prize: '100 FS', concept: '1V1 Viewers' },
+            { pseudo: 'Pseudo 5', prize: 10, concept: 'Stream' }
         ]
     },
 
