@@ -68,11 +68,11 @@ const CONFIG = {
             title: '1V1 Viewers',
             titleSvg: 'images/LOGO_BATTLE_1VS1.png',
             winners: [
-                { name: 'Pseudo 1', prize: '50€', rank: '1er' },
-                { name: 'Pseudo 2', prize: '200 FS', rank: '2ème' }
+                { name: 'PJ Graphic Art', prize: '50€', rank: '1er' },
+                { name: 'Ryzoww', prize: '200 FS', rank: '2ème' }
             ],
-            videoThumbnail: '',
-            videoUrl: 'https://www.youtube.com/watch?v=7w_TKFjtMB8',
+            videoThumbnail: 'images/Minia_1VS1-VIEWERS_15-02-26.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=d4ook55NqkE',
             participateUrl: 'https://discord.gg/ZbuXYqB2eM'
         },
         duelSzekxo: {
