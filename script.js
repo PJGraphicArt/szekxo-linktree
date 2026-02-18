@@ -712,7 +712,7 @@ async function checkLoginState() {
             </a>`;
         } else {
             btn.innerHTML = `<a href="/api/auth/discord/login" class="btn-discord-login">
-                <img src="images/Discord_icon white.png" alt="Discord" class="discord-logo-btn">
+                <img src="images/Logo_Discord.svg" alt="Discord" class="discord-logo-btn">
                 <span>Connexion avec Discord</span>
             </a>`;
         }
