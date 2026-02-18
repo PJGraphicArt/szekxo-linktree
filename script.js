@@ -712,9 +712,9 @@ async function checkLoginState() {
             </a>`;
         } else {
             btn.innerHTML = `<a href="/api/auth/discord/login" class="btn-discord-login">
-                <i data-lucide="log-in"></i><span>Connexion</span>
+                <img src="images/Discord_icon white.png" alt="Discord" class="discord-logo-btn">
+                <span>Connexion avec Discord</span>
             </a>`;
-            lucide.createIcons();
         }
     } catch {}
 }

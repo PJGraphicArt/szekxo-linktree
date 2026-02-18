@@ -883,8 +883,10 @@ button {
 
 /* ==================== BOUTON LOGIN DISCORD (dans le menu hamburger) ==================== */
 .nav-user-btn {
-    margin-top: 24px;
-    padding: 0 16px;
+    position: absolute;
+    bottom: 32px;
+    left: var(--spacing-lg);
+    right: var(--spacing-lg);
 }
 
 .btn-discord-login {
@@ -896,7 +898,7 @@ button {
     padding: 12px 16px;
     background: #5865F2;
     color: white;
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-md);
     text-decoration: none;
     font-size: 1rem;
     font-weight: 600;
@@ -932,6 +934,13 @@ button {
     height: 36px;
     border-radius: 50%;
     object-fit: cover;
+}
+
+.discord-logo-btn {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    flex-shrink: 0;
 }
 
 /* ==================== CARTE OFFRE CASINO ==================== */
