@@ -1,5 +1,25 @@
 /* ==================== DASHBOARD MOON COINS ==================== */
 
+/* Moon Coin image */
+.moon-coin-icon {
+    width: 28px;
+    height: 28px;
+    vertical-align: middle;
+    margin-right: 4px;
+}
+
+.moon-coin-icon-sm {
+    width: 18px;
+    height: 18px;
+    vertical-align: middle;
+}
+
+.moon-coin-icon-balance {
+    width: 36px;
+    height: 36px;
+    vertical-align: middle;
+}
+
 .dashboard-wrapper {
     max-width: 640px;
     margin: 0 auto;

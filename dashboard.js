@@ -25,8 +25,9 @@ function renderBalance(balance, totalEarned) {
     const balanceEl = document.getElementById('balance-amount');
     const totalEl = document.getElementById('balance-total');
 
-    if (balanceEl) balanceEl.textContent = balance.toLocaleString('fr-FR');
-    if (totalEl) totalEl.textContent = `Total gagné : ${totalEarned.toLocaleString('fr-FR')} 🪙`;
+    const coinImg = '<img src="images/moon-coin.png" class="moon-coin-icon-sm" alt="🪙">';
+    if (balanceEl) balanceEl.innerHTML = balance.toLocaleString('fr-FR') + ' ' + coinImg;
+    if (totalEl) totalEl.innerHTML = `Total gagné : ${totalEarned.toLocaleString('fr-FR')} ` + coinImg;
 }
 
 function renderLinks(links) {
@@ -80,7 +81,7 @@ function renderTransactions(transactions) {
         return `
             <div class="transaction-item">
                 <span class="transaction-desc">${tx.description || tx.type}</span>
-                <span class="transaction-amount ${amountClass}">${amountStr} 🪙</span>
+                <span class="transaction-amount ${amountClass}">${amountStr} <img src="images/moon-coin.png" class="moon-coin-icon-sm" alt="🪙"></span>
                 <span class="transaction-date">${timeAgo(tx.created_at)}</span>
             </div>
         `;
