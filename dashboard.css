@@ -1,0 +1,238 @@
+/* ==================== DASHBOARD MOON COINS ==================== */
+
+.dashboard-wrapper {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 80px 16px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Profil */
+.dashboard-profile {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px;
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(139, 92, 246, 0.15);
+}
+
+.dashboard-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 3px solid var(--accent-purple);
+    flex-shrink: 0;
+    object-fit: cover;
+}
+
+.dashboard-profile-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.dashboard-username {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.dashboard-subtitle {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+/* Balance Card */
+.balance-card {
+    background: var(--gradient-secondary, linear-gradient(135deg, #8b5cf6, #a855f7, #c084fc));
+    border-radius: var(--radius-lg);
+    padding: 28px 24px;
+    text-align: center;
+    box-shadow: 0 0 30px rgba(139, 92, 246, 0.3);
+}
+
+.balance-card-header {
+    margin-bottom: 8px;
+}
+
+.balance-label {
+    font-size: 1rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.85);
+    letter-spacing: 0.5px;
+}
+
+.balance-amount {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.1;
+    margin: 8px 0;
+}
+
+.balance-total {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Sections communes */
+.platforms-card,
+.transactions-card {
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 20px;
+    box-shadow: var(--shadow-card, 0 4px 24px rgba(0,0,0,0.3));
+}
+
+.card-section-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 16px;
+}
+
+/* Plateformes */
+.platform-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.platform-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.platform-icon {
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.platform-name {
+    font-weight: 600;
+    color: var(--text-primary);
+    flex: 1;
+}
+
+.platform-value {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-right: 8px;
+}
+
+.platform-badge {
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+.platform-badge-linked {
+    color: #00d955;
+}
+
+.platform-badge-unlinked {
+    color: #888;
+}
+
+/* Transactions */
+.transactions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.transaction-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.transaction-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.transaction-desc {
+    flex: 1;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+}
+
+.transaction-amount {
+    font-size: 0.9rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.transaction-amount.positive {
+    color: #00d955;
+}
+
+.transaction-amount.negative {
+    color: #ff4444;
+}
+
+.transaction-date {
+    font-size: 0.8rem;
+    color: var(--text-muted, #666);
+    white-space: nowrap;
+}
+
+.transactions-empty {
+    text-align: center;
+    color: var(--text-secondary);
+    padding: 20px 0;
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+/* Bouton logout */
+.logout-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 12px 20px;
+    background: transparent;
+    border: 1px solid var(--accent-pink, #ff1493);
+    color: var(--accent-pink, #ff1493);
+    border-radius: var(--radius-lg);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.logout-btn:hover {
+    background: var(--accent-pink, #ff1493);
+    color: #fff;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .dashboard-wrapper {
+        padding-top: 70px;
+    }
+
+    .balance-amount {
+        font-size: 2.4rem;
+    }
+
+    .transaction-item {
+        flex-wrap: wrap;
+    }
+
+    .transaction-date {
+        width: 100%;
+        margin-top: 2px;
+    }
+}

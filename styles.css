@@ -881,6 +881,58 @@ button {
     margin: 0;
 }
 
+/* ==================== BOUTON LOGIN DISCORD ==================== */
+.nav-user-btn {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 1000;
+}
+
+.btn-discord-login {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: #5865F2;
+    color: white;
+    border-radius: var(--radius-full);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: opacity 0.2s;
+}
+
+.btn-discord-login:hover {
+    opacity: 0.85;
+}
+
+.nav-user-logged {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px 6px 6px;
+    background: var(--bg-secondary);
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    border-radius: var(--radius-full);
+    text-decoration: none;
+    color: var(--text-primary);
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: border-color 0.2s;
+}
+
+.nav-user-logged:hover {
+    border-color: rgba(139, 92, 246, 0.6);
+}
+
+.nav-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
 /* ==================== CARTE OFFRE CASINO ==================== */
 .free-spins {
     padding: var(--spacing-sm);

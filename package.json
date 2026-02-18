@@ -1,0 +1,11 @@
+{
+  "name": "szekxo-linktree",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "cookie": "^0.7.0",
+    "jsonwebtoken": "^9.0.0",
+    "node-fetch": "^2.7.0",
+    "pg": "^8.18.0"
+  }
+}

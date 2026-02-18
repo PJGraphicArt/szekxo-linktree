@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SZEKXO — Moon Coins Dashboard</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon.png">
+    <link rel="shortcut icon" type="image/png" href="/favicon.png">
+    <link rel="apple-touch-icon" href="/favicon.png">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Lexend:wght@100..900&family=Special+Gothic+Expanded+One&display=swap" rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+    <!-- Fond vidéo -->
+    <div class="video-background">
+        <video autoplay muted loop playsinline webkit-playsinline disablepictureinpicture disableremoteplayback preload="auto" x-webkit-airplay="deny">
+            <source src="images/fond_site_szekxo_casino_v2.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <!-- Bouton login Discord (coin haut droit) -->
+    <div class="nav-user-btn" id="nav-user-btn"></div>
+
+    <!-- ==================== MENU HAMBURGER ==================== -->
+    <button class="hamburger-menu" id="hamburger-menu" aria-label="Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <!-- ==================== MENU NAVIGATION ==================== -->
+    <nav class="nav-menu" id="nav-menu">
+        <div class="nav-menu-content">
+            <button class="nav-close" id="nav-close" aria-label="Fermer">
+                <i data-lucide="x"></i>
+            </button>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">
+                    <i data-lucide="home"></i>
+                    <span>Accueil</span>
+                </a></li>
+                <li><a href="1vs1-slot.html" class="nav-link">
+                    <i data-lucide="swords"></i>
+                    <span>1VS1 Slot</span>
+                </a></li>
+                <li><a href="viewer-roulette.html" class="nav-link">
+                    <i data-lucide="shuffle"></i>
+                    <span>Tirage au sort</span>
+                </a></li>
+                <li><a href="slot-selector.html" class="nav-link">
+                    <i data-lucide="dice-5"></i>
+                    <span>Slot Selector</span>
+                </a></li>
+                <li><a href="dashboard.html" class="nav-link active">
+                    <i data-lucide="coins"></i>
+                    <span>Moon Coins</span>
+                </a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ==================== CONTENU DASHBOARD ==================== -->
+    <div class="container">
+        <div class="dashboard-wrapper">
+
+            <!-- Profil utilisateur -->
+            <div class="dashboard-profile" id="dashboard-profile">
+                <img class="dashboard-avatar" id="dashboard-avatar" src="https://cdn.discordapp.com/embed/avatars/0.png" alt="Avatar">
+                <div class="dashboard-profile-info">
+                    <span class="dashboard-username" id="dashboard-username">Chargement...</span>
+                    <span class="dashboard-subtitle">Moon Coins Dashboard</span>
+                </div>
+            </div>
+
+            <!-- Balance -->
+            <div class="balance-card">
+                <div class="balance-card-header">
+                    <span class="balance-label">🪙 Moon Coins</span>
+                </div>
+                <div class="balance-amount" id="balance-amount">—</div>
+                <div class="balance-total" id="balance-total">Total gagné : — 🪙</div>
+            </div>
+
+            <!-- Comptes liés -->
+            <div class="platforms-card">
+                <h3 class="card-section-title">📱 Comptes liés</h3>
+                <div class="platform-item">
+                    <span class="platform-icon">🎰</span>
+                    <span class="platform-name">Kick</span>
+                    <span class="platform-value" id="platform-kick">—</span>
+                    <span class="platform-badge platform-badge-unlinked" id="platform-kick-badge">❌</span>
+                </div>
+                <div class="platform-item">
+                    <span class="platform-icon">🔴</span>
+                    <span class="platform-name">DLive</span>
+                    <span class="platform-value" id="platform-dlive">—</span>
+                    <span class="platform-badge platform-badge-unlinked" id="platform-dlive-badge">❌</span>
+                </div>
+            </div>
+
+            <!-- Historique transactions -->
+            <div class="transactions-card">
+                <h3 class="card-section-title">📋 Historique</h3>
+                <div class="transactions-list" id="transactions-list">
+                    <p class="transactions-empty">Chargement...</p>
+                </div>
+            </div>
+
+            <!-- Bouton déconnexion -->
+            <button class="logout-btn" id="logout-btn">
+                <i data-lucide="log-out"></i>
+                <span>Se déconnecter</span>
+            </button>
+
+        </div>
+    </div>
+
+    <script src="dashboard.js"></script>
+    <script>
+        // Nav hamburger
+        document.addEventListener('DOMContentLoaded', () => {
+            const hamburger = document.getElementById('hamburger-menu');
+            const navMenu = document.getElementById('nav-menu');
+            const navClose = document.getElementById('nav-close');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            if (hamburger) {
+                hamburger.addEventListener('click', () => {
+                    navMenu.classList.add('active');
+                    hamburger.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                });
+            }
+            if (navClose) {
+                navClose.addEventListener('click', () => {
+                    navMenu.classList.remove('active');
+                    hamburger.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            }
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    navMenu.classList.remove('active');
+                    hamburger.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            });
+            navMenu.addEventListener('click', (e) => {
+                if (e.target === navMenu) {
+                    navMenu.classList.remove('active');
+                    hamburger.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+                    navMenu.classList.remove('active');
+                    hamburger.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+
+            lucide.createIcons();
+        });
+    </script>
+</body>
+</html>

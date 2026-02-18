@@ -693,6 +693,34 @@ function goToTab(tabName) {
 window.goToTab = goToTab;
 
 /* ============================================
+   CONNEXION DISCORD — État de connexion
+   ============================================ */
+
+async function checkLoginState() {
+    try {
+        const res = await fetch('/api/user/me');
+        const btn = document.getElementById('nav-user-btn');
+        if (!btn) return;
+        if (res.ok) {
+            const data = await res.json();
+            const avatarUrl = data.user.avatar
+                ? `https://cdn.discordapp.com/avatars/${data.user.discordId}/${data.user.avatar}.png?size=64`
+                : 'https://cdn.discordapp.com/embed/avatars/0.png';
+            btn.innerHTML = `<a href="/dashboard.html" class="nav-user-logged">
+                <img src="${avatarUrl}" alt="avatar" class="nav-avatar">
+                <span>${data.user.username}</span>
+            </a>`;
+        } else {
+            btn.innerHTML = `<a href="/api/auth/discord/login" class="btn-discord-login">
+                <i data-lucide="log-in"></i><span>Connexion</span>
+            </a>`;
+            lucide.createIcons();
+        }
+    } catch {}
+}
+checkLoginState();
+
+/* ============================================
    CAROUSEL - Promotions automatique
    ============================================ */
 
