@@ -852,25 +852,33 @@ button {
 }
 
 /* ==================== FREE SPINS BANNER ==================== */
-.freespins-banner {
-    display: block;
-    width: 100%;
+.freespins-coming-soon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     height: 100%;
+    gap: 12px;
+    padding: 40px 20px;
+    text-align: center;
 }
 
-.freespins-img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    border-radius: var(--radius-lg);
+.freespins-soon-icon {
+    font-size: 3rem;
 }
 
-.freespins-desktop { display: block; }
-.freespins-mobile { display: none; }
+.freespins-soon-title {
+    font-size: 1.6rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: var(--accent-purple);
+    margin: 0;
+}
 
-@media (max-width: 600px) {
-    .freespins-desktop { display: none; }
-    .freespins-mobile { display: block; }
+.freespins-soon-text {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin: 0;
 }
 
 /* ==================== CARTE OFFRE CASINO ==================== */
