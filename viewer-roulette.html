@@ -20,6 +20,7 @@
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="viewer-roulette.css">
 </head>
 <body>
@@ -29,6 +30,22 @@
             <source src="images/fond_site_szekxo_casino_v2.mp4" type="video/mp4">
         </video>
     </div>
+
+    <!-- ==================== DESKTOP NAV ==================== -->
+    <nav class="desktop-nav">
+        <div class="desktop-nav-inner">
+            <a href="/" class="desktop-nav-logo">
+                <img src="images/LOGO_SZEKXO.png" alt="SZEKXO" class="desktop-logo-img">
+            </a>
+            <div class="desktop-nav-links">
+                <a href="index.html" class="desktop-nav-link">Accueil</a>
+                <a href="1vs1-slot.html" class="desktop-nav-link">1VS1 Slot</a>
+                <a href="viewer-roulette.html" class="desktop-nav-link active">Tirage au sort</a>
+                <a href="slot-selector.html" class="desktop-nav-link">Slot Selector</a>
+            </div>
+            <div class="desktop-nav-user" id="desktop-user-btn"></div>
+        </div>
+    </nav>
 
     <!-- ==================== MENU HAMBURGER ==================== -->
     <button class="hamburger-menu" id="hamburger-menu" aria-label="Menu">
@@ -140,6 +157,7 @@
     <!-- Scripts -->
     <script src="script.js"></script>
     <script src="viewer-roulette.js"></script>
+    <script src="nav.js"></script>
     <script>
         lucide.createIcons();
     </script>

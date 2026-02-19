@@ -901,10 +901,12 @@ button {
     font-weight: 600;
     transition: opacity 0.2s;
     white-space: nowrap;
+    transition: 0.5s cubic-bezier(0.72, 0.05, 0.25, 1);
 }
 
 .btn-discord-login:hover {
-    opacity: 0.85;
+    box-shadow: 0px 0px 19px -1px #5865F2;
+    transform: scale(1.05);
 }
 
 .nav-user-logged {
@@ -2626,5 +2628,129 @@ button {
     .nav-link {
         font-size: 1.1rem;
         padding: var(--spacing-md);
+    }
+}
+
+/* ==================== DESKTOP NAV (1025px+) ==================== */
+
+.desktop-nav {
+    display: none;
+}
+
+@media (min-width: 1025px) {
+
+    /* Afficher le desktop nav */
+    .desktop-nav {
+        display: flex;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 68px;
+        background: rgba(6, 6, 6, 0.92);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+        z-index: 999;
+        align-items: center;
+    }
+
+    .desktop-nav-inner {
+        width: 100%;
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 40px;
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        gap: 40px;
+    }
+
+    .desktop-nav-logo {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        flex-shrink: 0;
+    }
+
+    .desktop-logo-img {
+        height: 42px;
+        width: auto;
+        object-fit: contain;
+    }
+
+    .desktop-nav-links {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+    }
+
+    .desktop-nav-link {
+        padding: 7px 16px;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--text-secondary);
+        text-decoration: none;
+        transition: color 0.2s, background 0.2s;
+        white-space: nowrap;
+    }
+
+    .desktop-nav-link:hover {
+        color: var(--text-primary);
+        background: rgba(255, 255, 255, 0.06);
+    }
+
+    .desktop-nav-link.active {
+        color: #ddecfc;
+        background: #0D1B2A;
+    }
+
+    .desktop-nav-user {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        flex-shrink: 0;
+        min-width: 180px;
+    }
+
+    /* Adapter la taille des boutons login/avatar dans la nav desktop */
+    .desktop-nav-user .btn-discord-login {
+        padding: 7px 14px;
+        font-size: 0.85rem;
+    }
+
+    .desktop-nav-user .discord-logo-btn {
+        width: 20px;
+        height: 20px;
+    }
+
+    .desktop-nav-user .nav-user-logged {
+        padding: 5px 12px 5px 6px;
+    }
+
+    .desktop-nav-user .nav-avatar {
+        width: 32px;
+        height: 32px;
+    }
+
+    /* Cacher le bouton hamburger sur desktop */
+    .hamburger-menu {
+        display: none !important;
+    }
+
+    /* Décaler le contenu vers le bas pour la nav fixe */
+    body {
+        padding-top: 68px;
+    }
+
+    /* Le dashboard et transactions ont déjà un padding-top — on le réduit */
+    .dashboard-wrapper {
+        padding-top: 28px;
+    }
+
+    .transactions-page-wrapper {
+        padding-top: 28px;
     }
 }
