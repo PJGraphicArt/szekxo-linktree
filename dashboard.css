@@ -2,169 +2,326 @@
 
 /* Moon Coin image */
 .moon-coin-icon {
-    width: 28px;
-    height: 28px;
+    width: 22px;
+    height: 22px;
     vertical-align: middle;
-    margin-right: 4px;
 }
 
 .moon-coin-icon-sm {
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
     vertical-align: middle;
 }
 
-.moon-coin-icon-balance {
-    width: 36px;
-    height: 36px;
-    vertical-align: middle;
-}
+/* ==================== WRAPPER ==================== */
 
 .dashboard-wrapper {
-    max-width: 640px;
+    max-width: 960px;
     margin: 0 auto;
-    padding: 80px 16px 40px;
+    padding: 80px 16px 60px;
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-/* Profil */
-.dashboard-profile {
+/* ==================== HEADER ==================== */
+
+.dashboard-header {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 16px;
-    padding: 20px;
+    padding: 20px 24px;
     background: var(--bg-card);
     border-radius: var(--radius-lg);
     border: 1px solid rgba(139, 92, 246, 0.15);
+    flex-wrap: wrap;
+}
+
+.dashboard-header-identity {
+    display: flex;
+    align-items: center;
+    gap: 14px;
 }
 
 .dashboard-avatar {
-    width: 80px;
-    height: 80px;
+    width: 64px;
+    height: 64px;
     border-radius: 50%;
     border: 3px solid var(--accent-purple);
     flex-shrink: 0;
     object-fit: cover;
 }
 
-.dashboard-profile-info {
+.dashboard-header-text {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 3px;
 }
 
 .dashboard-username {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     font-weight: 700;
     color: var(--text-primary);
 }
 
 .dashboard-subtitle {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     color: var(--text-secondary);
 }
 
-/* Balance Card */
-.balance-card {
-    background: var(--gradient-secondary, linear-gradient(135deg, #8b5cf6, #a855f7, #c084fc));
-    border-radius: var(--radius-lg);
-    padding: 28px 24px;
-    text-align: center;
-    box-shadow: 0 0 30px rgba(139, 92, 246, 0.3);
+.dashboard-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
 }
 
-.balance-card-header {
-    margin-bottom: 8px;
+.balance-inline {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: linear-gradient(135deg, rgba(139,92,246,0.2), rgba(168,85,247,0.2));
+    border: 1px solid rgba(139,92,246,0.4);
+    border-radius: 40px;
 }
 
-.balance-label {
-    font-size: 1rem;
-    font-weight: 600;
-    color: rgba(255, 255, 255, 0.85);
+.balance-amount-inline {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #fff;
     letter-spacing: 0.5px;
 }
 
-.balance-amount {
-    font-size: 3rem;
+/* ==================== GRID ==================== */
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+/* ==================== RANK CARD ==================== */
+
+.rank-card {
+    --rank-color: #CD7F32;
+    --rank-glow: rgba(205, 127, 50, 0.4);
+
+    background: linear-gradient(135deg, #0d0d1a, #1a1a2e);
+    border-radius: 16px;
+    padding: 28px 24px;
+    border: 2px solid var(--rank-color);
+    box-shadow: 0 0 24px var(--rank-glow), inset 0 0 40px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.rank-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, var(--rank-glow) 0%, transparent 60%);
+    animation: rankPulse 3s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes rankPulse {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50%       { opacity: 0.6; transform: scale(1.05); }
+}
+
+.rank-card.lunar {
+    animation: lunarShimmer 2s linear infinite;
+}
+
+@keyframes lunarShimmer {
+    0%   { border-color: #E8D5FF; box-shadow: 0 0 24px rgba(232,213,255,0.6); }
+    33%  { border-color: #C9B8FF; box-shadow: 0 0 36px rgba(201,184,255,0.8); }
+    66%  { border-color: #F0E6FF; box-shadow: 0 0 48px rgba(240,230,255,0.9); }
+    100% { border-color: #E8D5FF; box-shadow: 0 0 24px rgba(232,213,255,0.6); }
+}
+
+.rank-icon {
+    font-size: 2.8rem;
+    line-height: 1;
+    position: relative;
+    z-index: 1;
+}
+
+.rank-name {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--rank-color);
+    text-shadow: 0 0 12px var(--rank-glow);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 1;
+}
+
+/* XP Bar */
+.xp-bar-container {
+    width: 100%;
+    height: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 99px;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+}
+
+.xp-bar-fill {
+    height: 100%;
+    border-radius: 99px;
+    background: linear-gradient(90deg, var(--rank-color), rgba(255,255,255,0.8));
+    box-shadow: 0 0 8px var(--rank-glow);
+    transition: width 0.8s ease;
+}
+
+.xp-bar-labels {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.55);
+    position: relative;
+    z-index: 1;
+}
+
+.xp-pct {
     font-weight: 700;
-    color: #ffffff;
-    line-height: 1.1;
-    margin: 8px 0;
+    color: var(--rank-color);
 }
 
-.balance-total {
-    font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.7);
+.rank-next-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding-top: 4px;
+    position: relative;
+    z-index: 1;
 }
 
-/* Sections communes */
-.platforms-card,
-.transactions-card {
+#rank-next-label {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.65);
+}
+
+.rank-bonus-badge {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #FFD700;
+    background: rgba(255, 215, 0, 0.12);
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    border-radius: 20px;
+    padding: 2px 10px;
+    white-space: nowrap;
+}
+
+/* ==================== STATS CARD ==================== */
+
+.stats-card {
     background: var(--bg-card);
     border-radius: var(--radius-lg);
     border: 1px solid rgba(255, 255, 255, 0.06);
-    padding: 20px;
-    box-shadow: var(--shadow-card, 0 4px 24px rgba(0,0,0,0.3));
+    padding: 24px;
+    box-shadow: var(--shadow-card, 0 4px 24px rgba(0, 0, 0, 0.3));
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
 }
 
 .card-section-title {
     font-size: 1rem;
     font-weight: 700;
     color: var(--text-primary);
-    margin: 0 0 16px;
+    margin: 0 0 12px;
 }
 
-/* Plateformes */
-.platform-item {
+.stat-item {
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 10px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
 }
 
-.platform-item:last-child {
+.stat-item:last-of-type {
     border-bottom: none;
-    padding-bottom: 0;
 }
 
-.platform-icon {
-    font-size: 1.2rem;
+.stat-label {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.stat-value {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.stat-value.positive {
+    color: #00d955;
+}
+
+/* Platforms mini */
+.platforms-section {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.platform-item-mini {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+}
+
+.platform-icon-mini {
+    font-size: 1rem;
     flex-shrink: 0;
 }
 
-.platform-name {
+.platform-label-mini {
     font-weight: 600;
     color: var(--text-primary);
     flex: 1;
 }
 
-.platform-value {
-    font-size: 0.9rem;
+.platform-value-mini {
     color: var(--text-secondary);
-    margin-right: 8px;
+    font-size: 0.8rem;
+    margin-right: 4px;
 }
 
-.platform-badge {
-    font-size: 1rem;
-    flex-shrink: 0;
+/* ==================== TRANSACTIONS CARD ==================== */
+
+.transactions-card {
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 24px;
+    box-shadow: var(--shadow-card, 0 4px 24px rgba(0, 0, 0, 0.3));
 }
 
-.platform-badge-linked {
-    color: #00d955;
-}
-
-.platform-badge-unlinked {
-    color: #888;
-}
-
-/* Transactions */
 .transactions-list {
     display: flex;
     flex-direction: column;
     gap: 2px;
+    margin-bottom: 16px;
 }
 
 .transaction-item {
@@ -192,13 +349,8 @@
     white-space: nowrap;
 }
 
-.transaction-amount.positive {
-    color: #00d955;
-}
-
-.transaction-amount.negative {
-    color: #ff4444;
-}
+.transaction-amount.positive { color: #00d955; }
+.transaction-amount.negative { color: #ff4444; }
 
 .transaction-date {
     font-size: 0.8rem;
@@ -214,22 +366,38 @@
     font-size: 0.9rem;
 }
 
-/* Bouton logout */
+.view-all-link {
+    display: block;
+    text-align: center;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--accent-purple);
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 8px;
+    transition: background 0.2s;
+}
+
+.view-all-link:hover {
+    background: rgba(139, 92, 246, 0.1);
+}
+
+/* ==================== LOGOUT BTN ==================== */
+
 .logout-btn {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 8px;
-    width: 100%;
-    padding: 12px 20px;
+    gap: 6px;
+    padding: 8px 16px;
     background: transparent;
     border: 1px solid var(--accent-pink, #ff1493);
     color: var(--accent-pink, #ff1493);
     border-radius: var(--radius-lg);
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-weight: 600;
     cursor: pointer;
     transition: background 0.2s, color 0.2s;
+    white-space: nowrap;
 }
 
 .logout-btn:hover {
@@ -237,14 +405,35 @@
     color: #fff;
 }
 
-/* Responsive */
+/* ==================== RESPONSIVE ==================== */
+
+@media (max-width: 768px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-header {
+        gap: 12px;
+    }
+
+    .dashboard-header-actions {
+        width: 100%;
+        justify-content: space-between;
+    }
+}
+
 @media (max-width: 480px) {
     .dashboard-wrapper {
         padding-top: 70px;
     }
 
-    .balance-amount {
-        font-size: 2.4rem;
+    .dashboard-avatar {
+        width: 52px;
+        height: 52px;
+    }
+
+    .balance-amount-inline {
+        font-size: 1.1rem;
     }
 
     .transaction-item {

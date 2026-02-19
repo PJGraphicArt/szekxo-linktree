@@ -75,88 +75,125 @@
     <div class="container">
         <div class="dashboard-wrapper">
 
-            <!-- Profil utilisateur -->
-            <div class="dashboard-profile" id="dashboard-profile">
-                <img class="dashboard-avatar" id="dashboard-avatar" src="https://cdn.discordapp.com/embed/avatars/0.png" alt="Avatar">
-                <div class="dashboard-profile-info">
-                    <span class="dashboard-username" id="dashboard-username">Chargement...</span>
-                    <span class="dashboard-subtitle">Moon Coins Dashboard</span>
+            <!-- HEADER -->
+            <div class="dashboard-header">
+                <div class="dashboard-header-identity">
+                    <img class="dashboard-avatar" id="dashboard-avatar" src="https://cdn.discordapp.com/embed/avatars/0.png" alt="Avatar">
+                    <div class="dashboard-header-text">
+                        <span class="dashboard-username" id="dashboard-username">Chargement...</span>
+                        <span class="dashboard-subtitle">Moon Coins Dashboard</span>
+                    </div>
+                </div>
+                <div class="dashboard-header-actions">
+                    <div class="balance-inline">
+                        <img src="images/moon-coin.png" class="moon-coin-icon" alt="">
+                        <span class="balance-amount-inline" id="balance-amount">—</span>
+                    </div>
+                    <button class="logout-btn" id="logout-btn">
+                        <i data-lucide="log-out"></i>
+                        <span>Déconnexion</span>
+                    </button>
                 </div>
             </div>
 
-            <!-- Balance -->
-            <div class="balance-card">
-                <div class="balance-card-header">
-                    <span class="balance-label"><img src="images/moon-coin.png" class="moon-coin-icon" alt="Moon Coin"> Moon Coins</span>
+            <!-- GRID : RANG + STATS -->
+            <div class="dashboard-grid">
+
+                <!-- CARTE RANG -->
+                <div class="rank-card" id="rank-card">
+                    <div class="rank-icon" id="rank-icon">🥉</div>
+                    <div class="rank-name" id="rank-name">Bronze 5</div>
+                    <div class="xp-bar-container">
+                        <div class="xp-bar-fill" id="xp-bar-fill" style="width: 0%"></div>
+                    </div>
+                    <div class="xp-bar-labels">
+                        <span id="xp-current">0 XP</span>
+                        <span class="xp-pct" id="xp-pct">0%</span>
+                        <span id="xp-next">500 XP</span>
+                    </div>
+                    <div class="rank-next-info" id="rank-next-info">
+                        <span id="rank-next-label">Prochain : Bronze 4</span>
+                        <span class="rank-bonus-badge" id="rank-bonus">+30 🪙</span>
+                    </div>
                 </div>
-                <div class="balance-amount" id="balance-amount">—</div>
-                <div class="balance-total" id="balance-total">Total gagné : — 🪙</div>
+
+                <!-- STATS -->
+                <div class="stats-card">
+                    <h3 class="card-section-title">📊 Statistiques</h3>
+                    <div class="stat-item">
+                        <span class="stat-label">Total gagné</span>
+                        <span class="stat-value positive" id="stat-earned">—</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Total misé</span>
+                        <span class="stat-value" id="stat-spent">—</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">XP totale</span>
+                        <span class="stat-value" id="stat-xp">—</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Parties jouées</span>
+                        <span class="stat-value" id="stat-games">—</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Watch time</span>
+                        <span class="stat-value" id="stat-watchtime">—</span>
+                    </div>
+
+                    <div class="platforms-section">
+                        <div class="platform-item-mini">
+                            <span class="platform-icon-mini">🎰</span>
+                            <span class="platform-label-mini">Kick</span>
+                            <span class="platform-value-mini" id="platform-kick">Non lié</span>
+                            <span id="platform-kick-badge">❌</span>
+                        </div>
+                        <div class="platform-item-mini">
+                            <span class="platform-icon-mini">🔴</span>
+                            <span class="platform-label-mini">DLive</span>
+                            <span class="platform-value-mini" id="platform-dlive">Non lié</span>
+                            <span id="platform-dlive-badge">❌</span>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
-            <!-- Comptes liés -->
-            <div class="platforms-card">
-                <h3 class="card-section-title">📱 Comptes liés</h3>
-                <div class="platform-item">
-                    <span class="platform-icon">🎰</span>
-                    <span class="platform-name">Kick</span>
-                    <span class="platform-value" id="platform-kick">—</span>
-                    <span class="platform-badge platform-badge-unlinked" id="platform-kick-badge">❌</span>
-                </div>
-                <div class="platform-item">
-                    <span class="platform-icon">🔴</span>
-                    <span class="platform-name">DLive</span>
-                    <span class="platform-value" id="platform-dlive">—</span>
-                    <span class="platform-badge platform-badge-unlinked" id="platform-dlive-badge">❌</span>
-                </div>
-            </div>
-
-            <!-- Historique transactions -->
+            <!-- TRANSACTIONS -->
             <div class="transactions-card">
-                <h3 class="card-section-title">📋 Historique</h3>
+                <h3 class="card-section-title">📋 Dernières transactions</h3>
                 <div class="transactions-list" id="transactions-list">
                     <p class="transactions-empty">Chargement...</p>
                 </div>
+                <a href="/transactions.html" class="view-all-link">Voir toutes mes transactions →</a>
             </div>
-
-            <!-- Bouton déconnexion -->
-            <button class="logout-btn" id="logout-btn">
-                <i data-lucide="log-out"></i>
-                <span>Se déconnecter</span>
-            </button>
 
         </div>
     </div>
 
     <script src="dashboard.js"></script>
     <script>
-        // Nav hamburger
         document.addEventListener('DOMContentLoaded', () => {
             const hamburger = document.getElementById('hamburger-menu');
             const navMenu = document.getElementById('nav-menu');
             const navClose = document.getElementById('nav-close');
             const navLinks = document.querySelectorAll('.nav-link');
 
-            if (hamburger) {
-                hamburger.addEventListener('click', () => {
-                    navMenu.classList.add('active');
-                    hamburger.classList.add('active');
-                    document.body.style.overflow = 'hidden';
-                });
-            }
-            if (navClose) {
-                navClose.addEventListener('click', () => {
-                    navMenu.classList.remove('active');
-                    hamburger.classList.remove('active');
-                    document.body.style.overflow = '';
-                });
-            }
-            navLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    navMenu.classList.remove('active');
-                    hamburger.classList.remove('active');
-                    document.body.style.overflow = '';
-                });
+            if (hamburger) hamburger.addEventListener('click', () => {
+                navMenu.classList.add('active');
+                hamburger.classList.add('active');
+                document.body.style.overflow = 'hidden';
             });
+            if (navClose) navClose.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                hamburger.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+            navLinks.forEach(link => link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                hamburger.classList.remove('active');
+                document.body.style.overflow = '';
+            }));
             navMenu.addEventListener('click', (e) => {
                 if (e.target === navMenu) {
                     navMenu.classList.remove('active');

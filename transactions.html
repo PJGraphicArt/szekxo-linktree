@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SZEKXO — Mes transactions</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+    <link rel="shortcut icon" type="image/png" href="/favicon.png">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Lexend:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="transactions.css">
+</head>
+<body>
+    <!-- Fond vidéo -->
+    <div class="video-background">
+        <video autoplay muted loop playsinline webkit-playsinline disablepictureinpicture disableremoteplayback preload="auto" x-webkit-airplay="deny">
+            <source src="images/fond_site_szekxo_casino_v2.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <!-- ==================== MENU HAMBURGER ==================== -->
+    <button class="hamburger-menu" id="hamburger-menu" aria-label="Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <!-- ==================== MENU NAVIGATION ==================== -->
+    <nav class="nav-menu" id="nav-menu">
+        <div class="nav-menu-content">
+            <div class="nav-user-btn" id="nav-user-btn"></div>
+            <button class="nav-close" id="nav-close" aria-label="Fermer">
+                <i data-lucide="x"></i>
+            </button>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">
+                    <i data-lucide="home"></i>
+                    <span>Accueil</span>
+                </a></li>
+                <li><a href="1vs1-slot.html" class="nav-link">
+                    <i data-lucide="swords"></i>
+                    <span>1VS1 Slot</span>
+                </a></li>
+                <li><a href="viewer-roulette.html" class="nav-link">
+                    <i data-lucide="shuffle"></i>
+                    <span>Tirage au sort</span>
+                </a></li>
+                <li><a href="slot-selector.html" class="nav-link">
+                    <i data-lucide="dice-5"></i>
+                    <span>Slot Selector</span>
+                </a></li>
+                <li><a href="dashboard.html" class="nav-link">
+                    <i data-lucide="coins"></i>
+                    <span>Moon Coins</span>
+                </a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ==================== CONTENU ==================== -->
+    <div class="container">
+        <div class="transactions-page-wrapper">
+
+            <!-- En-tête -->
+            <div class="transactions-page-header">
+                <a href="/dashboard.html" class="back-link">
+                    <i data-lucide="arrow-left"></i>
+                    <span>Retour au dashboard</span>
+                </a>
+                <h1 class="transactions-page-title">
+                    <img src="images/moon-coin.png" class="moon-coin-icon" alt=""> Mes transactions
+                </h1>
+            </div>
+
+            <!-- Filtres -->
+            <div class="filters-bar">
+                <button class="filter-btn active" data-filter="all">Tous</button>
+                <button class="filter-btn" data-filter="gains">Gains</button>
+                <button class="filter-btn" data-filter="depenses">Dépenses</button>
+                <button class="filter-btn" data-filter="watchtime">Watch time</button>
+            </div>
+
+            <!-- Liste -->
+            <div class="transactions-card">
+                <div class="transactions-list" id="transactions-list">
+                    <p class="transactions-empty">Chargement...</p>
+                </div>
+            </div>
+
+            <!-- Bouton charger plus -->
+            <button class="load-more-btn" id="load-more" style="display:none">
+                Charger plus
+            </button>
+
+        </div>
+    </div>
+
+    <script src="transactions.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const hamburger = document.getElementById('hamburger-menu');
+            const navMenu = document.getElementById('nav-menu');
+            const navClose = document.getElementById('nav-close');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            if (hamburger) hamburger.addEventListener('click', () => {
+                navMenu.classList.add('active');
+                hamburger.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+            if (navClose) navClose.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                hamburger.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+            navLinks.forEach(link => link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                hamburger.classList.remove('active');
+                document.body.style.overflow = '';
+            }));
+            navMenu.addEventListener('click', (e) => {
+                if (e.target === navMenu) {
+                    navMenu.classList.remove('active');
+                    hamburger.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    navMenu.classList.remove('active');
+                    hamburger.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+
+            lucide.createIcons();
+        });
+    </script>
+</body>
+</html>
