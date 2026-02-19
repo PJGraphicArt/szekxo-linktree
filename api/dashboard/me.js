@@ -67,11 +67,25 @@ module.exports = async function handler(req, res) {
     const userId = payload.discordId;
 
     try {
-        const [userRow, statsRow, txRow, linksRow] = await Promise.all([
-            pool.query(
+        // Requête user avec fallback si les colonnes de rang n'existent pas encore (migration en attente)
+        let userQueryResult;
+        try {
+            userQueryResult = await pool.query(
                 'SELECT balance, total_earned, COALESCE(total_xp,0) AS total_xp, COALESCE(rank_tier,\'bronze\') AS rank_tier, COALESCE(rank_level,5) AS rank_level FROM moon_coins_balance WHERE user_id = $1',
                 [userId]
-            ),
+            );
+        } catch (e) {
+            // Colonnes manquantes → fallback sans colonnes de rang
+            userQueryResult = await pool.query(
+                'SELECT balance, total_earned FROM moon_coins_balance WHERE user_id = $1',
+                [userId]
+            );
+            if (userQueryResult.rows[0]) {
+                userQueryResult.rows[0] = { ...userQueryResult.rows[0], total_xp: 0, rank_tier: 'bronze', rank_level: 5 };
+            }
+        }
+
+        const [statsRow, txRow, linksRow] = await Promise.all([
             pool.query(
                 `SELECT
                     COALESCE(SUM(CASE WHEN amount < 0 THEN ABS(amount) ELSE 0 END), 0) AS total_spent,
@@ -90,7 +104,7 @@ module.exports = async function handler(req, res) {
             ),
         ]);
 
-        const u = userRow.rows[0] || { balance: 0, total_earned: 0, total_xp: 0, rank_tier: 'bronze', rank_level: 5 };
+        const u = userQueryResult.rows[0] || { balance: 0, total_earned: 0, total_xp: 0, rank_tier: 'bronze', rank_level: 5 };
         const s = statsRow.rows[0] || { total_spent: 0, games_played: 0, watchtime_txs: 0 };
 
         const totalXp = parseInt(u.total_xp) || 0;
