@@ -8,9 +8,10 @@
 }
 
 .moon-coin-icon-sm {
-    width: 16px;
-    height: 16px;
+    width: 26px;
+    height: 26px;
     vertical-align: middle;
+    margin-left: 5px;
 }
 
 /* ==================== WRAPPER ==================== */
@@ -97,9 +98,9 @@
 /* ==================== GRID ==================== */
 
 .dashboard-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
     gap: 20px;
+    flex-direction: column;
 }
 
 /* ==================== RANK CARD ==================== */
@@ -408,9 +409,6 @@
 /* ==================== RESPONSIVE ==================== */
 
 @media (max-width: 768px) {
-    .dashboard-grid {
-        grid-template-columns: 1fr;
-    }
 
     .dashboard-header {
         gap: 12px;
