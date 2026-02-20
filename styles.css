@@ -2633,6 +2633,124 @@ button {
 
 /* ==================== DESKTOP NAV (1025px+) ==================== */
 
+/* ==================== HERO BANNER ==================== */
+.hero-banner {
+    position: relative;
+    width: 100%;
+    height: 70vh;
+    overflow: hidden;
+}
+
+.hero-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.38);
+    z-index: 1;
+}
+
+.hero-content {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    padding: 0 24px;
+    text-align: center;
+}
+
+.hero-logo {
+    width: 180px;
+    height: auto;
+    filter: drop-shadow(0 0 32px rgba(255, 255, 255, 0.25));
+}
+
+.hero-slogan {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.72);
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.hero-cta-group {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 6px;
+}
+
+.hero-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 26px;
+    border-radius: 10px;
+    font-size: 0.88rem;
+    font-weight: 700;
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    transition: transform 0.2s, box-shadow 0.2s;
+    white-space: nowrap;
+}
+
+.hero-btn:hover {
+    transform: translateY(-2px);
+}
+
+.hero-btn-discord {
+    background: #5865F2;
+    color: #fff;
+    box-shadow: 0 4px 20px rgba(88, 101, 242, 0.4);
+}
+
+.hero-btn-discord:hover {
+    box-shadow: 0 6px 30px rgba(88, 101, 242, 0.65);
+}
+
+.hero-btn-partner {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.hero-btn-partner:hover {
+    background: rgba(255, 255, 255, 0.17);
+    box-shadow: 0 6px 24px rgba(255, 255, 255, 0.1);
+}
+
+.hero-btn-icon {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
+
+.hero-fade-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 220px;
+    background: linear-gradient(to bottom, transparent, #060606);
+    z-index: 2;
+    pointer-events: none;
+}
+
 .desktop-nav {
     display: none;
 }
@@ -2659,7 +2777,7 @@ button {
         width: 100%;
         max-width: 1400px;
         margin: 0 auto;
-        padding: 0 40px;
+        padding: 0 60px;
         display: grid;
         grid-template-columns: auto 1fr auto;
         align-items: center;
@@ -2674,7 +2792,7 @@ button {
     }
 
     .desktop-logo-img {
-        height: 42px;
+        height: 30px;
         width: auto;
         object-fit: contain;
     }
@@ -2687,6 +2805,9 @@ button {
     }
 
     .desktop-nav-link {
+        display: flex;
+        align-items: center;
+        gap: 6px;
         padding: 7px 16px;
         border-radius: 8px;
         font-size: 0.9rem;
@@ -2695,6 +2816,19 @@ button {
         text-decoration: none;
         transition: color 0.2s, background 0.2s;
         white-space: nowrap;
+    }
+
+    .nav-icon {
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
+        opacity: 0.75;
+        transition: opacity 0.2s;
+    }
+
+    .desktop-nav-link:hover .nav-icon,
+    .desktop-nav-link.active .nav-icon {
+        opacity: 1;
     }
 
     .desktop-nav-link:hover {
@@ -2752,5 +2886,95 @@ button {
 
     .transactions-page-wrapper {
         padding-top: 28px;
+    }
+
+    .avatar {
+        display: none;
+    }
+
+    .profile-name {
+        display: none;
+    }
+
+    .tagline {
+        display: none;
+    }
+
+    /* ── Dropdown Apps ── */
+    .desktop-nav-dropdown {
+        position: relative;
+    }
+
+    /* Pont invisible qui comble le gap entre bouton et menu (évite que le hover se coupe) */
+    .desktop-nav-dropdown::before {
+        content: '';
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        height: 10px;
+    }
+
+    .desktop-nav-dropdown-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-family: inherit;
+    }
+
+    .dropdown-chevron {
+        flex-shrink: 0;
+        transition: transform 0.2s;
+    }
+
+    .desktop-nav-dropdown:hover .dropdown-chevron {
+        transform: rotate(180deg);
+    }
+
+    .desktop-nav-dropdown-menu {
+        display: none;
+        position: absolute;
+        top: calc(100% + 6px);
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(8, 8, 16, 0.96);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        padding: 6px;
+        min-width: 170px;
+        z-index: 1000;
+        flex-direction: column;
+        gap: 2px;
+    }
+
+    .desktop-nav-dropdown:hover .desktop-nav-dropdown-menu {
+        display: flex;
+    }
+
+    .desktop-nav-dropdown-item {
+        padding: 9px 14px;
+        border-radius: 7px;
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: var(--text-secondary);
+        text-decoration: none;
+        transition: color 0.2s, background 0.2s;
+        white-space: nowrap;
+        display: flex;
+        flex-direction: row;
+        gap: 6px;
+        align-items: center;
+    }
+
+    .desktop-nav-dropdown-item:hover {
+        color: var(--text-primary);
+        background: rgba(255, 255, 255, 0.07);
+    }
+
+    .desktop-nav-dropdown-item.active {
+        color: #ddecfc;
+        background: #0D1B2A;
     }
 }
