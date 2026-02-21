@@ -97,6 +97,18 @@
     align-items: flex-end;
     gap: 2px;
 }
+
+.bj-balance-row {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.bj-coin-icon {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
 .bj-balance-label {
     font-size: 0.68rem;
     color: rgba(255, 255, 255, 0.38);
