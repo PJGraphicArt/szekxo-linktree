@@ -68,9 +68,12 @@ function calculateHandValue(hand) {
 }
 
 // ── Rendu des cartes ─────────────────────────
-function createCardElement(card, hidden = false, delay = 0) {
+const STAGGER = 220; // ms entre chaque carte
+
+function createCardElement(card, hidden = false, delay = 0, reveal = false) {
     const el = document.createElement('div');
-    el.className = `card card-deal${hidden ? ' card-hidden' : ''}`;
+    const animClass = reveal ? 'card-reveal' : 'card-deal';
+    el.className = `card ${animClass}${hidden ? ' card-hidden' : ''}`;
     el.style.animationDelay = `${delay}ms`;
 
     if (hidden) {
@@ -92,7 +95,8 @@ function createCardElement(card, hidden = false, delay = 0) {
     return el;
 }
 
-function renderHands(hideDealer = false) {
+// interleave=true → P1@0ms, D1@STAGGER, P2@2×STAGGER, D2@3×STAGGER
+function renderHands(hideDealer = false, interleave = false) {
     const dealerArea = document.getElementById('dealer-cards');
     const playerArea = document.getElementById('player-cards');
     dealerArea.innerHTML = '';
@@ -100,11 +104,13 @@ function renderHands(hideDealer = false) {
 
     gameState.dealerHand.forEach((card, i) => {
         const hidden = hideDealer && i === 1;
-        dealerArea.appendChild(createCardElement(card, hidden, i * 100));
+        const delay = interleave ? (i * 2 + 1) * STAGGER : i * STAGGER;
+        dealerArea.appendChild(createCardElement(card, hidden, delay));
     });
 
     gameState.playerHand.forEach((card, i) => {
-        playerArea.appendChild(createCardElement(card, false, i * 100));
+        const delay = interleave ? i * 2 * STAGGER : i * STAGGER;
+        playerArea.appendChild(createCardElement(card, false, delay));
     });
 }
 
@@ -160,6 +166,13 @@ function setMessage(msg, type = '') {
     const el = document.getElementById('game-message');
     el.textContent = msg;
     el.className = `bj-message${type ? ' message-' + type : ''}`;
+    if (msg) {
+        el.style.animation = 'none';
+        void el.offsetWidth; // force reflow pour redémarrer l'animation
+        el.style.animation = 'messageFadeIn 0.38s ease forwards';
+    } else {
+        el.style.animation = '';
+    }
 }
 
 function updateUI() {
@@ -241,59 +254,83 @@ async function deal() {
     gameState.message    = '';
     gameState.messageType = '';
 
-    updateUI();
+    // Deal alternant : P1 → D1 → P2 → D2
+    renderHands(true, true);
+    updateScores(true);
+    updateBalance();
+    setMessage('', '');
+    showControls('player');
 
-    // Blackjack naturel ?
+    // Blackjack naturel ? (attendre que les 4 cartes soient apparues)
     if (calculateHandValue(gameState.playerHand) === 21) {
-        setTimeout(() => handleStand(), 700);
+        setTimeout(() => handleStand(), STAGGER * 3 + 900);
     }
 }
 
 async function handleHit() {
     if (gameState.status !== 'player-turn') return;
 
-    gameState.playerHand.push(gameState.deck.pop());
-    const value = calculateHandValue(gameState.playerHand);
-    updateUI();
+    const newCard = gameState.deck.pop();
+    gameState.playerHand.push(newCard);
 
+    // Append uniquement la nouvelle carte (les existantes ne re-animent pas)
+    document.getElementById('player-cards').appendChild(createCardElement(newCard, false, 0));
+    updateScores(true);
+
+    const value = calculateHandValue(gameState.playerHand);
     if (value > 21) {
-        gameState.status      = 'result';
-        gameState.message     = '💥 Bust ! Le dealer gagne.';
-        gameState.messageType = 'lose';
-        updateUI();
+        gameState.status = 'result';
+        await pause(380);
+        setMessage('💥 Bust ! Le dealer gagne.', 'lose');
+        showControls('result');
         await submitResult('lose', 0);
     } else if (value === 21) {
-        setTimeout(() => handleStand(), 400);
+        setTimeout(() => handleStand(), 900);
     }
 }
 
 async function handleStand() {
     if (gameState.status !== 'player-turn') return;
     gameState.status = 'dealer-turn';
-
-    // Révéler la carte cachée du dealer
-    renderHands(false);
-    updateScores(false);
     showControls('none');
 
+    // Retourner la carte cachée du dealer avec animation flip
+    await pause(220);
+    revealDealerCard();
+    updateScores(false);
+
+    // Pause avant que le dealer joue
+    await pause(980);
     await dealerDraw();
+}
+
+function revealDealerCard() {
+    const dealerArea   = document.getElementById('dealer-cards');
+    const hiddenCardEl = dealerArea.querySelector('.card-hidden');
+    if (!hiddenCardEl || gameState.dealerHand.length < 2) return;
+    const revealed = createCardElement(gameState.dealerHand[1], false, 0, true);
+    hiddenCardEl.replaceWith(revealed);
 }
 
 async function dealerDraw() {
     const dealerValue = calculateHandValue(gameState.dealerHand);
 
     if (dealerValue < 17) {
-        await pause(820);
-        gameState.dealerHand.push(gameState.deck.pop());
-        renderHands(false);
+        await pause(1100);
+        const newCard = gameState.deck.pop();
+        gameState.dealerHand.push(newCard);
+        // Append uniquement la nouvelle carte
+        document.getElementById('dealer-cards').appendChild(createCardElement(newCard, false, 0));
         updateScores(false);
         await dealerDraw();
         return;
     }
 
-    // Déterminer le résultat
-    const playerValue         = calculateHandValue(gameState.playerHand);
-    const isNaturalBlackjack  = gameState.playerHand.length === 2 && playerValue === 21;
+    // Pause dramatique avant le résultat
+    await pause(480);
+
+    const playerValue        = calculateHandValue(gameState.playerHand);
+    const isNaturalBlackjack = gameState.playerHand.length === 2 && playerValue === 21;
 
     let outcome, payout, message, msgType;
 
@@ -327,7 +364,8 @@ async function dealerDraw() {
     gameState.status      = 'result';
     gameState.message     = message;
     gameState.messageType = msgType;
-    updateUI();
+    setMessage(message, msgType);
+    showControls('result');
 
     await submitResult(outcome, payout);
 }
