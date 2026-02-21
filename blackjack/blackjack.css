@@ -1,0 +1,416 @@
+/* ============================================
+   BLACKJACK — Moon Coins | SZEKXO
+   ============================================ */
+
+.casino-table {
+    min-height: 100vh;
+    background: #0d0c0d;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem 1rem 3rem;
+    padding-top: calc(68px + 1.5rem);
+    gap: 14px;
+}
+
+/* ── Header ── */
+.bj-header {
+    width: 100%;
+    max-width: 680px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 4px;
+}
+
+.bj-back {
+    color: rgba(255, 255, 255, 0.5);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: color 0.2s;
+    white-space: nowrap;
+}
+.bj-back:hover { color: #fff; }
+
+.bj-title {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: 0.02em;
+}
+
+.bj-balance-display {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2px;
+}
+.bj-balance-label {
+    font-size: 0.68rem;
+    color: rgba(255, 255, 255, 0.38);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+.bj-balance-value {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: #FFD700;
+}
+
+/* ── Virtual currency notice ── */
+.virtual-currency-notice {
+    background: rgba(255, 200, 0, 0.05);
+    border: 1px solid rgba(255, 200, 0, 0.18);
+    border-radius: 8px;
+    padding: 9px 14px;
+    font-size: 0.72rem;
+    color: rgba(255, 255, 255, 0.4);
+    text-align: center;
+    max-width: 680px;
+    width: 100%;
+    line-height: 1.55;
+}
+.virtual-currency-notice strong { color: rgba(255, 200, 0, 0.6); }
+
+/* ── Screens ── */
+.bj-screen {
+    width: 100%;
+    max-width: 680px;
+    flex: 1;
+}
+
+#screen-login {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 40px 0;
+}
+
+#screen-game {
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* ── Game areas ── */
+.bj-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.bj-area-label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.45);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.bj-score {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    padding: 2px 8px;
+    min-width: 28px;
+    text-align: center;
+}
+
+/* ── Cards container ── */
+.bj-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    min-height: 122px;
+    padding: 6px 0;
+    align-items: center;
+}
+
+/* ── Card ── */
+.card {
+    width: 76px;
+    height: 112px;
+    border-radius: 8px;
+    background: #fff;
+    border: 1px solid #d1d5db;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 5px;
+    flex-shrink: 0;
+}
+
+.card-hidden {
+    background: linear-gradient(145deg, #1e1b4b, #312e81);
+    border-color: #4f46e5;
+}
+
+.card-back {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+}
+
+.card-corner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1;
+}
+.card-top-left  { align-self: flex-start; }
+.card-bottom-right { align-self: flex-end; transform: rotate(180deg); }
+
+.card-rank {
+    font-size: 0.82rem;
+    font-weight: 900;
+    line-height: 1;
+}
+.card-suit {
+    font-size: 0.68rem;
+    line-height: 1;
+}
+.card-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.3rem;
+    pointer-events: none;
+}
+
+/* Card animation */
+@keyframes cardDeal {
+    from {
+        transform: translateY(-60px) rotate(-6deg) scale(0.85);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0) rotate(0deg) scale(1);
+        opacity: 1;
+    }
+}
+.card-deal {
+    animation: cardDeal 0.28s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* ── Message central ── */
+.bj-message {
+    text-align: center;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #fff;
+    min-height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.3s;
+}
+.bj-message.message-win     { color: #22c55e; }
+.bj-message.message-lose    { color: #ef4444; }
+.bj-message.message-push    { color: #f59e0b; }
+.bj-message.message-error   { color: #f87171; font-size: 0.88rem; }
+.bj-message.message-blackjack { color: #FFD700; }
+
+/* ── Controls ── */
+.bj-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    padding: 4px 0;
+}
+
+#controls-betting,
+#controls-player,
+#controls-result {
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+}
+
+/* ── Chips ── */
+.bj-chips {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.chip {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 3px dashed;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: transform 0.12s, opacity 0.2s, filter 0.2s;
+    font-family: inherit;
+}
+.chip:hover:not(:disabled) { transform: scale(1.12); filter: brightness(1.2); }
+.chip:active:not(:disabled) { transform: scale(0.94); }
+.chip:disabled { opacity: 0.25; cursor: not-allowed; }
+
+.chip-10  { border-color: #3b82f6; color: #3b82f6; }
+.chip-50  { border-color: #ef4444; color: #ef4444; }
+.chip-100 { border-color: #22c55e; color: #22c55e; }
+.chip-500 { border-color: #a855f7; color: #a855f7; }
+
+/* ── Bet row ── */
+.bj-bet-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.bj-bet-display {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 600;
+}
+.bj-bet-display span {
+    color: #FFD700;
+    font-weight: 800;
+}
+
+.btn-reset-bet {
+    background: rgba(255, 255, 255, 0.07);
+    color: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 7px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.2s, color 0.2s;
+    font-family: inherit;
+}
+.btn-reset-bet:hover { background: rgba(255,255,255,0.13); color: #fff; }
+
+/* ── Buttons ── */
+.btn-deal {
+    background: #22c55e;
+    color: #0a0a0a;
+    padding: 13px 44px;
+    border-radius: 12px;
+    font-weight: 900;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    font-family: inherit;
+}
+.btn-deal:hover:not(:disabled) { background: #16a34a; transform: scale(1.02); }
+.btn-deal:disabled { background: #2a2a2a; color: #555; cursor: not-allowed; }
+
+.bj-action-btns {
+    display: flex;
+    gap: 12px;
+}
+
+.btn-hit {
+    background: #fff;
+    color: #111;
+    padding: 14px 44px;
+    border-radius: 12px;
+    font-weight: 900;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    border: none;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s;
+    font-family: inherit;
+}
+.btn-hit:hover { background: #f0f0f0; transform: scale(1.02); }
+
+.btn-stand {
+    background: #1f2937;
+    color: #fff;
+    padding: 14px 44px;
+    border-radius: 12px;
+    font-weight: 900;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    border: 1px solid rgba(255,255,255,0.1);
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s;
+    font-family: inherit;
+}
+.btn-stand:hover { background: #374151; transform: scale(1.02); }
+
+.btn-new-round {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: #0a0a0a;
+    padding: 14px 48px;
+    border-radius: 12px;
+    font-weight: 900;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    border: none;
+    cursor: pointer;
+    transition: filter 0.2s, transform 0.1s;
+    font-family: inherit;
+}
+.btn-new-round:hover { filter: brightness(1.1); transform: scale(1.02); }
+
+/* ── Discord login ── */
+.btn-discord-login {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #5865F2;
+    color: #fff;
+    padding: 13px 28px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.1s;
+}
+.btn-discord-login:hover { background: #4752c4; transform: scale(1.02); }
+
+/* ── Footer disclaimer ── */
+.footer-disclaimer {
+    font-size: 0.72rem;
+    color: rgba(255, 255, 255, 0.28);
+    text-align: center;
+    margin-bottom: 4px;
+}
+
+/* ── Mobile ── */
+@media (max-width: 520px) {
+    .casino-table { padding-top: 1.5rem; }
+    .card { width: 62px; height: 96px; padding: 4px; }
+    .card-rank { font-size: 0.72rem; }
+    .card-center { font-size: 1.05rem; }
+    .chip { width: 52px; height: 52px; font-size: 0.8rem; }
+    .btn-hit, .btn-stand { padding: 12px 30px; font-size: 0.9rem; }
+    .btn-deal { padding: 12px 36px; }
+    .bj-title { font-size: 1.2rem; }
+}

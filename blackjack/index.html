@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blackjack 🃏 Moon Coins — SZEKXO</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+    <link rel="shortcut icon" type="image/png" href="/favicon.png">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Styles globaux (desktop nav) -->
+    <link rel="stylesheet" href="/styles.css">
+    <!-- Styles blackjack -->
+    <link rel="stylesheet" href="/blackjack/blackjack.css">
+</head>
+<body>
+
+    <!-- ==================== DESKTOP NAV ==================== -->
+    <nav class="desktop-nav">
+        <div class="desktop-nav-inner">
+            <a href="/" class="desktop-nav-logo">
+                <img src="/images/LOGO_SZEKXO.png" alt="SZEKXO" class="desktop-logo-img">
+            </a>
+            <div class="desktop-nav-links">
+                <a href="/home" class="desktop-nav-link">
+                    <img src="/images/ICONS/home_24dp_E3E3E3.svg" class="nav-icon" alt="">
+                    Home
+                </a>
+                <div class="desktop-nav-dropdown">
+                    <button class="desktop-nav-link desktop-nav-dropdown-btn active">
+                        <img src="/images/ICONS/grid_view_24dp_E3E3E3.svg" class="nav-icon" alt="">
+                        Apps
+                        <svg class="dropdown-chevron" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
+                    </button>
+                    <div class="desktop-nav-dropdown-menu">
+                        <a href="/1vs1-slot" class="desktop-nav-dropdown-item"><img src="/images/ICONS/1vs1_slot.svg" class="nav-icon" alt="">1VS1 Slot</a>
+                        <a href="/viewer-roulette" class="desktop-nav-dropdown-item"><img src="/images/ICONS/calendar_view_day_24dp_E3E3E3.svg" class="nav-icon" alt="">Tirage au sort</a>
+                        <a href="/slot-selector" class="desktop-nav-dropdown-item"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5,4v11.6h4v0c0-2.1,1.8-3.9,4-3.9h5l-2.8,3.4C11.8,19.2,9.3,23.9,8,29l0,0h13v0c0-5.7,1.5-11.3,4.5-16.2l3.5-6L26,3l-1.2,0.6c-3.1,1.5-6.6,1.8-9.9,0.9l0,0C13.6,4.1,12.4,4,11.1,4H5"></path></svg>Slot Selector</a>
+                        <a href="/blackjack" class="desktop-nav-dropdown-item active">🃏 Blackjack</a>
+                    </div>
+                </div>
+            </div>
+            <div class="desktop-nav-user" id="desktop-user-btn"></div>
+        </div>
+    </nav>
+
+    <!-- ==================== TABLE DE JEU ==================== -->
+    <div class="casino-table">
+
+        <!-- Header -->
+        <div class="bj-header">
+            <a href="/dashboard" class="bj-back">← Dashboard</a>
+            <h1 class="bj-title">🃏 Blackjack</h1>
+            <div class="bj-balance-display">
+                <span class="bj-balance-label">Moon Coins</span>
+                <span class="bj-balance-value" id="balance-display">—</span>
+            </div>
+        </div>
+
+        <!-- ⚠️ Avertissement monnaie virtuelle -->
+        <div class="virtual-currency-notice">
+            <strong>⚠️ Monnaie virtuelle uniquement.</strong>
+            Les Moon Coins sont une monnaie virtuelle fictive sans aucune valeur réelle.
+            Aucun argent réel n'est misé ou gagné. Réservé aux membres de la communauté SZEKXO.
+        </div>
+
+        <!-- Écran non connecté -->
+        <div id="screen-login" class="bj-screen" style="display:none">
+            <p>Connecte-toi pour jouer avec tes Moon Coins 🌙</p>
+            <a href="/api/auth/discord" class="btn-discord-login">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+                Se connecter avec Discord
+            </a>
+        </div>
+
+        <!-- Écran de jeu -->
+        <div id="screen-game" class="bj-screen" style="display:none">
+
+            <!-- Zone dealer -->
+            <div class="bj-area">
+                <div class="bj-area-label">
+                    Dealer <span id="dealer-score" class="bj-score"></span>
+                </div>
+                <div id="dealer-cards" class="bj-cards"></div>
+            </div>
+
+            <!-- Message central -->
+            <div id="game-message" class="bj-message"></div>
+
+            <!-- Zone joueur -->
+            <div class="bj-area">
+                <div id="player-cards" class="bj-cards"></div>
+                <div class="bj-area-label">
+                    Toi <span id="player-score" class="bj-score"></span>
+                </div>
+            </div>
+
+            <!-- Contrôles -->
+            <div class="bj-controls">
+
+                <!-- Phase mise -->
+                <div id="controls-betting" style="display:none">
+                    <div class="bj-chips">
+                        <button class="chip chip-10"  id="chip-10"  onclick="placeBet(10)">10</button>
+                        <button class="chip chip-50"  id="chip-50"  onclick="placeBet(50)">50</button>
+                        <button class="chip chip-100" id="chip-100" onclick="placeBet(100)">100</button>
+                        <button class="chip chip-500" id="chip-500" onclick="placeBet(500)">500</button>
+                    </div>
+                    <div class="bj-bet-row">
+                        <div class="bj-bet-display">Mise : <span id="current-bet-display">0</span> 🌙</div>
+                        <button class="btn-reset-bet" onclick="resetBet()" title="Annuler la mise">↺</button>
+                    </div>
+                    <button class="btn-deal" onclick="deal()" id="btn-deal" disabled>Deal</button>
+                </div>
+
+                <!-- Phase joueur -->
+                <div id="controls-player" style="display:none">
+                    <div class="bj-action-btns">
+                        <button class="btn-hit" onclick="handleHit()">Hit</button>
+                        <button class="btn-stand" onclick="handleStand()">Stand</button>
+                    </div>
+                </div>
+
+                <!-- Phase résultat -->
+                <div id="controls-result" style="display:none">
+                    <button class="btn-new-round" onclick="startNewGame()">🃏 Nouvelle partie</button>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer disclaimer -->
+    <footer class="site-footer">
+        <p class="footer-disclaimer">🌙 Les Moon Coins sont une monnaie virtuelle sans valeur réelle. Aucun argent réel n'est impliqué.</p>
+        <p>&copy; <span id="current-year"></span> SZEKXO — Tous droits réservés</p>
+    </footer>
+
+    <script>document.getElementById('current-year').textContent = new Date().getFullYear();</script>
+    <script src="/blackjack/blackjack.js"></script>
+    <script src="/nav.js"></script>
+</body>
+</html>
