@@ -79,10 +79,10 @@ const CONFIG = {
             title: 'Duel Szekxo',
             titleSvg: 'images/LOGO_BATTLE_DUEL.png',
             winners: [
-                { name: 'Pseudo', prize: '50€', rank: '1er' }
+                { name: 'Szekxo', prize: '', rank: '1er' }
             ],
             videoThumbnail: '',
-            videoUrl: 'https://youtube.com/watch?v=yyyyy',
+            videoUrl: 'https://youtu.be/9wxYVehvzrE',
             participateUrl: 'https://discord.gg/ZbuXYqB2eM'
         }
     },
