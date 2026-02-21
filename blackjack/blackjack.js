@@ -23,6 +23,11 @@ const CARD_SOUNDS = Array.from({ length: 8 }, (_, i) => {
     return a;
 });
 
+const SFX_WIN  = new Audio('/sounds/blackjack-win-sound.mp3');
+const SFX_LOSE = new Audio('/sounds/blackjack-loose-sound.mp3');
+SFX_WIN.volume  = 0.5;
+SFX_LOSE.volume = 0.5;
+
 let soundEnabled = true;
 
 // Un seul son par "salve" de cartes (ex: deal initial = 4 cartes)
@@ -278,9 +283,15 @@ function updateBalance() {
 function setPlayerCardsResult(outcome) {
     const el = document.getElementById('player-cards');
     el.classList.remove('result-win', 'result-lose', 'result-push');
-    if (outcome === 'win' || outcome === 'blackjack') el.classList.add('result-win');
-    else if (outcome === 'lose')                      el.classList.add('result-lose');
-    else if (outcome === 'push')                      el.classList.add('result-push');
+    if (outcome === 'win' || outcome === 'blackjack') {
+        el.classList.add('result-win');
+        if (soundEnabled) { SFX_WIN.currentTime = 0; SFX_WIN.play().catch(() => {}); }
+    } else if (outcome === 'lose') {
+        el.classList.add('result-lose');
+        if (soundEnabled) { SFX_LOSE.currentTime = 0; SFX_LOSE.play().catch(() => {}); }
+    } else if (outcome === 'push') {
+        el.classList.add('result-push');
+    }
 }
 
 function setMessage(msg, type = '') {
