@@ -17,6 +17,7 @@
     { "source": "/bonus-hunt",      "destination": "/bonus-hunt.html" },
     { "source": "/dashboard",       "destination": "/dashboard.html" },
     { "source": "/transactions",    "destination": "/transactions.html" },
-    { "source": "/blackjack",       "destination": "/blackjack/index.html" }
+    { "source": "/blackjack",       "destination": "/blackjack/index.html" },
+    { "source": "/games",           "destination": "/games.html" }
   ]
 }
