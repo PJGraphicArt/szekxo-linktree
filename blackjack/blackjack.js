@@ -46,11 +46,12 @@ function playCardSound() {
 
 function toggleSound() {
     soundEnabled = !soundEnabled;
-    const btn = document.getElementById('btn-sound-toggle');
-    if (btn) {
-        btn.textContent = soundEnabled ? '🔊' : '🔇';
-        btn.classList.toggle('muted', !soundEnabled);
-    }
+    const btn  = document.getElementById('btn-sound-toggle');
+    const icon = document.getElementById('sound-icon');
+    if (btn)  btn.classList.toggle('muted', !soundEnabled);
+    if (icon) icon.src = soundEnabled
+        ? '/images/ICONS/volume_up_24dp_E3E3E3.svg'
+        : '/images/ICONS/volume_off_24dp_E3E3E3.svg';
 }
 
 // ── État du jeu ──────────────────────────────
