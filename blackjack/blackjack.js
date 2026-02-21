@@ -13,6 +13,9 @@ const SUIT_SYMBOLS = {
     spades:   { symbol: '♠', color: '#1a1a1a' },
 };
 
+const STAGGER         = 220; // ms entre chaque carte
+const SPRING_DURATION = 420; // ms pour l'animation spring
+
 // ── État du jeu ──────────────────────────────
 let gameState = {
     deck:        [],
@@ -67,31 +70,68 @@ function calculateHandValue(hand) {
     return value;
 }
 
+// ── Spring animation ─────────────────────────
+// cubic-bezier(0.34, 1.56, 0.64, 1) reproduit stiffness:100, damping:15
+function animateCardSpring(el, delay = 0) {
+    el.style.transform = 'translateY(-180px) translateX(80px) rotate(30deg)';
+    el.style.opacity   = '0';
+    el.style.transition = 'none';
+
+    setTimeout(() => {
+        void el.offsetWidth; // force reflow
+        el.style.transition = `transform ${SPRING_DURATION}ms cubic-bezier(0.34, 1.56, 0.64, 1), opacity 220ms ease`;
+        el.style.transform  = 'none';
+        el.style.opacity    = '1';
+    }, delay);
+}
+
 // ── Rendu des cartes ─────────────────────────
-const STAGGER = 220; // ms entre chaque carte
+function buildCardInner(card) {
+    const { symbol, color } = SUIT_SYMBOLS[card.suit];
+    return `
+        <div class="card-corner card-top-left" style="color:${color}">
+            <span class="card-rank">${card.rank}</span>
+            <span class="card-suit">${symbol}</span>
+        </div>
+        <div class="card-center" style="color:${color}">${symbol}</div>
+        <div class="card-corner card-bottom-right" style="color:${color}">
+            <span class="card-rank">${card.rank}</span>
+            <span class="card-suit">${symbol}</span>
+        </div>
+    `;
+}
 
-function createCardElement(card, hidden = false, delay = 0, reveal = false) {
-    const el = document.createElement('div');
-    const animClass = reveal ? 'card-reveal' : 'card-deal';
-    el.className = `card ${animClass}${hidden ? ' card-hidden' : ''}`;
-    el.style.animationDelay = `${delay}ms`;
-
+function createCardElement(card, hidden = false, delay = 0) {
     if (hidden) {
-        el.innerHTML = `<div class="card-back"><span>🌙</span></div>`;
-    } else {
-        const { symbol, color } = SUIT_SYMBOLS[card.suit];
-        el.innerHTML = `
-            <div class="card-corner card-top-left" style="color:${color}">
-                <span class="card-rank">${card.rank}</span>
-                <span class="card-suit">${symbol}</span>
-            </div>
-            <div class="card-center" style="color:${color}">${symbol}</div>
-            <div class="card-corner card-bottom-right" style="color:${color}">
-                <span class="card-rank">${card.rank}</span>
-                <span class="card-suit">${symbol}</span>
-            </div>
-        `;
+        // Flip wrapper : front = dos de carte, back = face de la carte
+        const wrapper = document.createElement('div');
+        wrapper.className = 'card-flip-wrapper';
+
+        const inner = document.createElement('div');
+        inner.className = 'card-flip-inner';
+
+        // Face visible initialement (dos)
+        const front = document.createElement('div');
+        front.className = 'card card-face card-face-front';
+        front.innerHTML = `<div class="card-back"><span>🌙</span></div>`;
+
+        // Face cachée (valeur réelle, révélée au flip)
+        const back = document.createElement('div');
+        back.className = 'card card-face card-face-back';
+        back.innerHTML = buildCardInner(card);
+
+        inner.appendChild(front);
+        inner.appendChild(back);
+        wrapper.appendChild(inner);
+
+        animateCardSpring(wrapper, delay);
+        return wrapper;
     }
+
+    const el = document.createElement('div');
+    el.className = 'card';
+    el.innerHTML = buildCardInner(card);
+    animateCardSpring(el, delay);
     return el;
 }
 
@@ -104,7 +144,7 @@ function renderHands(hideDealer = false, interleave = false) {
 
     gameState.dealerHand.forEach((card, i) => {
         const hidden = hideDealer && i === 1;
-        const delay = interleave ? (i * 2 + 1) * STAGGER : i * STAGGER;
+        const delay  = interleave ? (i * 2 + 1) * STAGGER : i * STAGGER;
         dealerArea.appendChild(createCardElement(card, hidden, delay));
     });
 
@@ -115,17 +155,32 @@ function renderHands(hideDealer = false, interleave = false) {
 }
 
 function updateScores(hideDealer = false) {
-    const playerVal = calculateHandValue(gameState.playerHand);
-    document.getElementById('player-score').textContent =
-        gameState.playerHand.length ? playerVal : '';
+    const playerVal     = calculateHandValue(gameState.playerHand);
+    const playerScoreEl = document.getElementById('player-score');
 
+    if (gameState.playerHand.length) {
+        playerScoreEl.textContent = playerVal;
+        playerScoreEl.classList.toggle('score-bust',      playerVal > 21);
+        playerScoreEl.classList.toggle('score-blackjack', playerVal === 21 && gameState.playerHand.length === 2);
+    } else {
+        playerScoreEl.textContent = '';
+        playerScoreEl.classList.remove('score-bust', 'score-blackjack');
+    }
+
+    const dealerScoreEl = document.getElementById('dealer-score');
     if (hideDealer && gameState.dealerHand.length) {
-        document.getElementById('dealer-score').textContent =
-            getCardValue(gameState.dealerHand[0]);
+        dealerScoreEl.textContent = getCardValue(gameState.dealerHand[0]);
+        dealerScoreEl.classList.remove('score-bust', 'score-blackjack');
     } else {
         const dealerVal = calculateHandValue(gameState.dealerHand);
-        document.getElementById('dealer-score').textContent =
-            gameState.dealerHand.length ? dealerVal : '';
+        if (gameState.dealerHand.length) {
+            dealerScoreEl.textContent = dealerVal;
+            dealerScoreEl.classList.toggle('score-bust',      dealerVal > 21);
+            dealerScoreEl.classList.toggle('score-blackjack', dealerVal === 21 && gameState.dealerHand.length === 2);
+        } else {
+            dealerScoreEl.textContent = '';
+            dealerScoreEl.classList.remove('score-bust', 'score-blackjack');
+        }
     }
 }
 
@@ -136,16 +191,41 @@ function showScreen(screen) {
 }
 
 function showControls(phase) {
-    document.getElementById('controls-betting').style.display = phase === 'betting' ? 'flex' : 'none';
-    document.getElementById('controls-player').style.display  = phase === 'player'  ? 'flex' : 'none';
-    document.getElementById('controls-result').style.display  = phase === 'result'  ? 'flex' : 'none';
+    const ids = ['controls-betting', 'controls-player', 'controls-result'];
+    ids.forEach(id => {
+        const el = document.getElementById(id);
+        el.style.display = 'none';
+        el.classList.remove('controls-active');
+    });
+
+    const idMap = {
+        'betting': 'controls-betting',
+        'player':  'controls-player',
+        'result':  'controls-result',
+    };
+    if (idMap[phase]) {
+        const el = document.getElementById(idMap[phase]);
+        el.style.display = 'flex';
+        void el.offsetWidth; // force reflow pour l'animation
+        el.classList.add('controls-active');
+    }
 }
 
 function updateBalance() {
-    document.getElementById('balance-display').textContent =
-        gameState.balance.toLocaleString('fr-FR');
-    document.getElementById('current-bet-display').textContent =
-        gameState.currentBet.toLocaleString('fr-FR');
+    const balanceEl = document.getElementById('balance-display');
+    const betEl     = document.getElementById('current-bet-display');
+
+    // Flash quand le solde change
+    const prevText = balanceEl.textContent.replace(/\s/g, '');
+    const prevVal  = parseInt(prevText) || 0;
+    if (prevVal !== gameState.balance && gameState.balance !== 0) {
+        balanceEl.classList.remove('balance-flash');
+        void balanceEl.offsetWidth;
+        balanceEl.classList.add('balance-flash');
+    }
+
+    balanceEl.textContent = gameState.balance.toLocaleString('fr-FR');
+    betEl.textContent     = gameState.currentBet.toLocaleString('fr-FR');
 
     // Deal button
     const btnDeal = document.getElementById('btn-deal');
@@ -165,13 +245,11 @@ function updateBalance() {
 function setMessage(msg, type = '') {
     const el = document.getElementById('game-message');
     el.textContent = msg;
-    el.className = `bj-message${type ? ' message-' + type : ''}`;
+    el.className = 'bj-message';
+    if (type) el.classList.add('message-' + type);
     if (msg) {
-        el.style.animation = 'none';
-        void el.offsetWidth; // force reflow pour redémarrer l'animation
-        el.style.animation = 'messageFadeIn 0.38s ease forwards';
-    } else {
-        el.style.animation = '';
+        void el.offsetWidth; // force reflow
+        el.classList.add('message-visible');
     }
 }
 
@@ -183,9 +261,9 @@ function updateUI() {
     setMessage(gameState.message, gameState.messageType);
 
     const phaseMap = {
-        'betting':      'betting',
-        'player-turn':  'player',
-        'result':       'result',
+        'betting':     'betting',
+        'player-turn': 'player',
+        'result':      'result',
     };
     showControls(phaseMap[gameState.status] || 'none');
 }
@@ -222,11 +300,10 @@ async function deal() {
 
         if (!res.ok) {
             const err = await res.json();
-            // Rembourser la mise optimiste
-            gameState.balance     += gameState.currentBet;
-            gameState.currentBet   = 0;
-            gameState.messageType  = 'error';
-            gameState.message      = err.error || 'Erreur lors de la mise';
+            gameState.balance    += gameState.currentBet;
+            gameState.currentBet  = 0;
+            gameState.message     = err.error || 'Erreur lors de la mise';
+            gameState.messageType = 'error';
             updateBalance();
             setMessage(gameState.message, 'error');
             document.getElementById('btn-deal').disabled = false;
@@ -248,10 +325,10 @@ async function deal() {
     // Distribuer les cartes
     if (gameState.deck.length < 10) gameState.deck = createDeck();
 
-    gameState.playerHand = [gameState.deck.pop(), gameState.deck.pop()];
-    gameState.dealerHand = [gameState.deck.pop(), gameState.deck.pop()];
-    gameState.status     = 'player-turn';
-    gameState.message    = '';
+    gameState.playerHand  = [gameState.deck.pop(), gameState.deck.pop()];
+    gameState.dealerHand  = [gameState.deck.pop(), gameState.deck.pop()];
+    gameState.status      = 'player-turn';
+    gameState.message     = '';
     gameState.messageType = '';
 
     // Deal alternant : P1 → D1 → P2 → D2
@@ -294,7 +371,7 @@ async function handleStand() {
     gameState.status = 'dealer-turn';
     showControls('none');
 
-    // Retourner la carte cachée du dealer avec animation flip
+    // Retourner la carte cachée du dealer avec animation flip 3D
     await pause(220);
     revealDealerCard();
     updateScores(false);
@@ -305,11 +382,10 @@ async function handleStand() {
 }
 
 function revealDealerCard() {
-    const dealerArea   = document.getElementById('dealer-cards');
-    const hiddenCardEl = dealerArea.querySelector('.card-hidden');
-    if (!hiddenCardEl || gameState.dealerHand.length < 2) return;
-    const revealed = createCardElement(gameState.dealerHand[1], false, 0, true);
-    hiddenCardEl.replaceWith(revealed);
+    const wrapper = document.querySelector('#dealer-cards .card-flip-wrapper');
+    if (!wrapper) return;
+    const inner = wrapper.querySelector('.card-flip-inner');
+    if (inner) inner.classList.add('flipped');
 }
 
 async function dealerDraw() {
@@ -319,7 +395,6 @@ async function dealerDraw() {
         await pause(1100);
         const newCard = gameState.deck.pop();
         gameState.dealerHand.push(newCard);
-        // Append uniquement la nouvelle carte
         document.getElementById('dealer-cards').appendChild(createCardElement(newCard, false, 0));
         updateScores(false);
         await dealerDraw();
