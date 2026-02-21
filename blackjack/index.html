@@ -62,14 +62,11 @@
         <div class="bj-header">
             <a href="/dashboard" class="bj-back">← Dashboard</a>
             <h1 class="bj-title">🃏 Blackjack</h1>
-            <div class="bj-header-right">
-                <button class="btn-sound-toggle" id="btn-sound-toggle" onclick="toggleSound()" title="Son">🔊</button>
-                <div class="bj-balance-display">
-                    <span class="bj-balance-label">Moon Coins</span>
-                    <div class="bj-balance-row">
-                        <span class="bj-balance-value" id="balance-display">—</span>
-                        <img src="/images/moon-coin.png" class="bj-coin-icon" alt="">
-                    </div>
+            <div class="bj-balance-display">
+                <span class="bj-balance-label">Moon Coins</span>
+                <div class="bj-balance-row">
+                    <span class="bj-balance-value" id="balance-display">—</span>
+                    <img src="/images/moon-coin.png" class="bj-coin-icon" alt="">
                 </div>
             </div>
         </div>
@@ -153,6 +150,9 @@
         </div>
         <p>&copy; <span id="current-year"></span> SZEKXO — Tous droits réservés</p>
     </footer>
+
+    <!-- Son toggle overlay -->
+    <button class="btn-sound-toggle" id="btn-sound-toggle" onclick="toggleSound()" title="Son">🔊</button>
 
     <script>document.getElementById('current-year').textContent = new Date().getFullYear();</script>
     <script src="/blackjack/blackjack.js"></script>

@@ -9,8 +9,8 @@ const RANKS = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K']
 const SUIT_SYMBOLS = {
     hearts:   { symbol: '♥', color: '#fff' },
     diamonds: { symbol: '♦', color: '#fff' },
-    clubs:    { symbol: '♣', color: '#1a1a1a' },
-    spades:   { symbol: '♠', color: '#1a1a1a' },
+    clubs:    { symbol: '♣', color: '#fff' },
+    spades:   { symbol: '♠', color: '#fff' },
 };
 
 const STAGGER         = 220; // ms entre chaque carte
@@ -275,6 +275,14 @@ function updateBalance() {
     });
 }
 
+function setPlayerCardsResult(outcome) {
+    const el = document.getElementById('player-cards');
+    el.classList.remove('result-win', 'result-lose', 'result-push');
+    if (outcome === 'win' || outcome === 'blackjack') el.classList.add('result-win');
+    else if (outcome === 'lose')                      el.classList.add('result-lose');
+    else if (outcome === 'push')                      el.classList.add('result-push');
+}
+
 function setMessage(msg, type = '') {
     const el = document.getElementById('game-message');
     el.textContent = msg;
@@ -391,6 +399,7 @@ async function handleHit() {
     if (value > 21) {
         gameState.status = 'result';
         await pause(380);
+        setPlayerCardsResult('lose');
         setMessage('💥 Bust ! Le dealer gagne.', 'lose');
         showControls('result');
         await submitResult('lose', 0);
@@ -472,6 +481,7 @@ async function dealerDraw() {
     gameState.status      = 'result';
     gameState.message     = message;
     gameState.messageType = msgType;
+    setPlayerCardsResult(outcome);
     setMessage(message, msgType);
     showControls('result');
 
@@ -504,6 +514,7 @@ function startNewGame() {
     gameState.messageType = '';
     gameState.status      = 'betting';
     if (gameState.deck.length < 10) gameState.deck = createDeck();
+    document.getElementById('player-cards').classList.remove('result-win', 'result-lose', 'result-push');
     updateUI();
 }
 
