@@ -146,7 +146,7 @@ function createCardElement(card, hidden = false, delay = 0) {
         // Face visible initialement (dos)
         const front = document.createElement('div');
         front.className = 'card card-face card-face-front';
-        front.innerHTML = `<div class="card-back"><span>🌙</span></div>`;
+        front.innerHTML = `<div class="card-back"><img src="/images/LOGO_SZEKXO.svg" class="card-back-logo" alt="SZEKXO"></div>`;
 
         // Face cachée (valeur réelle, révélée au flip)
         const back = document.createElement('div');
