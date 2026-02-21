@@ -15,8 +15,8 @@
 /* ── Casino Table — green felt ────────────── */
 .casino-table {
     min-height: 100vh;
-    background: radial-gradient(circle at 50% 40%, var(--green-felt) 0%, var(--green-mid) 55%, var(--green-dark) 100%);
-    box-shadow: inset 0 0 130px rgba(0, 0, 0, 0.65);
+    background: radial-gradient(circle at 50% 40%, #1b162d 0%, #14111c 55%, var(--green-dark) 100%);
+    box-shadow: inset 0 0 130px rgb(0 0 0 / 80%);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -66,6 +66,30 @@
     color: #fff;
     letter-spacing: 0.02em;
 }
+
+.bj-header-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* ── Mute button ── */
+.btn-sound-toggle {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.18s, opacity 0.18s;
+    flex-shrink: 0;
+}
+.btn-sound-toggle:hover { background: rgba(255, 255, 255, 0.15); }
+.btn-sound-toggle.muted { opacity: 0.45; }
 
 .bj-balance-display {
     display: flex;
@@ -502,7 +526,7 @@
 
 .btn-new-round {
     font-family: var(--font-display);
-    background: linear-gradient(135deg, #f59e0b, #d97706);
+    background: linear-gradient(135deg, #a39aff, #624db5);
     color: #0a0a0a;
     padding: 14px 48px;
     border-radius: 12px;
@@ -513,16 +537,16 @@
     border: none;
     cursor: pointer;
     transition: filter 0.18s, transform 0.1s, box-shadow 0.12s;
-    box-shadow: 0 4px 0 #92400e;
+    box-shadow: 0 4px 0 #523095;
 }
 .btn-new-round:hover {
     filter: brightness(1.12);
     transform: translateY(-2px);
-    box-shadow: 0 6px 0 #92400e;
+    box-shadow: 0 6px 0 #523095;
 }
 .btn-new-round:active {
     transform: translateY(2px);
-    box-shadow: 0 1px 0 #92400e;
+    box-shadow: 0 1px 0 #523095;
 }
 
 /* ── Discord login ── */

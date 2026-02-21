@@ -16,6 +16,38 @@ const SUIT_SYMBOLS = {
 const STAGGER         = 220; // ms entre chaque carte
 const SPRING_DURATION = 420; // ms pour l'animation spring
 
+// ── Système de son ───────────────────────────
+const CARD_SOUNDS = Array.from({ length: 8 }, (_, i) => {
+    const a = new Audio(`/sounds/cardSlide${i + 1}.wav`);
+    a.volume = 0.32;
+    return a;
+});
+
+let soundEnabled = true;
+
+// Un seul son par "salve" de cartes (ex: deal initial = 4 cartes)
+let _soundPending = false;
+
+function playCardSound() {
+    if (!soundEnabled) return;
+    if (_soundPending) return; // déjà un son prévu dans cette salve
+    _soundPending = true;
+    setTimeout(() => { _soundPending = false; }, 180); // fenêtre anti-doublon
+
+    const snd = CARD_SOUNDS[Math.floor(Math.random() * CARD_SOUNDS.length)];
+    snd.currentTime = 0;
+    snd.play().catch(() => {});
+}
+
+function toggleSound() {
+    soundEnabled = !soundEnabled;
+    const btn = document.getElementById('btn-sound-toggle');
+    if (btn) {
+        btn.textContent = soundEnabled ? '🔊' : '🔇';
+        btn.classList.toggle('muted', !soundEnabled);
+    }
+}
+
 // ── État du jeu ──────────────────────────────
 let gameState = {
     deck:        [],
@@ -82,6 +114,7 @@ function animateCardSpring(el, delay = 0) {
         el.style.transition = `transform ${SPRING_DURATION}ms cubic-bezier(0.34, 1.56, 0.64, 1), opacity 220ms ease`;
         el.style.transform  = 'none';
         el.style.opacity    = '1';
+        playCardSound();
     }, delay);
 }
 
