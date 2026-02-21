@@ -81,7 +81,7 @@ const CONFIG = {
             winners: [
                 { name: 'Szekxo', prize: '', rank: '1er' }
             ],
-            videoThumbnail: '',
+            videoThumbnail: 'images/MINIA_DUEL_SZEKXO_15-02-26.jpg',
             videoUrl: 'https://youtu.be/9wxYVehvzrE',
             participateUrl: 'https://discord.gg/ZbuXYqB2eM'
         }
