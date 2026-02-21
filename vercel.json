@@ -1,1 +1,21 @@
-{"version":2}
+{
+  "version": 2,
+  "redirects": [
+    { "source": "/index.html",          "destination": "/home",            "permanent": true },
+    { "source": "/1vs1-slot.html",      "destination": "/1vs1-slot",       "permanent": true },
+    { "source": "/viewer-roulette.html","destination": "/viewer-roulette", "permanent": true },
+    { "source": "/slot-selector.html",  "destination": "/slot-selector",   "permanent": true },
+    { "source": "/bonus-hunt.html",     "destination": "/bonus-hunt",      "permanent": true },
+    { "source": "/dashboard.html",      "destination": "/dashboard",       "permanent": true },
+    { "source": "/transactions.html",   "destination": "/transactions",    "permanent": true }
+  ],
+  "rewrites": [
+    { "source": "/home",            "destination": "/index.html" },
+    { "source": "/1vs1-slot",       "destination": "/1vs1-slot.html" },
+    { "source": "/viewer-roulette", "destination": "/viewer-roulette.html" },
+    { "source": "/slot-selector",   "destination": "/slot-selector.html" },
+    { "source": "/bonus-hunt",      "destination": "/bonus-hunt.html" },
+    { "source": "/dashboard",       "destination": "/dashboard.html" },
+    { "source": "/transactions",    "destination": "/transactions.html" }
+  ]
+}
