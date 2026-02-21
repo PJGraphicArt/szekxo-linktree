@@ -7,8 +7,8 @@ const SUITS = ['hearts', 'diamonds', 'clubs', 'spades'];
 const RANKS = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
 
 const SUIT_SYMBOLS = {
-    hearts:   { symbol: '♥', color: '#e53e3e' },
-    diamonds: { symbol: '♦', color: '#e53e3e' },
+    hearts:   { symbol: '♥', color: '#fff' },
+    diamonds: { symbol: '♦', color: '#fff' },
     clubs:    { symbol: '♣', color: '#1a1a1a' },
     spades:   { symbol: '♠', color: '#1a1a1a' },
 };
