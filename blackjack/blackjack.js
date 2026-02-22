@@ -54,6 +54,24 @@ function toggleSound() {
         : '/images/ICONS/volume_off_24dp_E3E3E3.svg';
 }
 
+let lastBet = 0; // mise de la partie précédente
+
+// ── Gestion de la mise (input) ────────────────
+function setBetAmount(newBet) {
+    if (gameState.status !== 'betting') return;
+    // Rembourser l'ancienne mise
+    gameState.balance += gameState.currentBet;
+    // Clamp : 0 ≤ newBet ≤ min(balance, 10000)
+    newBet = Math.max(0, Math.min(Math.floor(newBet), gameState.balance, 10000));
+    gameState.balance    -= newBet;
+    gameState.currentBet  = newBet;
+    updateBalance();
+}
+
+function onBetInput(el) { setBetAmount(parseInt(el.value) || 0); }
+function doubleBet()     { setBetAmount(gameState.currentBet * 2); }
+function halveBet()      { setBetAmount(Math.floor(gameState.currentBet / 2)); }
+
 // ── État du jeu ──────────────────────────────
 let gameState = {
     deck:        [],
@@ -252,7 +270,6 @@ function showControls(phase) {
 
 function updateBalance() {
     const balanceEl = document.getElementById('balance-display');
-    const betEl     = document.getElementById('current-bet-display');
 
     // Flash quand le solde change
     const prevText = balanceEl.textContent.replace(/\s/g, '');
@@ -264,7 +281,19 @@ function updateBalance() {
     }
 
     balanceEl.textContent = gameState.balance.toLocaleString('fr-FR');
-    betEl.textContent     = gameState.currentBet.toLocaleString('fr-FR');
+
+    // Mise : mettre à jour l'input sans écraser ce que l'user tape
+    const betInput = document.getElementById('bet-input');
+    if (betInput && document.activeElement !== betInput) {
+        betInput.value = gameState.currentBet || '';
+    }
+
+    // Boutons ½ et ×2
+    const btnHalf   = document.getElementById('btn-half');
+    const btnDouble = document.getElementById('btn-double');
+    if (btnHalf)   btnHalf.disabled   = gameState.currentBet <= 0;
+    if (btnDouble) btnDouble.disabled = gameState.currentBet <= 0
+        || gameState.currentBet * 2 > Math.min(gameState.balance + gameState.currentBet, 10000);
 
     // Deal button
     const btnDeal = document.getElementById('btn-deal');
@@ -365,6 +394,7 @@ async function deal() {
 
         const data = await res.json();
         gameState.balance = data.balance; // sync avec DB
+        lastBet = gameState.currentBet;   // mémoriser pour la prochaine partie
 
     } catch (e) {
         gameState.balance    += gameState.currentBet;
@@ -528,6 +558,8 @@ function startNewGame() {
     if (gameState.deck.length < 10) gameState.deck = createDeck();
     document.getElementById('player-cards').classList.remove('result-win', 'result-lose', 'result-push');
     updateUI();
+    // Restaurer la mise de la partie précédente
+    if (lastBet > 0) setBetAmount(Math.min(lastBet, gameState.balance, 10000));
 }
 
 // ── Utilitaire ────────────────────────────────

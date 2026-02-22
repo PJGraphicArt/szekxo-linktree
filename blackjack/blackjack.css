@@ -118,7 +118,7 @@
     font-family: var(--font-display);
     font-size: 1.05rem;
     font-weight: 800;
-    color: var(--gold);
+    color: #fff;
 }
 
 /* Balance flash */
@@ -417,8 +417,8 @@
 .chip {
     width: 62px;
     height: 62px;
-    border-radius: 50%;
-    border: 3px dashed;
+    border-radius: 20%;
+    border: 3px solid;
     background: transparent;
     display: flex;
     align-items: center;
@@ -461,11 +461,61 @@
     font-weight: 800;
 }
 
+/* ── Bet input ── */
+.bj-bet-input-wrap {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 10px;
+    padding: 6px 10px;
+}
+
+.bj-bet-input {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--gold);
+    background: transparent;
+    border: none;
+    outline: none;
+    width: 72px;
+    text-align: right;
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+.bj-bet-input::-webkit-outer-spin-button,
+.bj-bet-input::-webkit-inner-spin-button { -webkit-appearance: none; appearance: none; }
+
+.bj-bet-coin {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+/* ── Bet adjust buttons (½ ×2) ── */
+.btn-bet-adjust {
+    font-family: var(--font-display);
+    background: rgba(255, 255, 255, 0.07);
+    color: rgba(255, 255, 255, 0.65);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    padding: 6px 10px;
+    font-size: 0.88rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+}
+.btn-bet-adjust:hover:not(:disabled) { background: rgba(255, 255, 255, 0.14); color: #fff; }
+.btn-bet-adjust:disabled { opacity: 0.25; cursor: not-allowed; }
+
 .btn-reset-bet {
     background: rgba(255, 255, 255, 0.07);
     color: rgba(255, 255, 255, 0.5);
     border: 1px solid rgba(255, 255, 255, 0.12);
-    padding: 7px 14px;
+    padding: 6px 10px;
     border-radius: 8px;
     cursor: pointer;
     font-size: 1rem;

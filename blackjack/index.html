@@ -116,8 +116,13 @@
                         <button class="chip chip-500" id="chip-500" onclick="placeBet(500)">500</button>
                     </div>
                     <div class="bj-bet-row">
-                        <div class="bj-bet-display">Mise : <span id="current-bet-display">0</span> 🌙</div>
-                        <button class="btn-reset-bet" onclick="resetBet()" title="Annuler la mise">↺</button>
+                        <button class="btn-bet-adjust" id="btn-half"   onclick="halveBet()"   title="Diviser par 2">½</button>
+                        <div class="bj-bet-input-wrap">
+                            <input type="number" id="bet-input" class="bj-bet-input" min="0" max="10000" step="1" placeholder="0" oninput="onBetInput(this)">
+                            <img src="/images/moon-coin.png" class="bj-bet-coin" alt="">
+                        </div>
+                        <button class="btn-bet-adjust" id="btn-double" onclick="doubleBet()" title="Doubler la mise">×2</button>
+                        <button class="btn-reset-bet"                  onclick="resetBet()"  title="Annuler la mise">↺</button>
                     </div>
                     <button class="btn-deal" onclick="deal()" id="btn-deal" disabled>Deal</button>
                 </div>
