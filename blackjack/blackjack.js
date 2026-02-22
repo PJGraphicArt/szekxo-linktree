@@ -556,7 +556,7 @@ function startNewGame() {
     document.getElementById('player-cards').classList.remove('result-win', 'result-lose', 'result-push');
     updateUI();
     // Restaurer la mise de la partie précédente
-    if (lastBet > 0) setBetAmount(Math.min(lastBet, gameState.balance, 10000));
+    if (lastBet > 0) setBetAmount(Math.min(lastBet, gameState.balance));
 }
 
 // ── Utilitaire ────────────────────────────────
