@@ -61,8 +61,8 @@ function setBetAmount(newBet) {
     if (gameState.status !== 'betting') return;
     // Rembourser l'ancienne mise
     gameState.balance += gameState.currentBet;
-    // Clamp : 0 ≤ newBet ≤ min(balance, 10000)
-    newBet = Math.max(0, Math.min(Math.floor(newBet), gameState.balance, 10000));
+    // Clamp : 0 ≤ newBet ≤ balance totale
+    newBet = Math.max(0, Math.min(Math.floor(newBet), gameState.balance));
     gameState.balance    -= newBet;
     gameState.currentBet  = newBet;
     updateBalance();
@@ -292,8 +292,8 @@ function updateBalance() {
     const btnHalf   = document.getElementById('btn-half');
     const btnDouble = document.getElementById('btn-double');
     if (btnHalf)   btnHalf.disabled   = gameState.currentBet <= 0;
-    if (btnDouble) btnDouble.disabled = gameState.currentBet <= 0
-        || gameState.currentBet * 2 > Math.min(gameState.balance + gameState.currentBet, 10000);
+    // ×2 disponible tant qu'il reste de la balance à ajouter (le capping se fait dans setBetAmount)
+    if (btnDouble) btnDouble.disabled = gameState.currentBet <= 0 || gameState.balance <= 0;
 
     // Deal button
     const btnDeal = document.getElementById('btn-deal');
@@ -303,9 +303,7 @@ function updateBalance() {
     [10, 50, 100, 500].forEach(amount => {
         const chip = document.getElementById(`chip-${amount}`);
         if (chip) {
-            chip.disabled =
-                gameState.balance < amount ||
-                gameState.currentBet + amount > Math.min(gameState.balance + gameState.currentBet, 10000);
+            chip.disabled = gameState.balance < amount;
         }
     });
 }
@@ -354,7 +352,6 @@ function updateUI() {
 function placeBet(amount) {
     if (gameState.status !== 'betting') return;
     if (gameState.balance < amount) return;
-    if (gameState.currentBet + amount > Math.min(gameState.balance + gameState.currentBet, 10000)) return;
 
     gameState.currentBet += amount;
     gameState.balance    -= amount;
