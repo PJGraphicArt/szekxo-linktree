@@ -44,7 +44,7 @@ module.exports = async function handler(req, res) {
     if (action === 'bet') {
         if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
         const { amount } = req.body;
-        if (!amount || !Number.isInteger(amount) || amount < 1 || amount > 10000) {
+        if (!amount || !Number.isInteger(amount) || amount < 1) {
             return res.status(400).json({ error: 'Mise invalide' });
         }
         try {
@@ -77,7 +77,7 @@ module.exports = async function handler(req, res) {
         if (!['win', 'blackjack', 'push', 'lose'].includes(outcome)) {
             return res.status(400).json({ error: 'Résultat invalide' });
         }
-        if (!Number.isInteger(bet) || bet < 1 || bet > 10000) {
+        if (!Number.isInteger(bet) || bet < 1) {
             return res.status(400).json({ error: 'Mise invalide' });
         }
         if (!Number.isInteger(payout) || payout < 0) {
