@@ -865,6 +865,19 @@ button {
     margin: 0;
 }
 
+.freespins-banner-link {
+    display: block;
+    width: 100%;
+    line-height: 0;
+}
+
+.freespins-banner-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 12px;
+}
+
 /* ==================== BOUTON LOGIN DISCORD (dans le menu hamburger) ==================== */
 .nav-user-btn {
     position: absolute;
