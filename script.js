@@ -54,11 +54,9 @@ const CONFIG = {
         // Derniers gagnants
         winnersToShow: 3,                       // Nombre de gagnants à afficher
         recentWinners: [
-            { pseudo: 'PJ Graphic Art', prize: 50, concept: '1V1 Viewers' },        // Montant en €
-            { pseudo: 'Ryzoww', prize: '200 FS', concept: '1V1 Viewers' }, // Freespins
-            { pseudo: 'Nestyym', prize: '200 FS', concept: 'Stream' },
-            { pseudo: 'Pseudo 4', prize: '100 FS', concept: '1V1 Viewers' },
-            { pseudo: 'Pseudo 5', prize: 10, concept: 'Stream' }
+            { pseudo: 'Gougoutte', prize: 50, concept: '1V1 Viewers' },        // Montant en €
+            { pseudo: 'Storm', prize: '200 FS', concept: '1V1 Viewers' }, // Freespins
+            { pseudo: 'Noobs', prize: '100 FS', concept: 'Stream' }
         ]
     },
 
@@ -68,11 +66,11 @@ const CONFIG = {
             title: '1V1 Viewers',
             titleSvg: 'images/LOGO_BATTLE_1VS1.png',
             winners: [
-                { name: 'PJ Graphic Art', prize: '50€', rank: '1er' },
-                { name: 'Ryzoww', prize: '200 FS', rank: '2ème' }
+                { name: 'Gougoutte', prize: '50€', rank: '1er' },
+                { name: 'Storm', prize: '200 FS', rank: '2ème' }
             ],
-            videoThumbnail: 'images/Minia_1VS1-VIEWERS_15-02-26.jpg',
-            videoUrl: 'https://www.youtube.com/watch?v=d4ook55NqkE',
+            videoThumbnail: 'images/Miniature_1VS1-Viewers_18-02-26.jpg',
+            videoUrl: 'https://www.youtube.com/watch?v=IJILUBetLqc',
             participateUrl: 'https://discord.gg/ZbuXYqB2eM'
         },
         duelSzekxo: {
